@@ -110,6 +110,58 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .abc span{display:grid;place-items:center;height:46px;border-radius:8px;background:var(--chip);font:900 17px Archivo;position:relative}
 .abc small{position:absolute;top:2px;left:4px;font:700 9px Inter;opacity:.6}
 .abc span.on{background:#F5B400;color:#2a0a20;transform:scale(1.15);box-shadow:0 0 0 3px #fff6d6}
+.resetb{background:rgba(255,255,255,.15);color:#fff;border-radius:999px;font:800 14px Inter;padding:0 16px;min-height:40px;transition:background .2s}
+.resetb.arm{background:#D2232A;animation:shake .4s}
+.emo{position:fixed;z-index:60;pointer-events:none;font-size:30px;animation:emo 1.4s ease-out forwards}
+@keyframes emo{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.6);opacity:0}}
+.opt,.clip,.btn,.btnb,.btn2,.pod,.tt{transition:transform .15s}
+.opt:hover,.clip:hover,.btn:hover,.btnb:hover{transform:translateY(-2px) rotate(-1deg)}
+.opt:active,.clip:active,.btn:active,.btnb:active{transform:scale(.95)}
+.ytw{position:absolute;inset:0;opacity:0;pointer-events:none}.ytw.cur{opacity:1}.ytw iframe{width:100%;height:100%;border:0}
+#viz{position:absolute;inset:0;width:100%;height:100%}
+.ytcover span{position:relative;z-index:1;align-self:end;margin-bottom:12px;background:rgba(0,0,0,.4);padding:6px 14px;border-radius:999px}
+.prshow{background:radial-gradient(circle at 50% 0,#d61f8a,#3a0a40 70%);color:#fff;border-radius:22px;padding:18px;position:relative;overflow:hidden}
+.prshow::before{content:"";position:absolute;inset:6px;border-radius:18px;border:6px dotted #F5B400;animation:bulbs 1s steps(2) infinite;pointer-events:none}
+@keyframes bulbs{50%{border-color:#fff6d6}}
+.prlogo{text-align:center;font:900 clamp(26px,5vw,44px)/1 Archivo;color:#F5B400;text-shadow:0 4px 0 #8a1050,0 0 20px rgba(245,180,0,.6);margin:6px 0 12px;transform:rotate(-2deg)}
+.pr-item{display:flex;gap:14px;align-items:center;background:rgba(0,0,0,.25);border-radius:16px;padding:12px 16px;margin-bottom:14px}
+.pr-item h3{font-size:clamp(17px,2.2vw,22px)}.pr-item small{font:800 12px Inter;color:#ffd84d}
+.pr-emo{font-size:54px;animation:bob 2s infinite}
+.pods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pod{background:linear-gradient(#ffffff,#ffe6f3);color:#2a0a20;border-radius:16px 16px 6px 6px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;border:4px solid transparent;position:relative}
+.pod .pav{font-size:44px}.pod .bid{font:900 24px Archivo;background:#1a1420;color:#7CFC9A;border-radius:8px;padding:4px 10px;font-family:"Courier New",monospace}
+.pod .badge{font:900 12px Inter;background:#F5B400;border-radius:999px;padding:2px 8px}
+.pod.pick{border-color:#7fd8ff}.pod.win{border-color:#F5B400;box-shadow:0 0 0 4px #fff6d6,0 0 30px #F5B400;animation:pop .5s}
+.pod.over::after{content:"OVER!";position:absolute;top:30%;left:50%;transform:translateX(-50%) rotate(-12deg);font:900 26px Archivo;color:#D2232A;background:#fff;padding:2px 10px;border:3px solid #D2232A;border-radius:8px}
+.pr-actual{text-align:center;font:800 18px Inter;margin-top:14px;min-height:28px}.pr-actual b{color:#F5B400;font-size:26px}
+.pr-final{text-align:center}.pr-row{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.25);border-radius:12px;padding:10px 14px;margin:6px 0;font:700 18px Inter}
+.pr-row.champ{background:#F5B400;color:#2a0a20;animation:pop .5s}.bigl{font:900 48px Archivo;color:#F5B400;display:inline-block;animation:pop .6s}
+.mil{background:radial-gradient(circle at 50% 0,#3b2a8e,#0b0526 75%);color:#fff;border-radius:22px;padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:16px}
+.mlogo{display:flex;gap:10px;align-items:center;font:900 20px Archivo;color:#F5B400;margin-bottom:10px}.mlogo span{font-size:38px;animation:spin 6s linear infinite;display:inline-block}
+.mq{border:2px solid #7fd8ff;border-radius:40px;padding:16px 22px;text-align:center;font:700 clamp(16px,2vw,19px) Inter;background:linear-gradient(#1b1450,#0e0a33);box-shadow:0 0 18px rgba(127,216,255,.35)}
+.mans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.mans button{border:2px solid #7fd8ff;border-radius:30px;background:linear-gradient(#1b1450,#0e0a33);color:#fff;text-align:left;padding:12px 18px;font:600 16px Inter;min-height:52px}
+.mans button b{color:#F5B400;margin-right:8px}.mans button:hover{background:#2b2280}
+.mans .sel{background:#F5B400!important;color:#1a1420}.mans .sel b{color:#1a1420}
+.mans .ok{background:#2fa36b!important;animation:pop .4s}.mans .bad{background:#D2232A!important;animation:shake .4s}.mans .gone{visibility:hidden}
+.ladder{display:flex;flex-direction:column-reverse;gap:3px;font:800 14px Inter}.ladder span{padding:6px 10px;border-radius:8px;color:#F5B400;display:flex;justify-content:space-between}
+.ladder span.cur{background:#F5B400;color:#1a1420;animation:pop .4s}.ladder span.done{opacity:.45}
+.lifes{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}.lifes button{border-radius:999px;background:#1b1450;color:#fff;border:2px solid #7fd8ff;font-weight:800}
+.lifes button:disabled{opacity:.35;text-decoration:line-through}
+.mhelp{margin-top:12px;background:rgba(255,255,255,.08);border-radius:14px;padding:12px;min-height:20px;font:600 15px Inter}
+.aud{display:flex;gap:10px;align-items:flex-end;height:120px;margin:22px 0 22px}.aud div{flex:1;background:linear-gradient(#7fd8ff,#2b6fd6);border-radius:6px 6px 0 0;position:relative;height:2%;transition:height 1.2s}
+.aud div span{position:absolute;top:-20px;left:0;right:0;text-align:center;font:800 12px Inter}.aud div b{position:absolute;bottom:-22px;left:0;right:0;text-align:center;color:#F5B400}
+@media(max-width:700px){.mil{grid-template-columns:1fr}.mans{grid-template-columns:1fr}.pods{grid-template-columns:1fr}}
+.tt-set{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.tt{position:relative;background:var(--chip);border:3px solid transparent;border-radius:18px;padding:16px 12px 12px;text-align:center;font:600 15px/1.35 Inter;color:var(--ink);min-height:160px;display:flex;flex-direction:column;align-items:center;gap:8px;overflow:hidden}
+.tt .te{font-size:50px;line-height:1}.tt:hover{transform:translateY(-3px) rotate(-1deg)}
+.tt .spk{position:absolute;top:6px;right:8px;font-size:18px;cursor:pointer}
+.tt{padding-bottom:52px}.tt .stamp{position:absolute;left:50%;bottom:10px;font:900 22px Archivo;padding:2px 12px;border:3px solid currentColor;border-radius:8px;background:#fff;transform:translateX(-50%) rotate(-8deg) scale(0);transition:transform .35s cubic-bezier(.3,1.8,.5,1);pointer-events:none}
+.tt.fake{border-color:#D2232A;background:light-dark(#ffe5e5,#4a1416)}.tt.fake .stamp{transform:translateX(-50%) rotate(-8deg) scale(1);color:#D2232A}
+.tt.real{border-color:#2fa36b}.tt.real .stamp{transform:translateX(-50%) rotate(-8deg) scale(1);color:#2fa36b}
+.tt-set.done .tt:not(.fake){opacity:.45}
+.tt-prog{display:flex;gap:6px;justify-content:center;margin:6px 0 14px}.tt-prog i{width:36px;height:36px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-style:normal;font:900 16px Archivo}.tt-prog i.on{background:#D2232A;color:#fff;animation:pop .4s}
+@media(max-width:600px){.tt-set{grid-template-columns:1fr}}
 .mm{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .mmc{perspective:700px;background:none;padding:0;aspect-ratio:3/3.4;min-height:0;border-radius:14px}
 .mmc .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
@@ -284,7 +336,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
   <div class="bin">
     <div class="tiles" id="tiles"></div>
     <div class="team" id="teamOut">Team: ?</div>
-    <div class="timer" id="timer">20:00</div>
+    <div class="timer" id="timer">20:00</div><button class="resetb" id="resetBtn">↺ Reset game</button>
   </div>
 </div>
 
@@ -307,6 +359,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
       <div><canvas id="cardCv" width="1000" height="625" aria-label="Your New Year card: draw and place stickers here"></canvas>
       <p class="hint">Pick a sticker and click the card to place it. Drag stickers to move them. Select one and use the size buttons or delete it. Switch to the pen to draw.</p></div>
       <div class="card">
+        <div class="field">⏱️ Card timer<div style="display:flex;gap:10px;align-items:center"><span class="wide" id="ctime" style="font-size:30px;font-weight:900;color:var(--berry2)">00:00</span><button class="btn2" id="ctReset">↺ Restart timer</button></div></div>
         <div class="field">Tool<div class="tray" id="tools"><button data-tool="pen" class="on" title="Pen">✏️</button><button data-tool="move" title="Move stickers">✋</button><button id="cUndo" title="Undo">↩️</button><button id="cBig" title="Bigger">➕</button><button id="cSmall" title="Smaller">➖</button><button id="cDel" title="Delete selected">🗑️</button><button id="cClear" class="kt" title="Clear all">Clear</button></div></div>
         <div class="field">Pen colour<div class="tray" id="swatches"></div></div>
         <div class="field">KION stickers<div class="tray" id="ktray"></div></div>
@@ -354,6 +407,15 @@ function tone(f,t,d,type='triangle',v=.18){if(!sound)return;try{ac=ac||new Audio
 const jingle=()=>[659,659,659,0,659,659,659,0,659,784,523,587,659].forEach((n,i)=>n&&tone(n,i*.13,.22));
 const buzz=()=>{tone(140,0,.25,'sawtooth',.12);tone(110,.12,.3,'sawtooth',.12)};
 const blip=()=>tone(880,0,.08,'square',.06);
+const whoosh=()=>{tone(300,0,.12,'sine',.07);tone(600,.05,.12,'sine',.05);tone(900,.1,.15,'sine',.04)};
+const ding=()=>{tone(1319,0,.25,'triangle',.16);tone(1760,.12,.4,'triangle',.14)};
+const wah=()=>[392,370,349,330].forEach((f,i)=>tone(f,i*.28,i==3?.7:.3,'sawtooth',.07));
+const drum=(n=14)=>{for(let i=0;i<n;i++)tone(i%2?120:95,i*.09,.08,'triangle',.18)};
+const boing=()=>{if(!sound)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;o.type='sine';o.frequency.setValueAtTime(600,t);o.frequency.exponentialRampToValueAtTime(120,t+.35);g.gain.setValueAtTime(.18,t);g.gain.exponentialRampToValueAtTime(.001,t+.4);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+.45)}catch(e){}};
+const fanfare=()=>[523,659,784,1047].forEach((f,i)=>tone(f,i*.1,i==3?.5:.15,'square',.07));
+const say=(text,o={})=>{if(!sound||!('speechSynthesis' in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));if(vs.length)u.voice=vs[(o.voice??Math.floor(Math.random()*997))%vs.length];u.pitch=o.pitch??(.6+Math.random()*1.2);u.rate=o.rate??(.95+Math.random()*.3);speechSynthesis.speak(u)}catch(e){}};
+const emojiBurst=(x,y,set=['🎉','⭐','✨','🎆','🎁'],n=14)=>{for(let i=0;i<n;i++){const e=document.createElement('span');e.className='emo';e.textContent=set[i%set.length];e.style.left=x+'px';e.style.top=y+'px';const a=Math.random()*6.28,d=70+Math.random()*170;e.style.setProperty('--dx',Math.cos(a)*d+'px');e.style.setProperty('--dy',Math.sin(a)*d-90+'px');e.style.setProperty('--r',(Math.random()*720-360)+'deg');document.body.appendChild(e);setTimeout(()=>e.remove(),1500)}};
+const burstAt=(el,set,n)=>{const r=el.getBoundingClientRect();emojiBurst(r.left+r.width/2,r.top+r.height/2,set,n)};
 $('#soundBtn').onclick=e=>{sound=!sound;e.target.textContent=sound?'🔊 Sound on':'🔈 Sound off'};
 
 /* ---------- fireworks engine ---------- */
@@ -387,11 +449,11 @@ $('#startBtn').onclick=()=>{if(!tEnd){tEnd=Date.now()+20*60000;startedAt=Date.no
 /* ---------- stations ---------- */
 const S=[
  {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five global hits, fifteen questions, one painted letter.'},
- {ic:'🃏',t:'Festive Memory Match',by:'Game by Sandra',d:'Flip the cards: match holiday symbols to their names around the world.'},
- {ic:'🍲',t:'Festive Feasts',by:'Quiz by Danny',d:'Six holiday dishes, six countries, one surviving letter.'},
+ {ic:'💰',t:'The Price Is Right',by:'Game by Sandra',d:'Closest without going over! Pick the winning bid in five rounds.'},
+ {ic:'💎',t:'Who Wants to Be a Millionaire?',by:'Quiz by Danny',d:'Six festive questions, three lifelines, one million-dollar letter.'},
  {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Decode the AGV fleet\'s ID plates and solve the controller\'s equation.'},
  {ic:'🌍',t:'Greetings Around the World',by:'Puzzle by Matej',d:'Match eight festive greetings to their countries.'},
- {ic:'🎭',t:'Two Truths and a Fake',by:'Puzzle by Matej',d:'Spot the fake tradition in five sets.'},
+ {ic:'🎭',t:'Two Truths and a Fake',by:'Puzzle by Matej',d:'Tap the fake tradition and hear what the AI hosts think!'},
  {ic:'🧩',t:'Emoji Rebus',by:'Puzzle by Chase',d:'Turn emoji pairs into festive words and collect the gold letters.'},
  {ic:'♟️',t:'Checkmate in One',by:'Puzzle by Chase',d:'Play the one move that wins on the spot.'},
  {ic:'🕛',t:'Midnight Around the World',by:'Puzzle by Chase',d:'Read eight clocks: who rings in the New Year first?'},
@@ -402,8 +464,8 @@ $$('.st').forEach(b=>b.onclick=()=>{location.hash='station-'+(+b.dataset.i+1)});
 
 const hints=[
  ['Each row of the grid is one horizontal slice of a capital letter.','Rows 2, 4 and 5 should only use column A.'],
- ['Work as a team: one person remembers the left half of the board, another the right.','The word cards are in the local language: Poro is Finnish, Hanabi is Japanese.'],
- ['Six correct answers cross out six letters.','Panettone is Italian; osechi boxes are Japanese.'],
+ ['The winning bid is the highest bid that does NOT go over the real number.','The Twelve Days of Christmas has 364 gifts in total, and a piano has 88 keys.'],
+ ['Use your lifelines! The audience is usually right.','The million-dollar answer: osechi boxes come from Japan.'],
  ['Read the plates left to right: model letter, lift height, parking spot (aisle letter + row number), battery %.','A = 9, B = 8. Count only AGVs strictly above 50% charge for D.'],
  ['Wesołych Świąt is Polish, Veselé Vánoce is Czech.','The wintry word is something you throw in winter.'],
  ['The fakes are all about dates or things that are simply impossible.','Every fake is tagged with the same letter, a round one.'],
@@ -429,28 +491,25 @@ const Q1=[
  ['Clip 4',[['Released in?',['1987','1984','1991']],['The singer was born in?',['United States','United Kingdom','Canada']],['She starred in which film?',['The Bodyguard','Pretty Woman','Dirty Dancing']]]],
  ['Clip 5',[['Released in?',['1977','1980','1974']],['The band were brothers with the surname?',['Gibb','Jackson','Osmond']],['It became a hit through which film?',['Saturday Night Fever','Grease','Footloose']]]],
 ];
-const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(n=>`<button class="clip" data-yt="${n}">▶ Clip ${n}</button>`).join('')}</div><div class="ytbox" id="ytbox"><div id="ytp"></div><div class="ytcover"><div><div class="vinyl"></div><span id="ytlabel">Press a clip to play a mystery track</span></div></div></div><button class="btn2" id="ytRev" style="margin-top:8px">👀 Reveal the video</button><p class="hint" style="margin:10px 0 0">🎧 Each clip plays the official music video from YouTube, starting at the right moment, with the screen covered so the title stays secret. Captain: press play and share your computer sound in Teams. Only press Reveal after your team has answered!</p></div>
+const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(n=>`<button class="clip" data-yt="${n}">▶ Clip ${n}</button>`).join('')}</div><div class="ytbox" id="ytbox">${[1,2,3,4,5].map(n=>`<div class="ytw" id="ytw${n}"><div id="ytp${n}"></div></div>`).join('')}<div class="ytcover"><canvas id="viz" width="880" height="495"></canvas><span id="ytlabel">🎛️ Warming up the jukebox…</span></div></div><button class="btn2" id="ytRev" style="margin-top:8px">👀 Reveal the video</button><p class="hint" style="margin:10px 0 0">🎧 Each clip plays the official music video from YouTube, starting at the right moment, with the screen covered so the title stays secret. Captain: press play and share your computer sound in Teams. Only press Reveal after your team has answered!</p></div>
 <div class="grid2"><div class="card">${Q1.map(([c,qs],ci)=>`<div class="q"><b>🎵 ${c}</b>${qs.map(([q,o],qi)=>`<div style="margin:6px 0"><div style="font-size:14px;color:var(--soft)">${q}</div><div class="opts">${o.map((x,oi)=>`<button class="opt" data-q="${ci}-${qi}" data-o="${oi}">${'ABC'[oi]} · ${x}</button>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
 <div class="card"><h3 style="font-size:20px;margin-bottom:6px">Your answers paint the letter</h3><p class="hint" style="margin-top:0">Every answer you pick colours its column (A, B or C) in that clip's row. Five rows, one capital letter.</p>
 <div class="pix" id="pix"><div class="h"></div><div class="h">A</div><div class="h">B</div><div class="h">C</div>${[1,2,3,4,5].map(r=>`<div class="h" style="justify-content:start">Clip ${r}</div>`+[0,1,2].map(c=>`<div id="px${r-1}${c}"></div>`).join('')).join('')}</div></div></div>`;
 
 /* S2 */
-const PAIRS=[['🎄','Tannenbaum','Germany'],['🪔','Diya','India'],['🏮','Dēnglong','China'],['🕎','Menorah','Israel'],['🧧','Lì xì','Vietnam'],['🎅','Père Noël','France'],['🍇','Uvas de la suerte','Spain'],['⛄','Sneeuwpop','Netherlands'],['🦌','Poro','Finland'],['🍪','Pepparkakor','Sweden']];
-const b2=`<div class="card"><p style="margin-top:0">Every card hides a holiday symbol or its name in a local language. Flip two cards at a time and match each symbol to its word. Match all ten pairs to unlock the secret letter!</p>
-<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:12px"><span class="wide" style="font-weight:900">Pairs: <span id="mmPairs">0</span> / 10</span><span style="font-weight:700;color:var(--soft)">Moves: <span id="mmMoves">0</span></span><button class="btn2" id="mmNew">↺ Shuffle again</button></div>
-<div class="mm" id="mm"></div><div id="mmWin" class="mmwin" hidden>🎉 All pairs found! The secret letter is <span>I</span></div></div>`;
+const PR=[['🎁','Total number of gifts given in the song “The Twelve Days of Christmas”',364,[300,365,78]],['🎹','Number of keys on a standard piano',88,[90,85,52]],['🕰️','Number of time zones in Russia',11,[10,12,7]],['🏭','The year the Linde company was founded',1879,[1901,1850,1875]],['🌍','KION employees worldwide (more than…)',42000,[40000,50000,25000]]];
+const CONT=[['🧝','Elfie','I'],['🎅','Big Nick','S'],['⛄','Frosty','O']];
+const b2=`<div class="prshow"><div class="prlogo">💰 THE PRICE IS RIGHT 💰<br><small style="font:800 14px Inter;color:#fff">Warehouse holiday edition</small></div>
+<p style="text-align:center;margin:0 0 12px">Three contestants bid on every round. The winner is whoever gets <b>closest to the real number without going over</b>. Tap the contestant you think wins! After five rounds, the champion's name badge reveals your letter.</p>
+<div id="prStage"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px"><span style="font:800 16px Inter">Your correct calls: <span id="prScore">0</span> / 5</span><button class="btn" id="prNext" hidden>Next round ➜</button></div></div>`;
 
 /* S3 */
-const Q3=[['🍞 Panettone, a tall sweet bread full of candied fruit',[['Italy','T'],['Spain','R'],['Portugal','E']]],
- ['🫔 Tamales wrapped in corn husks, a Christmas Eve favourite',[['Peru','S'],['Mexico','I'],['Cuba','N']]],
- ['🍰 Bûche de Noël, a cake shaped like a Yule log, was invented in',[['Belgium','L'],['Switzerland','T'],['France','N']]],
- ['🥟 Jiaozi dumplings, folded together on Lunar New Year\'s Eve',[['China','S'],['Thailand','E'],['Indonesia','R']]],
- ['🍬 Gulab jamun and boxes of sweets shared at Diwali',[['Morocco','I'],['India','E'],['Turkey','N']]],
- ['🍱 Osechi ryōri, beautiful lacquered boxes eaten on New Year\'s Day',[['Japan','L'],['South Korea','T'],['Vietnam','S']]]];
-const b3=`<div class="photos"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Innovation/KCU20/_DSC5201_image_737x414.jpg" alt="KION colleagues with Linde trucks"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Growth/2026/10-Years-Dematic/Thumbnail_10years_2_image_737x414.jpg" alt="Dematic collage"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Sustainability/Supplier-Sustainability/Dematic_Stage_image_737x414.jpg" alt="Automated truck in a KION warehouse"><img src="https://www.kiongroup.com/KION-Website-Main/About-us/KION-at-a-glance/KION_Eurofork_KIONRed_image_1200x674.png" alt="Dematic digital warehouse"></div>
-<p class="hint" style="margin-top:0">KION colleagues work in more than 100 countries. Tonight they brought their favourite holiday food to the virtual canteen. Where does each dish come from?</p>
-<div class="grid2"><div class="card">${Q3.map(([q,o],qi)=>`<div class="q"><b>${qi+1}. ${q}</b><div class="opts">${o.map(([x,t],oi)=>`<button class="opt" data-k="${qi}" data-t="${t}">${x}<span class="tag">[${t}]</span></button>`).join('')}</div></div>`).join('')}</div>
-<div class="card"><h3 style="font-size:20px">The tinsel strip</h3><p class="hint">Every answer you choose crosses out its tag letter. With six right answers, exactly one letter survives.</p><div class="strip" id="strip">${[...'TINSELR'].map(c=>`<span>${c}</span>`).join('')}</div></div></div>`;
+const MQ=[[100,'Panettone, the tall sweet bread full of candied fruit, comes from which country?',['Spain','Italy','Portugal','Greece'],1],[500,'At Lunar New Year, families in northern China fold and eat which food together?',['Tacos','Jiaozi dumplings','Croissants','Sushi rolls'],1],[1000,'The French Christmas cake bûche de Noël is shaped like a…',['Star','Bell','Log','Snowman'],2],[10000,'Diwali is famously known as the festival of…',['Colours','Kites','Lights','Masks'],2],[100000,'Tamales wrapped in corn husks are a Christmas Eve favourite in…',['Mexico','Norway','India','Japan'],0],[1000000,'Osechi ryōri, beautiful lacquered boxes of food, are eaten at New Year in…',['Vietnam','South Korea','Mongolia','Japan'],3]];
+const b3=`<div class="mil"><div><div class="mlogo"><span>💎</span>WHO WANTS TO BE A MILLIONAIRE?</div>
+<div class="mq" id="mq"></div><div class="mans" id="mans"></div>
+<div class="lifes"><button id="l50">½ 50:50</button><button id="lAud">👥 Ask the audience</button><button id="lPhone">📞 Phone a friend</button></div>
+<div class="mhelp" id="mhelp">Click an answer, then click it again to lock it in as your final answer.</div></div>
+<div class="ladder" id="ladder"></div></div>`;
 
 /* S4 */
 const PLAIN='WHICH LETTER APPEARS THREE TIMES IN ELEVEN AND TWICE IN WAREHOUSE';
@@ -478,12 +537,17 @@ const b5=`<div class="card"><p style="margin-top:0">KION colleagues celebrate in
 <div class="read" id="read">${FL.map((_,i)=>`<span class="${i==3?'m':''}"></span>`).join('')}</div><p class="hint" style="text-align:center">Read the tags 1 to 8 for a wintry word. Your letter is the 4th one (gold box).</p></div>`;
 
 /* S6 */
-const SETS=[[["In Japan, a popular Christmas dinner is fried chicken from KFC.","T"],["In Norway, some families hide their brooms on Christmas Eve so witches can't steal them.","U"],["In Canada, families traditionally build their holiday tree out of ice blocks.","O"]],
- [["Diwali is always celebrated on 25 December.","O"],["Diwali is known as the Festival of Lights.","A"],["During Diwali, people light small oil lamps called diyas.","E"]],
- [["At Lunar New Year, red envelopes with money are given as gifts.","M"],["Each Lunar New Year is linked to one of 12 zodiac animals.","H"],["Lunar New Year always falls on 1 January.","O"]],
- [["In Spain, people eat 12 grapes at midnight on New Year's Eve.","S"],["In France, it is tradition to eat 12 different cheeses at midnight on New Year's Eve.","O"],["In the Czech Republic, many families keep a live carp in the bathtub before Christmas.","R"]],
- [["In Germany, many people watch the British sketch \"Dinner for One\" on New Year's Eve.","N"],["In Germany, fireworks can be bought in shops all year round.","O"],["In Mexico, Las Posadas is celebrated in the nine nights before Christmas.","I"]]];
-const b6=`<div class="card"><p style="margin-top:0">Each set has two true traditions and one fake. Tap the card you think is the fake: it flips to show its tag. If you spot every fake, all five tags match.</p><div class="sets">${SETS.map((s,si)=>`<div><b style="display:block;margin:6px 0">Set ${si+1}</b><div class="set">${s.map(([x,t])=>`<button class="flip" data-set="${si}"><div class="in"><div class="f">${x}</div><div class="b"><span>The fake? Tag</span><big>${t}</big></div></div></button>`).join('')}</div></div>`).join('')}</div></div>`;
+const SETS=[[['🍗','Japan: KFC fried chicken is a popular Christmas dinner.',0],['🧹','Norway: families hide their brooms on Christmas Eve so witches can\'t steal them.',0],['🧊','Canada: holiday trees are traditionally built out of ice blocks.',1]],
+ [['📅','Diwali is always celebrated on 25 December.',1],['🪔','Diwali is known as the Festival of Lights.',0],['🕯️','At Diwali, people light little oil lamps called diyas.',0]],
+ [['🧧','Lunar New Year: red envelopes with money are given as gifts.',0],['🐉','Every Lunar New Year belongs to one of 12 zodiac animals.',0],['1️⃣','Lunar New Year always falls on 1 January.',1]],
+ [['🍇','Spain: people eat 12 grapes at midnight on New Year\'s Eve.',0],['🧀','France: people eat 12 different cheeses at midnight on New Year\'s Eve.',1],['🐟','Czech Republic: many families keep a live carp in the bathtub before Christmas.',0]],
+ [['📺','Germany: millions watch the old British sketch “Dinner for One” on New Year\'s Eve.',0],['🎇','Germany: fireworks can be bought in shops all year round.',1],['🌟','Mexico: Las Posadas is celebrated in the nine nights before Christmas.',0]]];
+const FAKE_LINES=['Busted! That one is a total fake!','Ding ding ding! You caught the liar!','Fake news! Nicely spotted!','Ha! That is made up. Great detective work!','You got it! That is faker than a plastic Christmas tree!'];
+const TRUE_LINES=['Nope! Believe it or not, that one is true!','Wrong! That is real. The world is wonderfully weird!','Oh no, that one actually happens!','Ha ha, nope! That is a real tradition!','Not a fake! Try another one!'];
+const b6=`<div class="card"><p style="margin-top:0">🕵️ Each row hides <b>one fake</b> among two real traditions. Tap the card you think is the fake, and our AI hosts will tell you how you did. Press 🔊 to hear a card read aloud.</p>
+<div class="tt-prog" id="ttProg">${SETS.map(()=>'<i>?</i>').join('')}</div>
+${SETS.map((st,si)=>`<div class="tt-set" data-ts="${si}">${st.map(([e,x,f],ci)=>`<button class="tt" data-tt="${si}-${ci}" data-f="${f}"><span class="spk" data-say="${x.replace(/"/g,'&quot;')}" title="Read aloud">🔊</span><span class="te">${e}</span><span>${x}</span><span class="stamp">${f?'FAKE! O':'TRUE ✓'}</span></button>`).join('')}</div>`).join('')}
+<div id="ttWin" class="mmwin" hidden>🎉 All five fakes caught! Every fake stamp shows the letter <span>O</span></div></div>`;
 
 /* S7 */
 const RB=[['🍬 + 🦯','CANDY CANE',0,'A striped sweet on every tree'],['🔥 + 🍫','HOT CHOCOLATE',0,'Warm drink for snowy days'],['🌧️ + 🦌','REINDEER',1,'Say it out loud: it is a pun!'],['🛷 + 🔔','SLEIGH BELLS',2,'They ring while Santa rides'],['🎁 + 📄','WRAPPING PAPER',1,'You tear it off on the big day']];
@@ -510,7 +574,7 @@ $('#stations').innerHTML=[b1,b2,b3,b4,b5,b6,b7,b8,b9].map((b,i)=>frame(i,b)).joi
 
 /* routing */
 function route(){const m=/^#station-([1-9])$/.exec(location.hash);$$('.station').forEach(s=>s.classList.remove('show'));
- if(m){const s=$('#station-'+m[1]);s.classList.add('show');s.scrollIntoView({behavior:'smooth'});}}
+ if(m){const s=$('#station-'+m[1]);s.classList.add('show');whoosh();s.scrollIntoView({behavior:'smooth'});}}
 addEventListener('hashchange',route);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-back]');if(b){location.hash='map';$('#map').scrollIntoView({behavior:'smooth'})}});
 
@@ -518,10 +582,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-back]');if
 function markSolved(i,anim){if(!solved.includes(i)){solved.push(i);store.set('solved',solved)}
  const t=$('#t'+i);t.textContent=WORD[i];t.classList.add('on');const cr=$('#cr'+i);if(cr){cr.classList.add('on');const tx=cr.querySelector('text');tx.textContent=WORD[i];tx.classList.remove('q')}const m=$('#m'+i);m.classList.add('done');m.dataset.l=WORD[i];
  const inp=$('#in'+i);inp.value=WORD[i];$('#msg'+i).textContent='✅ Letter locked in!';
- if(anim){drawCard();jingle();party(4);if(solved.length===9)setTimeout(finale,1500)}}
+ if(anim){drawCard();jingle();party(4);burstAt($('#t'+i),['🎉','⭐','🎆','✨','🥳'],18);if(solved.length===9)setTimeout(finale,1500)}}
 solved.forEach(i=>markSolved(i,false));
 document.addEventListener('click',e=>{const c=e.target.closest('[data-check]');if(c){const i=+c.dataset.check,v=$('#in'+i).value.trim().toUpperCase();
- if(v===WORD[i])markSolved(i,true);else{buzz();const a=$('#ans'+i);a.classList.remove('shake');void a.offsetWidth;a.classList.add('shake');$('#msg'+i).textContent=v?'❌ Fleet control rejects that letter.':'Type a letter first.'}}
+ if(v===WORD[i])markSolved(i,true);else{buzz();say(['Beep boop. Wrong letter!','Nice try, human!','Fleet control says no!','Access denied! Try again!'][Math.floor(Math.random()*4)],{pitch:.3,rate:1.1});const a=$('#ans'+i);a.classList.remove('shake');void a.offsetWidth;a.classList.add('shake');$('#msg'+i).textContent=v?'❌ Fleet control rejects that letter.':'Type a letter first.'}}
  const h=e.target.closest('[data-hint]');if(h){const i=+h.dataset.hint,el=$('#hint'+i),n=+(el.dataset.n||0);if(n<2){el.innerHTML+=`<div>💡 ${hints[i][n]}</div>`;el.dataset.n=n+1}}});
 function finale(){const m=startedAt?Math.round((Date.now()-startedAt)/60000):null;$('#finTime').textContent=(team?team+': ':'')+(m!==null?`solved in about ${m} minutes`:'solved!');$('#finale').classList.add('show');party(12)}
 $('#finBtn').onclick=()=>{$('#finale').classList.remove('show');$('#studio').scrollIntoView({behavior:'smooth'})};
@@ -575,41 +639,80 @@ function openPresent(g,i){g.classList.remove('shake');void g.getBBox();g.classLi
   popT=setTimeout(()=>{if(popEl){popEl.remove();popEl=null}g.classList.remove('open')},5200)},450)}
 addEventListener('scroll',()=>{if(popEl){popEl.remove();popEl=null}},{passive:true});
 
-/* station 1: official videos, covered */
+/* station 1: official videos, pre-loaded, covered by a visualiser */
 const YTC={1:['dvgZkm1xWPE',0,30],2:['xFrGuyw1V8s',44,64],3:['Zi_XLOBDo_Y',0,30],4:['eH3giaIzONA',30,60],5:['fNFzfwLM72c',0,30]};
-let ytP=null,ytCur=null,ytApi=null;
+let ytApi=null,ytStarted=false,YP={},ytReady=0,ytCur=null;
 const ytLoad=()=>ytApi||(ytApi=new Promise(r=>{if(window.YT&&YT.Player)return r();window.onYouTubeIframeAPIReady=r;const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc)}));
-function ytStop(){try{ytP&&ytP.stopVideo()}catch(e){}ytCur=null;$('#ytbox').classList.remove('playing');$$('[data-yt]').forEach(b=>{b.classList.remove('playing');b.textContent='▶ Clip '+b.dataset.yt})}
-async function ytPlay(n,btn){if(ytCur===n){ytStop();return}ytStop();stopMusic();$('#ytlabel').textContent='Loading mystery track '+n+'…';await ytLoad();const [id,st,en]=YTC[n];$('#ytbox').classList.remove('revealed');
- if(!ytP){ytP=new YT.Player('ytp',{width:'100%',height:'100%',videoId:id,playerVars:{start:st,end:en,autoplay:1,controls:0,disablekb:1,rel:0,playsinline:1,iv_load_policy:3},events:{onReady:e=>{e.target.playVideo()},onStateChange:e=>{if(e.data===0)ytStop()},onError:e=>{$('#ytlabel').textContent='This clip cannot play here (YouTube error '+e.data+'). Ask Sandra to play it in the main room.';ytStop()}}})}
- else ytP.loadVideoById({videoId:id,startSeconds:st,endSeconds:en});
- ytCur=n;$('#ytlabel').textContent='🎶 Mystery track '+n+' is playing…';$('#ytbox').classList.add('playing');btn.classList.add('playing');btn.textContent='■ Stop'}
+function ytInit(){if(ytStarted)return;ytStarted=true;ytLoad().then(()=>{for(const n of [1,2,3,4,5]){const [id,st,en]=YTC[n];
+ YP[n]=new YT.Player('ytp'+n,{width:'100%',height:'100%',videoId:id,playerVars:{start:st,end:en,controls:0,disablekb:1,rel:0,playsinline:1,iv_load_policy:3,mute:1},events:{
+  onReady:e=>{const p=e.target;p.mute();p.playVideo();setTimeout(()=>{if(ytCur!==n){p.pauseVideo();p.seekTo(st,true)}},1500);ytReady++;if(ytReady===5&&!ytCur)$('#ytlabel').textContent='🎛️ Jukebox ready! Press a clip.'},
+  onStateChange:e=>{if(e.data===0&&ytCur===n)ytStop()},
+  onError:e=>{if(ytCur===n){$('#ytlabel').textContent='Clip '+n+' cannot play here (YouTube error '+e.data+'). Ask Sandra to play it in the main room.';ytStop(true)}}}})}})}
+function ytStop(keep){if(ytCur&&YP[ytCur]){try{YP[ytCur].pauseVideo();YP[ytCur].seekTo(YTC[ytCur][1],true)}catch(e){}}ytCur=null;$('#ytbox').classList.remove('playing');$$('[data-yt]').forEach(b=>{b.classList.remove('playing');b.textContent='▶ Clip '+b.dataset.yt});if(!keep)$('#ytlabel').textContent='🎛️ Press a clip to play a mystery track'}
+function ytPlay(n,btn){if(ytCur===n){ytStop();return}ytStop();stopMusic();const p=YP[n];
+ if(!p||!p.playVideo){$('#ytlabel').textContent='🎛️ Jukebox still warming up… try again in a second!';ytInit();return}
+ $$('.ytw').forEach(d=>d.classList.toggle('cur',d.id==='ytw'+n));$('#ytbox').classList.remove('revealed');$('#ytRev').textContent='👀 Reveal the video';
+ try{p.seekTo(YTC[n][1],true);p.unMute();p.setVolume(100);p.playVideo()}catch(e){}
+ ytCur=n;$('#ytlabel').textContent='🎶 Mystery track '+n+' · name that tune!';$('#ytbox').classList.add('playing');btn.classList.add('playing');btn.textContent='■ Stop';burstAt(btn,['🎵','🎶','🎤','🕺','💃'],8)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-yt]');if(b)ytPlay(+b.dataset.yt,b)});
-$('#ytRev').onclick=()=>{$('#ytbox').classList.toggle('revealed');$('#ytRev').textContent=$('#ytbox').classList.contains('revealed')?'🙈 Cover the video':'👀 Reveal the video'};
+$('#ytRev').onclick=()=>{$('#ytbox').classList.toggle('revealed');const on=$('#ytbox').classList.contains('revealed');$('#ytRev').textContent=on?'🙈 Cover the video':'👀 Reveal the video';if(on)fanfare()};
 addEventListener('hashchange',()=>{if(location.hash!=='#station-1'&&ytCur)ytStop()});
+setTimeout(ytInit,1200);
+{const vc=$('#viz'),vx=vc.getContext('2d'),N=48;let lv=Array(N).fill(0),t0=0;
+ function viz(t){const W=vc.width,H=vc.height,on=$('#ytbox').classList.contains('playing');vx.clearRect(0,0,W,H);
+  const g=vx.createRadialGradient(W/2,H*.45,10,W/2,H*.45,W*.7);g.addColorStop(0,on?'#c2186f':'#5a1048');g.addColorStop(1,'#14031a');vx.fillStyle=g;vx.fillRect(0,0,W,H);
+  const pulse=on?.6+.4*Math.abs(Math.sin(t/240)):.25;vx.strokeStyle='rgba(245,180,0,'+(.15+pulse*.4)+')';vx.lineWidth=6;for(let k=1;k<=3;k++){vx.beginPath();vx.arc(W/2,H*.45,40+k*36*pulse,0,7);vx.stroke()}
+  const bw=W/N;for(let i=0;i<N;i++){const target=on?(.15+.85*Math.abs(Math.sin(t/(170+i*7)+i*.9)*Math.sin(t/(410-i*3)+i)))*(.6+.4*Math.random()):.04+.03*Math.sin(t/600+i/3);lv[i]+= (target-lv[i])*.35;
+   const h=lv[i]*H*.55,x=i*bw+2,y=H*.86-h,gr=vx.createLinearGradient(0,y,0,H*.86);gr.addColorStop(0,'#F5B400');gr.addColorStop(1,'#ff5fb4');vx.fillStyle=gr;vx.fillRect(x,y,bw-4,h);vx.fillStyle='rgba(255,95,180,.25)';vx.fillRect(x,H*.88,bw-4,h*.25)}
+  vx.font='900 46px Archivo, sans-serif';vx.textAlign='center';vx.fillStyle='rgba(255,255,255,'+(on?.95:.6)+')';vx.fillText(on?'♪ ♫ ♪':'?',W/2,H*.45+16);
+  requestAnimationFrame(viz)}
+ if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(viz)}
 
 /* S1 logic */
 const pick1={};
 $$('#station-1 .opt').forEach(b=>b.onclick=()=>{const q=b.dataset.q;$$(`#station-1 .opt[data-q="${q}"]`).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');pick1[q]=+b.dataset.o;blip();
  for(let r=0;r<5;r++){const used=new Set([0,1,2].map(k=>pick1[r+'-'+k]).filter(v=>v!==undefined));for(let c=0;c<3;c++)$('#px'+r+c).classList.toggle('on',used.has(c))}});
 
-/* S2 logic: memory match */
-let mmOpen=[],mmLock=false,mmFound=0,mmMoves=0;
-function mmDeal(){const cards=PAIRS.flatMap(([e,w,c],i)=>[{i,f:`<span class="mme">${e}</span>`},{i,f:`<b>${w}</b><small>${c}</small>`}]).sort(()=>Math.random()-.5);
- mmOpen=[];mmFound=0;mmMoves=0;$('#mmPairs').textContent=0;$('#mmMoves').textContent=0;$('#mmWin').hidden=true;
- $('#mm').innerHTML=cards.map(c=>`<button class="mmc" data-p="${c.i}"><div class="in"><div class="f">🎁</div><div class="b">${c.f}</div></div></button>`).join('');
- $$('.mmc').forEach(b=>b.onclick=()=>{if(mmLock||b.classList.contains('up'))return;b.classList.add('up');blip();mmOpen.push(b);
-  if(mmOpen.length===2){mmMoves++;$('#mmMoves').textContent=mmMoves;const [a,c]=mmOpen;mmOpen=[];
-   if(a.dataset.p===c.dataset.p){a.classList.add('ok');c.classList.add('ok');mmFound++;$('#mmPairs').textContent=mmFound;tone(880,0,.12);tone(1175,.1,.18);
-    if(mmFound===10){$('#mmWin').hidden=false;jingle();party(4)}}
-   else{mmLock=true;setTimeout(()=>{a.classList.remove('up');c.classList.remove('up');mmLock=false},900)}}})}
-$('#mmNew').onclick=mmDeal;mmDeal();
+/* S2 logic: price is right */
+let prRound=0,prScore=0,prWins=[0,0,0],prLocked=false;
+const prWinner=r=>{let best=-1,bv=-Infinity;r[3].forEach((b,i)=>{if(b<=r[2]&&b>bv){bv=b;best=i}});return best};
+function prRender(){const r=PR[prRound];prLocked=false;$('#prNext').hidden=true;
+ $('#prStage').innerHTML=`<div class="pr-item"><span class="pr-emo">${r[0]}</span><div><small>ROUND ${prRound+1} OF 5</small><h3>${r[1]}</h3></div></div><div class="pods">${CONT.map((c,i)=>`<button class="pod" data-pod="${i}"><span class="pav">${c[0]}</span><b>${c[1]}</b><span class="bid">${r[3][i].toLocaleString('en-US')}</span><span class="badge">badge: ?</span></button>`).join('')}</div><div class="pr-actual" id="prAct">Who wins? Closest without going over!</div>`;
+ $$('.pod').forEach(p=>p.onclick=()=>prPick(+p.dataset.pod))}
+function prPick(i){if(prLocked)return;prLocked=true;const r=PR[prRound],pods=$$('.pod');pods[i].classList.add('pick');drum();$('#prAct').textContent='🥁 And the actual number is…';
+ setTimeout(()=>{const w=prWinner(r);prWins[w]++;pods[w].classList.add('win');r[3].forEach((b,k)=>{if(b>r[2])pods[k].classList.add('over')});
+  $('#prAct').innerHTML=`ACTUAL: <b>${r[2].toLocaleString('en-US')}${prRound===4?'+':''}</b><br>${CONT[w][0]} ${CONT[w][1]} wins the round!`;
+  if(w===i){prScore++;ding();burstAt(pods[w],['💰','💵','🎉','⭐'],14);say(['Come on down! You got it!','Winner winner! Nicely done!','Ding ding ding! Right on the money!'][prRound%3],{pitch:1.3})}
+  else{wah();say(['Oh no! So close!','Bummer! Better luck next round!','Not this time, champ!','Wah wah! The price was wrong!'][prRound%4],{pitch:.8})}
+  $('#prScore').textContent=prScore;$('#prNext').hidden=false;$('#prNext').textContent=prRound<4?'Next round ➜':'See the champion 🏆'},1400)}
+function prFinal(){const champ=prWins.indexOf(Math.max(...prWins));fanfare();setTimeout(jingle,500);party(3);
+ $('#prStage').innerHTML=`<div class="pr-final"><h3 style="font-size:24px;margin-bottom:8px">🏆 Final scoreboard</h3>${CONT.map((c,i)=>`<div class="pr-row ${i===champ?'champ':''}"><span>${c[0]} ${c[1]}</span><b>${prWins[i]} win${prWins[i]===1?'':'s'}</b></div>`).join('')}
+ <p style="font:700 18px Inter;margin-top:14px">Champion ${CONT[champ][1]}'s name badge shows your letter:</p><div class="bigl">${CONT[champ][2]}</div><p class="hint" style="color:#fff">Your team called ${prScore} of 5 rounds correctly.</p><button class="btn2" id="prAgain">↺ Play again</button></div>`;
+ $('#prNext').hidden=true;say('And the champion is '+CONT[champ][1]+'!',{pitch:1.2});$('#prAgain').onclick=()=>{prRound=0;prScore=0;prWins=[0,0,0];$('#prScore').textContent=0;prRender()}}
+$('#prNext').onclick=()=>{prRound++;if(prRound<5){whoosh();prRender()}else prFinal()};
+prRender();
 
-/* S3 logic */
-const pick3={};
-$$('#station-3 .opt').forEach(b=>b.onclick=()=>{const k=b.dataset.k;$$(`#station-3 .opt[data-k="${k}"]`).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');pick3[k]=b.dataset.t;blip();
- const used=Object.values(pick3);const sp=$$('#strip span');const cnt={};used.forEach(t=>cnt[t]=(cnt[t]||0)+1);sp.forEach(s=>s.classList.remove('x'));
- used.forEach(t=>{const s=sp.find(x=>x.textContent===t&&!x.classList.contains('x'));if(s)s.classList.add('x')})});
+/* S3 logic: millionaire */
+let mLvl=0,mSel=null,mBusy=false;const FRIENDS=['Grandma Gerda from Frankfurt','Raj from the Pune warehouse','Uncle Bob from Holland, Michigan','Sofia from the Barcelona office','Kenji from the Tokyo depot'];
+const money=v=>'$'+v.toLocaleString('en-US');
+function mRender(){const q=MQ[mLvl];mSel=null;mBusy=false;$('#mq').textContent=q[1];
+ $('#mans').innerHTML=q[2].map((a,i)=>`<button data-ma="${i}"><b>${'ABCD'[i]}:</b>${a}</button>`).join('');
+ $('#ladder').innerHTML=MQ.map((x,i)=>`<span class="${i===mLvl?'cur':i<mLvl?'done':''}"><i>${i+1}</i>${money(x[0])}</span>`).join('');
+ $$('[data-ma]').forEach(b=>b.onclick=()=>mClick(+b.dataset.ma))}
+function mClick(i){if(mBusy)return;const bs=$$('[data-ma]');if(mSel!==i){mSel=i;bs.forEach((b,k)=>b.classList.toggle('sel',k===i));blip();$('#mhelp').textContent=`Is “${MQ[mLvl][2][i]}” your final answer? Click it again to lock it in.`;return}
+ mBusy=true;$('#mhelp').textContent='🔒 Final answer locked in…';[220,233,247,262,277].forEach((f,k)=>tone(f,k*.25,.3,'sine',.12));
+ setTimeout(()=>{const ok=i===MQ[mLvl][3];bs[MQ[mLvl][3]].classList.add('ok');
+  if(ok){ding();burstAt(bs[i],['💎','💰','⭐','🎉'],14);
+   if(mLvl===MQ.length-1){fanfare();setTimeout(jingle,600);party(6);say('Congratulations! You are a millionaire!',{pitch:1.1,rate:.95});$('#mhelp').innerHTML='🏆 <b>YOU ARE A MILLIONAIRE!</b> Your letter is <span class="bigl" style="font-size:40px;vertical-align:middle">R</span>';$('#ladder').querySelectorAll('span').forEach(s=>s.classList.add('done'));return}
+   say(['Correct!','That is the right answer!','Yes! Well done!','Absolutely right!'][mLvl%4],{pitch:1.1});$('#mhelp').textContent=`✅ Correct! You've won ${money(MQ[mLvl][0])}. Next question coming up…`;setTimeout(()=>{mLvl++;whoosh();mRender()},1800)}
+  else{bs[i].classList.add('bad');wah();say("Oh no! That's the wrong answer. Better luck next time!",{pitch:.8,rate:.95});$('#mhelp').innerHTML=`❌ Game over! You walk away with ${mLvl?money(MQ[mLvl-1][0]):'$0'}. <button class="btn2" id="mRetry" style="margin-left:8px">↺ Try again</button>`;$('#mRetry').onclick=()=>{mLvl=0;['l50','lAud','lPhone'].forEach(id=>$('#'+id).disabled=false);mRender()}}},1600)}
+$('#l50').onclick=()=>{if(mBusy)return;$('#l50').disabled=true;const c=MQ[mLvl][3];const wrong=[0,1,2,3].filter(k=>k!==c).sort(()=>Math.random()-.5).slice(0,2);wrong.forEach(k=>$$('[data-ma]')[k].classList.add('gone'));boing();$('#mhelp').textContent='½ Two wrong answers have vanished!'};
+$('#lAud').onclick=()=>{if(mBusy)return;$('#lAud').disabled=true;const c=MQ[mLvl][3];let rest=100-(55+Math.floor(Math.random()*20));const p=[0,1,2,3].map(k=>k===c?0:Math.floor(Math.random()*rest/2));p[c]=100-p.reduce((a,b)=>a+b,0);
+ $('#mhelp').innerHTML='👥 The audience has voted:<div class="aud">'+p.map((v,k)=>`<div data-h="${v}"><span>${v}%</span><b>${'ABCD'[k]}</b></div>`).join('')+'</div>';drum(10);setTimeout(()=>$$('.aud div').forEach(d=>d.style.height=Math.max(2,+d.dataset.h)+'%'),60)};
+$('#lPhone').onclick=()=>{if(mBusy)return;$('#lPhone').disabled=true;const q=MQ[mLvl],f=FRIENDS[Math.floor(Math.random()*FRIENDS.length)],right=Math.random()<.85,k=right?q[3]:[0,1,2,3].filter(x=>x!==q[3])[Math.floor(Math.random()*3)];
+ const line=`Hi! It's ${f}. Hmm, let me think… I'm pretty sure it's ${'ABCD'[k]}, ${q[2][k]}. About ${right?80:55} percent sure. Good luck!`;
+ [440,0,440].forEach((fq,i)=>fq&&tone(fq,i*.4,.3,'sine',.1));setTimeout(()=>say(line,{rate:1}),900);$('#mhelp').innerHTML='📞 Ringing…';setTimeout(()=>$('#mhelp').innerHTML=`📞 <b>${f}:</b> “${line.replace(`Hi! It's ${f}. `,'')}”`,900)};
+mRender();
 
 /* S4 logic: AGV fleet code */
 function calc4(){const v={};$$('[data-v]').forEach(i=>v[i.dataset.v]=i.value===''?null:+i.value);const ok=Object.values(v).every(x=>x!==null&&!isNaN(x));
@@ -628,9 +731,13 @@ function renderG(){$('#gbank').innerHTML=GR.map((g,i)=>place.includes(i)?'':`<bu
 $$('.cty').forEach((el,i)=>el.onclick=()=>{if(gpick!==null){if(place[i]!==null){} place[i]=gpick;gpick=null}else place[i]=null;renderG()});
 renderG();
 
-/* S6 logic */
-$$('.flip').forEach(b=>b.onclick=()=>{const s=b.dataset.set;$$(`.flip[data-set="${s}"]`).forEach(x=>x.classList.toggle('sel',x===b&&!x.classList.contains('sel')));blip()});
-
+/* S6 logic: voiced truths */
+let ttFound=0;
+document.addEventListener('click',e=>{const sp=e.target.closest('.spk');if(sp){e.stopPropagation();say(sp.dataset.say,{rate:1,pitch:1});return}
+ const c=e.target.closest('.tt');if(!c)return;const set=c.closest('.tt-set');if(set.classList.contains('done')||c.classList.contains('real'))return;
+ if(c.dataset.f==='1'){c.classList.add('fake');set.classList.add('done');fanfare();burstAt(c,['🕵️','🎉','❌','⭐'],12);say(FAKE_LINES[ttFound%FAKE_LINES.length]);
+  $$('#ttProg i')[ttFound].textContent='O';$$('#ttProg i')[ttFound].classList.add('on');ttFound++;if(ttFound===5){$('#ttWin').hidden=false;setTimeout(()=>{jingle();party(4);say('Amazing! You caught every single fake!',{pitch:1.2})},1800)}}
+ else{c.classList.add('real');boing();say(TRUE_LINES[Math.floor(Math.random()*TRUE_LINES.length)])}});
 
 /* S7 logic: emoji rebus */
 const norm=v=>v.toUpperCase().replace(/[^A-Z]/g,'');
@@ -666,6 +773,9 @@ renderCities();
 $('#chk9').onclick=()=>{let n=0;$$('#cslots .slot').forEach((el,i)=>{const ok=cslot[i]===i;if(ok)n++;el.classList.add(ok?'ok':'bad')});$('#res9').textContent=n===8?'🎆 Perfect! Happy New Year around the world. Now read the 3rd spot.':`${n} of 8 in the right place. Look at the dates and the sun and moon again!`;n===8?(tone(988,0,.3),party(2)):buzz()};
 
 /* card studio: draw + stickers */
+let cStart=null;const cardClock=()=>{if(!cStart)return '00:00';const s=Math.floor((Date.now()-cStart)/1000);return String(s/60|0).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+try{new IntersectionObserver(es=>{if(es[0].isIntersecting&&!cStart){cStart=Date.now();tone(660,0,.1);tone(880,.1,.15)}}).observe($('#studio'))}catch(e){cStart=Date.now()}
+setInterval(()=>{const c=$('#ctime');if(c)c.textContent=cardClock();if(cStart&&typeof drawCard==='function')drawCard()},1000);
 const TH=[['Night fireworks','#1f0518','#730E4D'],['KION berry','#730E4D','#c2186f'],['Snowy warehouse','#203a5c','#7aa7d8'],['Golden gala','#3b2500','#c9a227']];let th=0;
 $('#themes').innerHTML=TH.map((t,i)=>`<button class="btn2" data-th="${i}" style="background:linear-gradient(135deg,${t[1]},${t[2]});color:#fff">${t[0]}</button>`).join('');
 $$('[data-th]').forEach(b=>b.onclick=()=>{th=+b.dataset.th;drawCard()});
@@ -698,6 +808,7 @@ function drawCard(){const t=TH[th],g=cx.createLinearGradient(0,0,1000,625);g.add
  cx.textAlign='center';cx.textBaseline='alphabetic';cx.fillStyle='#fff';cx.font='900 58px Archivo, sans-serif';cx.fillText($('#cHead').value,500,170);
  cx.font='500 25px Inter, sans-serif';cx.fillStyle='#f6dfee';wrapText($('#cWish').value,500,222,760,34);
  cx.font='900 64px Archivo, sans-serif';cx.fillStyle='#F5B400';cx.fillText(solved.length===9?WORD:WORD.split('').map((ch,i)=>solved.includes(i)?ch:'_').join(' '),500,400);
+ cx.save();cx.font='800 24px Archivo, sans-serif';cx.textAlign='right';cx.fillStyle='rgba(0,0,0,.35)';cx.fillRect(842,18,140,44);cx.fillStyle='#F5B400';cx.fillText('⏱ '+cardClock(),972,50);cx.restore();
  cx.font='700 22px Inter, sans-serif';cx.fillStyle='#fff';cx.fillText('From team '+(team||'?')+' · KION End of Year 2026',500,560);
  cx.lineCap='round';cx.lineJoin='round';for(const st of strokes){cx.strokeStyle=st.c;cx.lineWidth=st.w;cx.beginPath();st.p.forEach(([x,y],i)=>i?cx.lineTo(x,y):cx.moveTo(x,y));cx.stroke()}
  stk.forEach(drawSticker);
@@ -718,6 +829,9 @@ $('#cAnim').onclick=()=>{const cols=['#F5B400','#ff5fb4','#fff','#7fd8ff'];for(l
 stk=[{k:'agv',x:150,y:520,s:1,t:0},{k:'e:🎆',x:880,y:90,s:1.1,t:0},{k:'e:🎁',x:860,y:500,s:.9,t:0}];
 document.fonts&&document.fonts.ready.then(drawCard);drawCard();
 
+let rArm=null;$('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(!rArm){b.classList.add('arm');b.textContent='⚠️ Are you sure? Click again';tone(330,0,.15,'square',.08);say('Are you sure?',{pitch:1,rate:1.05});rArm=setTimeout(()=>{rArm=null;b.classList.remove('arm');b.textContent='↺ Reset game'},4000)}
+ else{try{Object.keys(localStorage).filter(k=>k.startsWith('wwh-')).forEach(k=>localStorage.removeItem(k))}catch(e){}tone(196,0,.4,'sawtooth',.1);history.replaceState(null,'',location.pathname+location.search);setTimeout(()=>location.reload(),250)}};
+$('#ctReset').onclick=()=>{cStart=Date.now();boing();drawCard()};
 route();
 }
 </script>
