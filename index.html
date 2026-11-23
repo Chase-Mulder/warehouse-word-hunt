@@ -314,7 +314,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
     <p class="lead">Our AGV fleet controller has hidden a festive word across nine stations of the warehouse. Every station holds one letter. Crack all nine before the shift ends to light up the sky.</p>
     <div class="start">
       <input id="teamIn" placeholder="Your team name" maxlength="28" aria-label="Team name">
-      <button class="btn" id="startBtn">▶ Start the 20-minute shift</button>
+      <button class="btn" id="startBtn">▶ Start the shift (clock starts!)</button>
       <button class="btn2" id="soundBtn" style="background:rgba(255,255,255,.15);color:#fff">🔊 Sound on</button>
     </div>
   </div>
@@ -336,7 +336,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
   <div class="bin">
     <div class="tiles" id="tiles"></div>
     <div class="team" id="teamOut">Team: ?</div>
-    <div class="timer" id="timer">20:00</div><button class="resetb" id="resetBtn">↺ Reset game</button>
+    <div class="timer" id="timer" title="Time on shift">⏱ 00:00</div><button class="resetb" id="resetBtn">↺ Reset game</button>
   </div>
 </div>
 
@@ -442,9 +442,11 @@ let team=store.get('team','');$('#teamIn').value=team;
 const showTeam=()=>$('#teamOut').textContent='Team: '+(team||'?');showTeam();
 $('#teamIn').oninput=e=>{team=e.target.value.trim();store.set('team',team);showTeam();drawCard()};
 let tEnd=store.get('tEnd',0),startedAt=store.get('start',0);
-function tick(){if(!tEnd)return;const s=Math.max(0,Math.round((tEnd-Date.now())/1000));$('#timer').textContent=s?`${String(s/60|0).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`:'TIME!';}
+const startClock=()=>{if(!startedAt){startedAt=Date.now();tEnd=1;store.set('start',startedAt);store.set('tEnd',1)}};
+function tick(){const fin=store.get('fin',0),s=startedAt?Math.floor(((fin||Date.now())-startedAt)/1000):0,h=s/3600|0;$('#timer').textContent=(fin?'🏁 ':'⏱ ')+(h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+addEventListener('hashchange',()=>{if(/^#station-/.test(location.hash))startClock()});
 setInterval(tick,1000);tick();
-$('#startBtn').onclick=()=>{if(!tEnd){tEnd=Date.now()+20*60000;startedAt=Date.now();store.set('tEnd',tEnd);store.set('start',startedAt)}jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
+$('#startBtn').onclick=()=>{startClock();jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
 
 /* ---------- stations ---------- */
 const S=[
@@ -587,7 +589,7 @@ solved.forEach(i=>markSolved(i,false));
 document.addEventListener('click',e=>{const c=e.target.closest('[data-check]');if(c){const i=+c.dataset.check,v=$('#in'+i).value.trim().toUpperCase();
  if(v===WORD[i])markSolved(i,true);else{buzz();say(['Beep boop. Wrong letter!','Nice try, human!','Fleet control says no!','Access denied! Try again!'][Math.floor(Math.random()*4)],{pitch:.3,rate:1.1});const a=$('#ans'+i);a.classList.remove('shake');void a.offsetWidth;a.classList.add('shake');$('#msg'+i).textContent=v?'❌ Fleet control rejects that letter.':'Type a letter first.'}}
  const h=e.target.closest('[data-hint]');if(h){const i=+h.dataset.hint,el=$('#hint'+i),n=+(el.dataset.n||0);if(n<2){el.innerHTML+=`<div>💡 ${hints[i][n]}</div>`;el.dataset.n=n+1}}});
-function finale(){const m=startedAt?Math.round((Date.now()-startedAt)/60000):null;$('#finTime').textContent=(team?team+': ':'')+(m!==null?`solved in about ${m} minutes`:'solved!');$('#finale').classList.add('show');party(12)}
+function finale(){if(!store.get('fin',0)){store.set('fin',Date.now());tick()}const m=startedAt?Math.round((Date.now()-startedAt)/60000):null;$('#finTime').textContent=(team?team+': ':'')+(m!==null?`solved in about ${m} minutes`:'solved!');$('#finale').classList.add('show');party(12)}
 $('#finBtn').onclick=()=>{$('#finale').classList.remove('show');$('#studio').scrollIntoView({behavior:'smooth'})};
 
 /* music: public-domain melodies, synthesised */
