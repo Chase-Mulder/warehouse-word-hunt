@@ -94,6 +94,22 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .vinyl::after{content:"";position:absolute;inset:36%;border-radius:50%;background:#F5B400;box-shadow:inset 0 0 0 6px #D2232A}
 .ytbox.playing .vinyl{animation:spin 1.8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 .ytbox.revealed .ytcover{display:none}
+.plate{display:inline-block;font:900 15px/1 "Courier New",monospace;letter-spacing:.06em;background:#ffd84d;color:#1a1420;border:3px solid #1a1420;border-radius:6px;padding:6px 8px;box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.plate-key{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--chip);border-radius:14px;padding:12px;font-size:15px}
+.agvs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px;margin-bottom:16px}
+.agvc{margin:0;position:relative;background:#fff;border-radius:16px;overflow:hidden;border:2px solid var(--line);padding-bottom:10px;text-align:center;transition:transform .2s}
+.agvc:hover{transform:translateY(-4px) rotate(-1deg)}
+.agvc img{width:100%;aspect-ratio:16/9;object-fit:contain;display:block;background:linear-gradient(#f4f6fa,#e3e7ee)}
+.agvc .plate{position:relative;margin-top:-18px;transform:rotate(-3deg)}
+.agvc figcaption{font:800 14px Inter;color:#2a0a20;margin-top:6px}
+.console{background:#101820;color:#d7f7ff;border-color:#223}
+.console label{display:flex;justify-content:space-between;align-items:center;gap:10px;font:600 14px Inter;margin:8px 0}
+.console input{width:84px;height:44px;border-radius:10px;border:2px solid #2b6fd6;background:#0b1118;color:#ffd84d;font:900 20px "Courier New",monospace;text-align:center}
+.eq{margin-top:12px;background:#0b1118;border:2px solid #2fa36b;border-radius:12px;padding:12px;font:800 16px "Courier New",monospace;color:#b6ffd1;overflow-wrap:anywhere}
+.abc{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:4px}
+.abc span{display:grid;place-items:center;height:46px;border-radius:8px;background:var(--chip);font:900 17px Archivo;position:relative}
+.abc small{position:absolute;top:2px;left:4px;font:700 9px Inter;opacity:.6}
+.abc span.on{background:#F5B400;color:#2a0a20;transform:scale(1.15);box-shadow:0 0 0 3px #fff6d6}
 .mm{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .mmc{perspective:700px;background:none;padding:0;aspect-ratio:3/3.4;min-height:0;border-radius:14px}
 .mmc .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
@@ -310,7 +326,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
   <div class="wrap" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between">
     <img src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
     <span>KION End of Year Event · 9 December 2026 · Hosts: Anne, Chase, Danny, Matej and Sandra</span>
-    <span>Photos and logos: kiongroup.com. Warehouse illustrations made for this event. Music: station 1 plays official music videos via YouTube; other sounds are synthesised in your browser.</span>
+    <span>Photos and logos: kiongroup.com and linde-mh.com. Warehouse illustrations made for this event. Music: station 1 plays official music videos via YouTube; other sounds are synthesised in your browser.</span>
   </div>
 </footer>
 
@@ -373,7 +389,7 @@ const S=[
  {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five global hits, fifteen questions, one painted letter.'},
  {ic:'🃏',t:'Festive Memory Match',by:'Game by Sandra',d:'Flip the cards: match holiday symbols to their names around the world.'},
  {ic:'🍲',t:'Festive Feasts',by:'Quiz by Danny',d:'Six holiday dishes, six countries, one surviving letter.'},
- {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Turn the dial until a secret message appears.'},
+ {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Decode the AGV fleet\'s ID plates and solve the controller\'s equation.'},
  {ic:'🌍',t:'Greetings Around the World',by:'Puzzle by Matej',d:'Match eight festive greetings to their countries.'},
  {ic:'🎭',t:'Two Truths and a Fake',by:'Puzzle by Matej',d:'Spot the fake tradition in five sets.'},
  {ic:'🧩',t:'Emoji Rebus',by:'Puzzle by Chase',d:'Turn emoji pairs into festive words and collect the gold letters.'},
@@ -388,7 +404,7 @@ const hints=[
  ['Each row of the grid is one horizontal slice of a capital letter.','Rows 2, 4 and 5 should only use column A.'],
  ['Work as a team: one person remembers the left half of the board, another the right.','The word cards are in the local language: Poro is Finnish, Hanabi is Japanese.'],
  ['Six correct answers cross out six letters.','Panettone is Italian; osechi boxes are Japanese.'],
- ['Keep pressing the arrow (or drag the slider) and watch the decoder screen.','At shift 7 the message becomes readable. Then answer its question.'],
+ ['Read the plates left to right: model letter, lift height, parking spot (aisle letter + row number), battery %.','A = 9, B = 8. Count only AGVs strictly above 50% charge for D.'],
  ['Wesołych Świąt is Polish, Veselé Vánoce is Czech.','The wintry word is something you throw in winter.'],
  ['The fakes are all about dates or things that are simply impossible.','Every fake is tagged with the same letter, a round one.'],
  ['Say the emoji names out loud: the third one is a pun (rain + deer).','The gold letters spell a word that means a happy shout.'],
@@ -441,13 +457,18 @@ const PLAIN='WHICH LETTER APPEARS THREE TIMES IN ELEVEN AND TWICE IN WAREHOUSE';
 const ENC=PLAIN.replace(/[A-Z]/g,c=>String.fromCharCode((c.charCodeAt(0)-65+7)%26+65));
 const AB='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const ring=(r,fs,cl)=>[...AB].map((ch,i)=>{const a=(i/26)*2*Math.PI-Math.PI/2;return `<text x="${160+r*Math.cos(a)}" y="${160+r*Math.sin(a)}" font-size="${fs}" text-anchor="middle" dominant-baseline="central" class="${cl}" transform="rotate(${i*360/26} ${160+r*Math.cos(a)} ${160+r*Math.sin(a)})">${ch}</text>`}).join('');
-const b4=`<div class="card"><p style="margin-top:0">Overnight the fleet controller broadcast one scrambled message to every AGV. Every letter was moved the same number of places along the alphabet. Turn the dial until the decoder screen shows a real message, then answer its question.</p>
-<div class="code" style="opacity:.75"><small style="display:block;font:700 12px Inter;letter-spacing:.08em;color:#f3dbe9;margin-bottom:4px">SCRAMBLED SIGNAL</small>${ENC}</div>
-<div class="code dec" id="dec" style="margin-top:10px"><small style="display:block;font:700 12px Inter;letter-spacing:.08em;color:#7fd8ff;margin-bottom:4px">DECODER SCREEN</small><span>${ENC}</span></div></div>
-<div class="grid2"><div class="card" style="text-align:center"><svg class="wheel" viewBox="0 0 320 320"><circle cx="160" cy="160" r="156" fill="#730E4D"/><g fill="#fff" font-family="Archivo" font-weight="800">${ring(136,17,'')}</g><circle cx="160" cy="160" r="114" fill="#F5B400"/><g id="inner" fill="#2a0a20" font-family="Archivo" font-weight="800">${ring(96,16,'')}</g><circle cx="160" cy="160" r="60" fill="#1f0518"/><text x="160" y="152" fill="#fff" text-anchor="middle" font-size="13" font-family="Inter">outer = scrambled</text><text x="160" y="172" fill="#F5B400" text-anchor="middle" font-size="13" font-family="Inter">inner = real</text></svg>
-<div style="display:flex;gap:8px;justify-content:center;align-items:center;margin-top:10px"><button class="btnb" id="wl" aria-label="Turn back">◀</button><span class="wide" id="wshift" style="font-weight:900;min-width:90px">Shift 0</span><button class="btnb" id="wr" aria-label="Turn forward">▶</button></div>
-<input type="range" id="wsl" min="0" max="25" value="0" aria-label="Dial" style="width:100%;margin-top:12px;accent-color:#730E4D"></div>
-<div class="card"><h3 style="font-size:20px">How it works</h3><p class="hint">Each click turns every letter one step. Somewhere between shift 1 and shift 25, the decoder screen turns into plain English. When it does, the screen lights up.</p><p class="hint">Read the question on the decoder screen and work out the answer together. That answer is your letter.</p></div></div>`;
+const LM='https://www.linde-mh.com/media/3D_Product/Teaser/';
+const FLEET=[['L-MATIC','BR133-00_L-Matic_teaser_16x9w320.png','L-06-C04-80'],['R-MATIC','BR1120_R-Matic_V02_teaser_16x9w320.png','R-09-R14-55'],['P-MATIC','BR1190_P-Matic_teaser_16x9w320.png','P-00-D01-40'],['K-MATIC','BR5231_K-Matic_teaser_16x9w320.png','K-12-K08-95'],['C-MATIC','BR8925_C-Matic-10_teaser_16x9w320.png','C-02-B03-25']];
+const b4=`<div class="card"><p style="margin-top:0">🚨 The fleet controller crashed during the night shift and lost its <b>missing code</b>. To restart it, rebuild the code from tonight's AGV fleet. Every Linde MATIC AGV wears an ID plate that follows the fleet naming convention:</p>
+<div class="plate-key"><span class="plate">R-09-R14-55</span><span>➜</span><div><b>R</b> model letter (R = R-MATIC) · <b>09</b> max lift height in metres · <b>R14</b> parking spot (aisle R, row 14) · <b>55</b> battery charge %</div></div></div>
+<div class="agvs">${FLEET.map(([n,img,p])=>`<figure class="agvc"><img src="${LM+img}" alt="Linde ${n} automated truck" loading="lazy"><span class="plate">${p}</span><figcaption>Linde ${n}</figcaption></figure>`).join('')}</div>
+<div class="grid2"><div class="card console"><h3 style="font-size:20px;color:#7fd8ff">🖥️ Fleet controller restart console</h3>
+<label>A · max lift height of the R-MATIC<input type="number" data-v="A" inputmode="numeric"></label>
+<label>B · row number where the K-MATIC is parked<input type="number" data-v="B" inputmode="numeric"></label>
+<label>C · battery % of the P-MATIC, divided by 10<input type="number" data-v="C" inputmode="numeric"></label>
+<label>D · how many AGVs are charged above 50%<input type="number" data-v="D" inputmode="numeric"></label>
+<div class="eq" id="eq">MISSING CODE = (A + B) − (C × D) = ?</div></div>
+<div class="card"><h3 style="font-size:20px">Code ➜ letter</h3><p class="hint">The missing code is a number from 1 to 26. Count along the alphabet (A = 1, B = 2 …) to find your letter.</p><div class="abc" id="abc">${[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map((c,i)=>`<span><small>${i+1}</small>${c}</span>`).join('')}</div></div></div>`;
 
 /* S5 */
 const GR=[["Buon Natale","W"],["Shubh Deepavali (Diwali)","L"],["Frohe Weihnachten","S"],["Wesołych Świąt","A"],["Joyeux Noël","N"],["Vrolijk Kerstfeest","L"],["Feliz Navidad","O"],["Veselé Vánoce","B"]];
@@ -590,10 +611,13 @@ $$('#station-3 .opt').forEach(b=>b.onclick=()=>{const k=b.dataset.k;$$(`#station
  const used=Object.values(pick3);const sp=$$('#strip span');const cnt={};used.forEach(t=>cnt[t]=(cnt[t]||0)+1);sp.forEach(s=>s.classList.remove('x'));
  used.forEach(t=>{const s=sp.find(x=>x.textContent===t&&!x.classList.contains('x'));if(s)s.classList.add('x')})});
 
-/* S4 logic */
-let sh=0;const setW=()=>{$('#inner').style.transform=`rotate(${sh*360/26}deg)`;$('#wshift').textContent='Shift '+sh;$('#wsl').value=sh;
- $('#dec span').textContent=ENC.replace(/[A-Z]/g,c=>AB[(AB.indexOf(c)-sh+26)%26]);const ok=sh===7;$('#dec').classList.toggle('lock',ok);if(ok){tone(988,0,.15);tone(1319,.12,.25)}else blip()};
-$('#wl').onclick=()=>{sh=(sh+25)%26;setW()};$('#wr').onclick=()=>{sh=(sh+1)%26;setW()};$('#wsl').oninput=e=>{sh=+e.target.value;setW()};
+/* S4 logic: AGV fleet code */
+function calc4(){const v={};$$('[data-v]').forEach(i=>v[i.dataset.v]=i.value===''?null:+i.value);const ok=Object.values(v).every(x=>x!==null&&!isNaN(x));
+ $$('#abc span').forEach(s=>s.classList.remove('on'));
+ if(!ok){$('#eq').textContent='MISSING CODE = (A + B) − (C × D) = ?';return}
+ const n=(v.A+v.B)-(v.C*v.D);$('#eq').textContent=`MISSING CODE = (${v.A} + ${v.B}) − (${v.C} × ${v.D}) = ${n}`;
+ if(n>=1&&n<=26){$$('#abc span')[n-1].classList.add('on');blip()}}
+$$('[data-v]').forEach(i=>i.oninput=calc4);
 
 /* S5 logic */
 let gpick=null;const place=Array(8).fill(null);
