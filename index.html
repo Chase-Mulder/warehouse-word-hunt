@@ -46,7 +46,20 @@ a{color:inherit}
 .rack3 .cr text{font:900 46px Archivo,sans-serif}.rack3 .cr.on rect.box{fill:#F5B400}.rack3 .cr.on text{fill:#2a0a20}
 .rack3 .cr rect.box{transition:fill .6s}
 @keyframes glow{50%{opacity:.55}}.rack3 .q{animation:glow 2.4s ease-in-out infinite}
-@media(max-width:1180px){.rack3{display:none}}
+.rack3 .cr{cursor:pointer;transform-box:fill-box;transform-origin:50% 100%}
+.rack3 .cr:hover rect.box{filter:brightness(1.15)}
+.rack3 .cr.shake{animation:wob .5s}
+@keyframes wob{20%{transform:rotate(-8deg)}40%{transform:rotate(7deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(3deg)}}
+.rack3 .lid{transition:transform .45s cubic-bezier(.3,1.6,.5,1);transform-box:fill-box;transform-origin:50% 100%}
+.rack3 .cr.open .lid{transform:translateY(-34px) rotate(-18deg)}
+.surprise{position:fixed;z-index:45;width:min(300px,82vw);background:#fff;color:#2a0a20;border-radius:18px;padding:14px 16px 16px;box-shadow:0 18px 40px rgba(0,0,0,.4);text-align:center;font:600 15px/1.45 Inter,sans-serif;animation:pop .45s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
+.surprise big{display:block;font-size:64px;line-height:1.1;animation:rise 1s ease-out}
+@keyframes rise{from{transform:translateY(40px) scale(.3)}to{transform:none}}
+.surprise:after{content:"";position:absolute;bottom:-10px;left:50%;margin-left:-10px;border:10px solid transparent;border-top-color:#fff;border-bottom:0}
+.hint-gift{position:absolute;right:max(5vw,16px);top:40px;color:#F5B400;font:700 14px Inter;z-index:1}
+button.clip{border:0;cursor:pointer;font:inherit;font-weight:700}
+button.clip.playing{background:#F5B400;color:#2a0a20}
+@media(max-width:1180px){.rack3{position:relative;right:auto;top:auto;display:block;margin:-118px auto 128px;width:min(330px,86%)}.hin{padding-bottom:140px}.hint-gift{display:none}}
 /* board */
 .board{position:sticky;top:0;z-index:20;background:var(--berry);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 .bin{max-width:1240px;margin:0 auto;padding:10px max(5vw,16px);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
@@ -195,7 +208,7 @@ a{color:inherit}
   </div>
   <svg class="rack3" viewBox="0 0 420 460" aria-hidden="true"><rect x="10" y="0" width="14" height="460" fill="#e8781e"/><rect x="396" y="0" width="14" height="460" fill="#e8781e"/>
 <rect x="10" y="134" width="400" height="10" fill="#1e6fbf"/><rect x="10" y="264" width="400" height="10" fill="#1e6fbf"/><rect x="10" y="394" width="400" height="10" fill="#1e6fbf"/>
-<g class="cr" id="cr0"><rect class="box" x="30" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 86h100M80 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="102" text-anchor="middle" fill="#fff">?</text><text x="38" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">1</text></g><g class="cr" id="cr1"><rect class="box" x="150" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 86h100M200 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="102" text-anchor="middle" fill="#fff">?</text><text x="158" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">2</text></g><g class="cr" id="cr2"><rect class="box" x="270" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 86h100M320 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="102" text-anchor="middle" fill="#fff">?</text><text x="278" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">3</text></g><g class="cr" id="cr3"><rect class="box" x="30" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 216h100M80 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="232" text-anchor="middle" fill="#fff">?</text><text x="38" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">4</text></g><g class="cr" id="cr4"><rect class="box" x="150" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 216h100M200 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="232" text-anchor="middle" fill="#fff">?</text><text x="158" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">5</text></g><g class="cr" id="cr5"><rect class="box" x="270" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 216h100M320 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="232" text-anchor="middle" fill="#fff">?</text><text x="278" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">6</text></g><g class="cr" id="cr6"><rect class="box" x="30" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 346h100M80 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="362" text-anchor="middle" fill="#fff">?</text><text x="38" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">7</text></g><g class="cr" id="cr7"><rect class="box" x="150" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 346h100M200 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="362" text-anchor="middle" fill="#fff">?</text><text x="158" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">8</text></g><g class="cr" id="cr8"><rect class="box" x="270" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 346h100M320 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="362" text-anchor="middle" fill="#fff">?</text><text x="278" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">9</text></g><text x="210" y="452" text-anchor="middle" style="font:700 15px Inter" fill="#F5B400">9 crates · 9 letters</text></svg>
+<g class="cr" id="cr0"><rect class="box" x="30" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 86h100M80 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="102" text-anchor="middle" fill="#fff">?</text><text x="38" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">1</text></g><g class="cr" id="cr1"><rect class="box" x="150" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 86h100M200 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="102" text-anchor="middle" fill="#fff">?</text><text x="158" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">2</text></g><g class="cr" id="cr2"><rect class="box" x="270" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 86h100M320 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="102" text-anchor="middle" fill="#fff">?</text><text x="278" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">3</text></g><g class="cr" id="cr3"><rect class="box" x="30" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 216h100M80 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="232" text-anchor="middle" fill="#fff">?</text><text x="38" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">4</text></g><g class="cr" id="cr4"><rect class="box" x="150" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 216h100M200 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="232" text-anchor="middle" fill="#fff">?</text><text x="158" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">5</text></g><g class="cr" id="cr5"><rect class="box" x="270" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 216h100M320 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="232" text-anchor="middle" fill="#fff">?</text><text x="278" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">6</text></g><g class="cr" id="cr6"><rect class="box" x="30" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 346h100M80 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="362" text-anchor="middle" fill="#fff">?</text><text x="38" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">7</text></g><g class="cr" id="cr7"><rect class="box" x="150" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 346h100M200 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="362" text-anchor="middle" fill="#fff">?</text><text x="158" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">8</text></g><g class="cr" id="cr8"><rect class="box" x="270" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 346h100M320 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="362" text-anchor="middle" fill="#fff">?</text><text x="278" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">9</text></g><text x="210" y="452" text-anchor="middle" style="font:700 15px Inter" fill="#F5B400">🎁 Click a present for a surprise!</text></svg>
   <div class="floor"></div>
   <svg class="agv" viewBox="0 0 170 90" aria-hidden="true">
     <rect x="30" y="0" width="80" height="44" rx="4" fill="#D2232A"/><rect x="66" y="0" width="8" height="44" fill="#F5B400"/><rect x="30" y="18" width="80" height="8" fill="#F5B400"/>
@@ -248,7 +261,7 @@ a{color:inherit}
   <div class="wrap" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between">
     <img src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
     <span>KION End of Year Event · 9 December 2026 · Hosts: Anne, Chase, Danny, Matej and Sandra</span>
-    <span>Photos and logos: kiongroup.com. Warehouse illustrations made for this event. Song clips open official videos on YouTube.</span>
+    <span>Photos and logos: kiongroup.com. Warehouse illustrations made for this event. Music: new instrumental arrangements of traditional, public-domain melodies, played in your browser.</span>
   </div>
 </footer>
 
@@ -308,8 +321,8 @@ $('#startBtn').onclick=()=>{if(!tEnd){tEnd=Date.now()+20*60000;startedAt=Date.no
 
 /* ---------- stations ---------- */
 const S=[
- {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five clips, fifteen questions, one painted letter.'},
- {ic:'⏳',t:'Hitster: The Timeline',by:'Game by Sandra',d:'Put five global hits in release order.'},
+ {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five melodies from around the world, fifteen questions, one painted letter.'},
+ {ic:'⏳',t:'Hitster: The Timeline',by:'Game by Sandra',d:'Five festive classics from five centuries: put them in order.'},
  {ic:'🍲',t:'Festive Feasts',by:'Quiz by Danny',d:'Six holiday dishes, six countries, one surviving letter.'},
  {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Spin the cipher wheel to crack a fleet message.'},
  {ic:'🌍',t:'Greetings Around the World',by:'Puzzle by Matej',d:'Match eight festive greetings to their countries.'},
@@ -323,7 +336,7 @@ $$('.st').forEach(b=>b.onclick=()=>{location.hash='station-'+(+b.dataset.i+1)});
 
 const hints=[
  ['Each row of the grid is one horizontal slice of a capital letter.','Rows 2, 4 and 5 should only use column A.'],
- ['Only one song is from the 1990s.','The middle song was released in 1999.'],
+ ['Each fun-fact card contains a date or a century.','The middle song was first performed in Austria.'],
  ['Six correct answers cross out six letters.','Panettone is Italian; osechi boxes are Japanese.'],
  ['The first word is a 5-letter question word.','The wheel shift is 7: an H on the outside ring means A.'],
  ['Wesołych Świąt is Polish, Veselé Vánoce is Czech.','The wintry word is something you throw in winter.'],
@@ -339,17 +352,16 @@ const frame=(i,body)=>`<section class="station" id="station-${i+1}">
  <div class="answer" id="ans${i}"><b>Your letter:</b><input maxlength="1" aria-label="Letter for station ${i+1}" id="in${i}"><button class="btnb" data-check="${i}">Scan letter</button><button class="btn2" data-hint="${i}">💡 Hint</button><span class="msg" id="msg${i}"></span></div>
  <div class="hint" id="hint${i}"></div></section>`;
 
-const CL={1:['dvgZkm1xWPE',6,30],2:['xFrGuyw1V8s',44,64],3:['Zi_XLOBDo_Y',0,30],4:['eH3giaIzONA',30,55],5:['9bZkp7q19f0',111,145],6:['fNFzfwLM72c',10,35],7:['djV11Xbc914',0,30],8:['4fndeDfaWCg',50,75],9:['pRpeEdMmmQ0',45,70],10:['4NRXx6U8ABQ',60,85]};
-const clip=n=>`<a class="clip" target="_blank" rel="noopener" href="https://www.youtube.com/embed/${CL[n][0]}?start=${CL[n][1]}&end=${CL[n][2]}&autoplay=1&rel=0">▶ Clip ${n}</a>`;
-const musicRule=`<p class="hint" style="margin:10px 0 0">🎧 Captain only: open the clip, share <b>sound only</b> in Teams and keep the video hidden (it shows the artist). Everyone else: no peeking!</p>`;
+const clip=n=>`<button class="clip" data-clip="${n}">▶ Clip ${n}</button>`;
+const musicRule=`<p class="hint" style="margin:10px 0 0">🎧 Clips play right here as brand-new instrumental arrangements of traditional melodies from around the world. Captain: press play and share your computer sound in Teams (Share → include computer sound). Press the clip again to stop.</p>`;
 
 /* S1 */
 const Q1=[
- ['Clip 1',[['Released in?',['2005','2008','2011']],['The band comes from?',['United States','Australia','United Kingdom']],['The Latin title means?',['Long live life','Dance forever','Love is beautiful']]]],
- ['Clip 2',[['Released in?',['1976','1972','1980']],['The group comes from?',['Sweden','Germany','Belgium']],['Their breakthrough?',['Winning Eurovision','Winning a Grammy','Singing at the Olympics']]]],
- ['Clip 3',[['Released in?',['1979','1983','1987']],['Which album?',['Bad','Thriller','Dangerous']],['The artist was called?',['The King of Pop','The King of Rock','The King of Soul']]]],
- ['Clip 4',[['Released in?',['1987','1984','1991']],['The singer was born in?',['United States','United Kingdom','Canada']],['She starred in?',['The Bodyguard','Pretty Woman','Dirty Dancing']]]],
- ['Clip 5',[['A worldwide hit in?',['2012','2010','2015']],['The performer comes from?',['South Korea','Japan','China']],['What made it famous?',['A horse-riding dance','A guitar solo','A football chant']]]],
+ ['Clip 1',[['Who composed this melody?',['Mozart','Beethoven','Bach']],['Today it is the official anthem of?',['The United Nations','The Olympic Games','The European Union']],['It is the finale of which symphony?',['His 9th','His 5th','His 3rd']]]],
+ ['Clip 2',[['Which country does this folk song come from?',['Japan','China','South Korea']],['Its title word means?',['Cherry blossom','Snowflake','Paper lantern']],['It is traditionally played on the?',['Koto','Sitar','Bagpipes']]]],
+ ['Clip 3',[['When is this song sung around the world?',['On Christmas morning','At midnight on New Year\'s Eve','At birthday parties']],['Who wrote down its famous words?',['Robert Burns','William Shakespeare','Charles Dickens']],['The title is in which language?',['English','Scots','Irish']]]],
+ ['Clip 4',[['This round is originally in which language?',['French','Italian','Spanish']],['It is famously sung as a?',['Round, with voices starting one after another','Duet for two singers','Silent hand-clap game']],['The song asks Brother John if he is?',['Still sleeping','Hungry','Lost']]]],
+ ['Clip 5',[['This carol comes from?',['England','Ireland','Australia']],['In the song, the singers demand some?',['Figgy pudding','Hot chocolate','Gingerbread']],['It comes from the tradition of?',['Carolers singing door to door','New Year fireworks','Lantern parades']]]],
 ];
 const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(clip).join('')}</div>${musicRule}</div>
 <div class="grid2"><div class="card">${Q1.map(([c,qs],ci)=>`<div class="q"><b>🎵 ${c}</b>${qs.map(([q,o],qi)=>`<div style="margin:6px 0"><div style="font-size:14px;color:var(--soft)">${q}</div><div class="opts">${o.map((x,oi)=>`<button class="opt" data-q="${ci}-${qi}" data-o="${oi}">${'ABC'[oi]} · ${x}</button>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
@@ -357,14 +369,15 @@ const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(clip).join('')}
 <div class="pix" id="pix"><div class="h"></div><div class="h">A</div><div class="h">B</div><div class="h">C</div>${[1,2,3,4,5].map(r=>`<div class="h" style="justify-content:start">Clip ${r}</div>`+[0,1,2].map(c=>`<div id="px${r-1}${c}"></div>`).join('')).join('')}</div></div></div>`;
 
 /* S2 */
-const SONGS=["Waka Waka (This Time for Africa)","Stayin' Alive","Blinding Lights","I Want It That Way","Take On Me"];
-const ORDER=["Stayin' Alive","Take On Me","I Want It That Way","Waka Waka (This Time for Africa)","Blinding Lights"];
+const SONGS=["Jingle Bells","Greensleeves","Carol of the Bells (Shchedryk)","Silent Night","Deck the Halls"];
+const ORDER=["Greensleeves","Deck the Halls","Silent Night","Jingle Bells","Carol of the Bells (Shchedryk)"];
+const FACTS=[["Greensleeves","An English tune so popular that Shakespeare mentions it in a play from the 1590s."],["Deck the Halls","The melody comes from Nos Galan, a Welsh New Year's Eve song first written down in the 1790s."],["Silent Night","First performed on Christmas Eve 1818 in a village church in Oberndorf, Austria."],["Jingle Bells","Published in Boston in 1857 under a different name: One Horse Open Sleigh."],["Carol of the Bells (Shchedryk)","A Ukrainian New Year's song, arranged by Mykola Leontovych and first performed in Kyiv in 1916."]];
 const b2=`<div class="card"><div class="clips">${[6,7,8,9,10].map(clip).join('')}</div>${musicRule}</div>
-<div class="card"><h3 style="font-size:20px">1 · Tap a song, then tap a spot on the timeline</h3><p class="hint">Listen to the clips to work out which song is which, then order them from oldest to newest.</p>
+<div class="card"><h3 style="font-size:20px">1 · Tap a song, then tap a spot on the timeline</h3><p class="hint">Listen to clips 6 to 10 and work out which song is which. Then use the fun-fact cards to order the songs from oldest to newest.</p><div class="grid2" style="margin:10px 0 14px">${SONGS.map(t=>FACTS.find(f=>f[0]===t)).map(([t,f])=>`<div class="card" style="margin:0;padding:12px 14px"><b>🎼 ${t}</b><div class="hint" style="margin:4px 0 0">${f}</div></div>`).join('')}</div>
 <div class="bank" id="bank"></div>
 <div class="slots" id="slots" style="margin-top:14px">${['Oldest','2nd','Middle','4th','Newest'].map((x,i)=>`<button class="slot ${i==2?'mid':''}" data-s="${i}"><em>${x}</em><span></span></button>`).join('')}</div>
 <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center"><button class="btnb" id="chk2">Check my timeline</button><span id="res2" style="font-weight:700"></span></div>
-<p class="hint">When the timeline is right, your letter is the first letter of the song in the <b>Middle</b> box.</p></div>`;
+<p class="hint">When the timeline is right, your letter is the <b>second</b> letter of the song in the <b>Middle</b> box.</p></div>`;
 
 /* S3 */
 const Q3=[['🍞 Panettone, a tall sweet bread full of candied fruit',[['Italy','T'],['Spain','R'],['Portugal','E']]],
@@ -442,6 +455,55 @@ document.addEventListener('click',e=>{const c=e.target.closest('[data-check]');i
  const h=e.target.closest('[data-hint]');if(h){const i=+h.dataset.hint,el=$('#hint'+i),n=+(el.dataset.n||0);if(n<2){el.innerHTML+=`<div>💡 ${hints[i][n]}</div>`;el.dataset.n=n+1}}});
 function finale(){const m=startedAt?Math.round((Date.now()-startedAt)/60000):null;$('#finTime').textContent=(team?team+': ':'')+(m!==null?`solved in about ${m} minutes`:'solved!');$('#finale').classList.add('show');party(12)}
 $('#finBtn').onclick=()=>{$('#finale').classList.remove('show');$('#studio').scrollIntoView({behavior:'smooth'})};
+
+/* music: public-domain melodies, synthesised */
+const MEL={
+1:[112,'flute',"E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2"],
+2:[72,'koto',"A4 A4 B4:2 A4 A4 B4:2 A4 B4 C5 B4 A4 B4:.5 A4:.5 F4:2 E4 C4 E4 F4 E4 E4:.5 C4:.5 B3:2"],
+3:[88,'box',"C4 F4:1.5 E4:.5 F4 A4 G4:1.5 F4:.5 G4 A4 F4:1.5 F4:.5 A4 C5 D5:3 D5 C5:1.5 A4:.5 A4 F4 G4:1.5 F4:.5 G4 A4 F4:1.5 D4:.5 D4 C4 F4:3"],
+4:[126,'bell',"C4 D4 E4 C4 C4 D4 E4 C4 E4 F4 G4:2 E4 F4 G4:2 G4:.5 A4:.5 G4:.5 F4:.5 E4 C4 G4:.5 A4:.5 G4:.5 F4:.5 E4 C4 C4 G3 C4:2 C4 G3 C4:2"],
+5:[150,'celesta',"D4 G4 G4:.5 A4:.5 G4:.5 F#4:.5 E4 E4 E4 A4 A4:.5 B4:.5 A4:.5 G4:.5 F#4 D4 D4 B4 B4:.5 C5:.5 B4:.5 A4:.5 G4 E4 D4:.5 D4:.5 E4 A4 F#4 G4:3"],
+6:[108,'koto',"A4 C5:2 D5 E5:1.5 F5:.5 E5 D5:2 B4 G4:1.5 A4:.5 B4 C5:2 A4 A4:1.5 G#4:.5 A4 B4:2 G#4 E4:2 A4 C5:2 D5 E5:1.5 F5:.5 E5 D5:2 B4 G4:1.5 A4:.5 B4 C5:1.5 B4:.5 A4 G#4:1.5 F#4:.5 G#4 A4:3"],
+7:[132,'bell',"G4:1.5 F4:.5 E4 D4 C4 D4 E4 C4 D4:.5 E4:.5 F4:.5 D4:.5 E4:1.5 D4:.5 C4 B3 C4:2 G4:1.5 F4:.5 E4 D4 C4 D4 E4 C4 D4:.5 E4:.5 F4:.5 D4:.5 E4:1.5 D4:.5 C4 B3 C4:2"],
+8:[66,'box',"G4:1.5 A4:.5 G4 E4:3 G4:1.5 A4:.5 G4 E4:3 D5:2 D5 B4:3 C5:2 C5 G4:3 A4:2 A4 C5:1.5 B4:.5 A4 G4:1.5 A4:.5 G4 E4:3"],
+9:[168,'sleigh',"E4 E4 E4:2 E4 E4 E4:2 E4 G4 C4:1.5 D4:.5 E4:4 F4 F4 F4:1.5 F4:.5 F4 E4 E4 E4:.5 E4:.5 E4 D4 D4 E4 D4:2 G4:2"],
+10:[176,'bell',"Bb4 A4:.5 Bb4:.5 G4 Bb4 A4:.5 Bb4:.5 G4 Bb4 A4:.5 Bb4:.5 G4 Bb4 A4:.5 Bb4:.5 G4 D5 C5:.5 D5:.5 Bb4 D5 C5:.5 D5:.5 Bb4 D5 C5:.5 D5:.5 Bb4 D5 C5:.5 D5:.5 Bb4 G4:3"]};
+const SEMI={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+const hz=n=>{const m=/^([A-G])(#|b)?(\d)$/.exec(n);return 440*2**((SEMI[m[1]]+(m[2]=='#'?1:m[2]=='b'?-1:0)+(+m[3]+1)*12-69)/12)};
+let musicOut=null,musicBtn=null,musicTimer=null;
+function stopMusic(){if(musicOut){try{musicOut.gain.setTargetAtTime(0,ac.currentTime,.05);const o=musicOut;setTimeout(()=>o.disconnect(),400)}catch(e){}}musicOut=null;clearTimeout(musicTimer);if(musicBtn){musicBtn.classList.remove('playing');musicBtn.textContent='▶ Clip '+musicBtn.dataset.clip}musicBtn=null}
+function voice(out,type,f,t,d){const o=ac.createOscillator(),g=ac.createGain(),now=t;
+ const env=(a,dec,peak)=>{g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(peak,now+a);g.gain.exponentialRampToValueAtTime(.0008,now+dec)};
+ if(type==='flute'){o.type='sine';const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=5;lg.gain.value=f*.006;l.connect(lg).connect(o.frequency);l.start(now);l.stop(now+d+.3);g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(.22,now+.06);g.gain.setValueAtTime(.2,now+d*.85);g.gain.linearRampToValueAtTime(0,now+d+.08)}
+ else if(type==='koto'){o.type='triangle';env(.005,d+.9,.3)}
+ else if(type==='box'){o.type='sine';env(.004,1.4,.28);const o2=ac.createOscillator(),g2=ac.createGain();o2.frequency.value=f*4;g2.gain.setValueAtTime(.05,now);g2.gain.exponentialRampToValueAtTime(.0005,now+.3);o2.connect(g2).connect(out);o2.start(now);o2.stop(now+.4)}
+ else if(type==='celesta'){o.type='sine';env(.003,1.1,.26);const o2=ac.createOscillator(),g2=ac.createGain();o2.frequency.value=f*3;g2.gain.setValueAtTime(.06,now);g2.gain.exponentialRampToValueAtTime(.0005,now+.5);o2.connect(g2).connect(out);o2.start(now);o2.stop(now+.6)}
+ else {o.type='sine';env(.003,1.6,.25);const o2=ac.createOscillator(),g2=ac.createGain();o2.frequency.value=f*2.76;g2.gain.setValueAtTime(.08,now);g2.gain.exponentialRampToValueAtTime(.0005,now+.8);o2.connect(g2).connect(out);o2.start(now);o2.stop(now+.9)}
+ o.frequency.value=f;o.connect(g).connect(out);o.start(now);o.stop(now+Math.max(d,1.6)+.4)}
+function jingle1(out,t){const len=.12,b=ac.createBuffer(1,ac.sampleRate*len,ac.sampleRate),dd=b.getChannelData(0);for(let i=0;i<dd.length;i++)dd[i]=(Math.random()*2-1)*(1-i/dd.length);const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=b;f.type='highpass';f.frequency.value=6000;g.gain.value=.12;s.connect(f).connect(g).connect(out);s.start(t)}
+function playClip(n,btn){if(musicBtn===btn){stopMusic();return}stopMusic();try{ac=ac||new AudioContext();ac.resume()}catch(e){return}
+ const [bpm,inst,str]=MEL[n],beat=60/bpm;musicOut=ac.createGain();musicOut.gain.value=.9;musicOut.connect(ac.destination);
+ let t=ac.currentTime+.08;const t0=t;for(const tok of str.split(' ')){const [nn,len]=tok.split(':'),d=(+len||1)*beat;voice(musicOut,inst==='sleigh'?'bell':inst,hz(nn),t,d);if(inst==='sleigh'){jingle1(musicOut,t);if(d>beat*1.2)jingle1(musicOut,t+beat)}t+=d}
+ musicBtn=btn;btn.classList.add('playing');btn.textContent='■ Stop';musicTimer=setTimeout(stopMusic,(t-t0)*1000+1600)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-clip]');if(b)playClip(+b.dataset.clip,b)});
+
+/* presents on the rack */
+const SURPRISES=[['🐧','A penguin waddles out! Emperor penguins huddle together by the thousands to stay warm. Teamwork wins.'],['🦌','A reindeer! Their eyes change colour from gold in summer to deep blue in winter.'],['🍪','Cookies! In the Netherlands, Sinterklaas brings pepernoten on the evening of 5 December.'],['🏮','A red lantern! Lunar New Year celebrations end with the Lantern Festival, 15 days later.'],['🪔','A diya lamp! Diwali comes from Deepavali, meaning a row of lamps.'],['🕸️','A sparkly spider web! In Ukraine, a web ornament on the tree is said to bring good luck.'],['🍇','Twelve grapes! In Spain you eat one for each chime at midnight for twelve lucky months.'],['🤖','A mini AGV rolls out: "Beep boop! Route optimised for maximum holiday cheer."'],['🧦','A stocking! In Italy, La Befana the friendly witch fills stockings on the night of 5 January.'],['⛄','What do snowmen eat for breakfast? Frosted flakes!'],['🎅','Why was the forklift the star of the party? It really knew how to lift the mood.'],['🥟','A dumpling! In northern China, a coin is sometimes hidden in one New Year dumpling for luck.'],['🌍','KION colleagues work in more than 100 countries, and tonight you are all playing together.'],['🎶','A music box! Every tune at stations 1 and 2 is a traditional melody from somewhere in the world.']];
+let sIdx=Math.floor(Math.random()*SURPRISES.length),popEl=null,popT=null;
+const WRAP=['#d61f2c','#1e9e58','#2b6fd6','#8c3cc8','#e8781e','#d61f8a','#13a3b5','#c9a227','#d61f2c'];
+$$('.rack3 .cr').forEach((g,i)=>{const box=g.querySelector('rect.box'),x=+box.getAttribute('x'),y=+box.getAttribute('y');box.setAttribute('fill',WRAP[i]);box.setAttribute('stroke','rgba(0,0,0,.25)');
+ const rib=g.querySelectorAll('rect')[1];rib.setAttribute('fill','#F5B400');rib.setAttribute('opacity','1');g.querySelector('path').setAttribute('stroke','rgba(255,255,255,.25)');
+ const NS='http://www.w3.org/2000/svg',lid=document.createElementNS(NS,'g');lid.setAttribute('class','lid');
+ lid.innerHTML=`<rect x="${x-5}" y="${y-6}" width="110" height="22" rx="5" fill="${WRAP[i]}" stroke="rgba(0,0,0,.25)" stroke-width="3"/><rect x="${x+38}" y="${y-6}" width="24" height="22" fill="#F5B400"/><ellipse cx="${x+38}" cy="${y-14}" rx="16" ry="9" fill="#F5B400" transform="rotate(-25 ${x+38} ${y-14})"/><ellipse cx="${x+62}" cy="${y-14}" rx="16" ry="9" fill="#F5B400" transform="rotate(25 ${x+62} ${y-14})"/><circle cx="${x+50}" cy="${y-10}" r="7" fill="#ffd84d"/>`;
+ g.appendChild(lid);g.addEventListener('click',()=>openPresent(g,i))});
+function openPresent(g,i){g.classList.remove('shake');void g.getBBox();g.classList.add('shake');tone(523,0,.08,'square',.05);tone(659,.08,.08,'square',.05);
+ setTimeout(()=>{g.classList.add('open');const r=g.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top;fx.burst(cx,cy,80);
+  [784,988,1175,1568].forEach((f,k)=>tone(f,k*.07,.25,'triangle',.12));
+  const [emo,txt]=solved.includes(i)?['🌟',`This present holds station ${i+1}'s letter: ${WORD[i]}. Nicely done!`]:SURPRISES[sIdx++%SURPRISES.length];
+  if(popEl)popEl.remove();clearTimeout(popT);popEl=document.createElement('div');popEl.className='surprise';popEl.innerHTML=`<big>${emo}</big>${txt}`;document.body.appendChild(popEl);
+  const w=popEl.offsetWidth,h=popEl.offsetHeight;popEl.style.left=Math.max(8,Math.min(innerWidth-w-8,cx-w/2))+'px';popEl.style.top=Math.max(8,cy-h-26)+'px';
+  popT=setTimeout(()=>{if(popEl){popEl.remove();popEl=null}g.classList.remove('open')},5200)},450)}
+addEventListener('scroll',()=>{if(popEl){popEl.remove();popEl=null}},{passive:true});
 
 /* S1 logic */
 const pick1={};
