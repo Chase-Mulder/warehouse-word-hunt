@@ -87,6 +87,13 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 @keyframes bob{40%{transform:translateY(-8px) rotate(-8deg)}70%{transform:translateY(2px) rotate(5deg)}}
 .st .no{margin-left:72px;margin-top:-16px;display:block}
 .st.done::after{content:"✓ " attr(data-l);top:12px;left:auto;right:12px;height:auto;width:auto;background:var(--gold);opacity:1}
+.ytbox{position:relative;width:min(440px,100%);aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#1f0518;margin-top:12px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.ytbox iframe,#ytp{position:absolute;inset:0;width:100%;height:100%}
+.ytcover{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#9B1466,#1f0518);color:#fff;text-align:center;font:700 15px Inter;z-index:2;padding:12px}
+.vinyl{width:110px;height:110px;border-radius:50%;background:repeating-radial-gradient(#111 0 3px,#2a2a2a 3px 6px);position:relative;margin:0 auto 10px;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.vinyl::after{content:"";position:absolute;inset:36%;border-radius:50%;background:#F5B400;box-shadow:inset 0 0 0 6px #D2232A}
+.ytbox.playing .vinyl{animation:spin 1.8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.ytbox.revealed .ytcover{display:none}
 .mm{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .mmc{perspective:700px;background:none;padding:0;aspect-ratio:3/3.4;min-height:0;border-radius:14px}
 .mmc .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
@@ -303,7 +310,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
   <div class="wrap" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between">
     <img src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
     <span>KION End of Year Event · 9 December 2026 · Hosts: Anne, Chase, Danny, Matej and Sandra</span>
-    <span>Photos and logos: kiongroup.com. Warehouse illustrations made for this event. Music: new instrumental arrangements of traditional, public-domain melodies, played in your browser.</span>
+    <span>Photos and logos: kiongroup.com. Warehouse illustrations made for this event. Music: station 1 plays official music videos via YouTube; other sounds are synthesised in your browser.</span>
   </div>
 </footer>
 
@@ -363,7 +370,7 @@ $('#startBtn').onclick=()=>{if(!tEnd){tEnd=Date.now()+20*60000;startedAt=Date.no
 
 /* ---------- stations ---------- */
 const S=[
- {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five famous melodies, fifteen questions, one painted letter.'},
+ {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five global hits, fifteen questions, one painted letter.'},
  {ic:'🃏',t:'Festive Memory Match',by:'Game by Sandra',d:'Flip the cards: match holiday symbols to their names around the world.'},
  {ic:'🍲',t:'Festive Feasts',by:'Quiz by Danny',d:'Six holiday dishes, six countries, one surviving letter.'},
  {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Turn the dial until a secret message appears.'},
@@ -400,13 +407,13 @@ const musicRule=`<p class="hint" style="margin:10px 0 0">🎧 Clips play right h
 
 /* S1 */
 const Q1=[
- ['Clip 1',[['This song is sung at?',['Weddings','Birthdays','Graduations']],['The melody began in 1893 as a school song called?',['Good Night to You','Good Day, Dear Teacher','Good Morning to All']],['Right after the song, people usually?',['Blow out candles','Throw rice','Ring a bell']]]],
- ['Clip 2',[['It was first published under the title?',['One Horse Open Sleigh','Silver Bells','Winter Wonderland']],['It was written in?',['The United States','England','Canada']],['In 1965 astronauts played it on a harmonica in?',['Space','A submarine','The South Pole']]]],
- ['Clip 3',[['Who composed this piece?',['Mozart','Beethoven','Chopin']],['It was written for which instrument?',['Piano','Violin','Trumpet']],['In Taiwan, this tune is famously played by?',['Ice-cream vans','Garbage trucks','Train stations']]]],
- ['Clip 4',[['What style of music is this?',['Ragtime','Rock and roll','Reggae']],['Who composed it?',['Scott Joplin','Louis Armstrong','Elvis Presley']],['It became famous again in which 1973 film?',['The Sting','Jaws','Star Wars']]]],
- ['Clip 5',[['The same melody is also used for?',['The Alphabet Song','Old MacDonald','The Wheels on the Bus']],['Mozart wrote 12 variations on it, based on a French song called?',['Ah! vous dirai-je, maman','Frère Jacques','La Marseillaise']],['In the lyrics, the star is like a?',['Diamond in the sky','Pearl in the sea','Candle in a window']]]],
+ ['Clip 1',[['Released in?',['2005','2008','2011']],['The band comes from?',['United States','Australia','United Kingdom']],['The Latin song title means?',['Long live life','Dance forever','Love is beautiful']]]],
+ ['Clip 2',[['Released in?',['1976','1972','1980']],['The group comes from?',['Sweden','Germany','Belgium']],['Their international breakthrough?',['Winning Eurovision','Winning a Grammy','Singing at the Olympics']]]],
+ ['Clip 3',[['Released in?',['1979','1983','1987']],['Which famous album is it on?',['Bad','Thriller','Dangerous']],['The artist was famously called?',['The King of Pop','The King of Rock','The King of Soul']]]],
+ ['Clip 4',[['Released in?',['1987','1984','1991']],['The singer was born in?',['United States','United Kingdom','Canada']],['She starred in which film?',['The Bodyguard','Pretty Woman','Dirty Dancing']]]],
+ ['Clip 5',[['Released in?',['1977','1980','1974']],['The band were brothers with the surname?',['Gibb','Jackson','Osmond']],['It became a hit through which film?',['Saturday Night Fever','Grease','Footloose']]]],
 ];
-const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(clip).join('')}</div>${musicRule}</div>
+const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(n=>`<button class="clip" data-yt="${n}">▶ Clip ${n}</button>`).join('')}</div><div class="ytbox" id="ytbox"><div id="ytp"></div><div class="ytcover"><div><div class="vinyl"></div><span id="ytlabel">Press a clip to play a mystery track</span></div></div></div><button class="btn2" id="ytRev" style="margin-top:8px">👀 Reveal the video</button><p class="hint" style="margin:10px 0 0">🎧 Each clip plays the official music video from YouTube, starting at the right moment, with the screen covered so the title stays secret. Captain: press play and share your computer sound in Teams. Only press Reveal after your team has answered!</p></div>
 <div class="grid2"><div class="card">${Q1.map(([c,qs],ci)=>`<div class="q"><b>🎵 ${c}</b>${qs.map(([q,o],qi)=>`<div style="margin:6px 0"><div style="font-size:14px;color:var(--soft)">${q}</div><div class="opts">${o.map((x,oi)=>`<button class="opt" data-q="${ci}-${qi}" data-o="${oi}">${'ABC'[oi]} · ${x}</button>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
 <div class="card"><h3 style="font-size:20px;margin-bottom:6px">Your answers paint the letter</h3><p class="hint" style="margin-top:0">Every answer you pick colours its column (A, B or C) in that clip's row. Five rows, one capital letter.</p>
 <div class="pix" id="pix"><div class="h"></div><div class="h">A</div><div class="h">B</div><div class="h">C</div>${[1,2,3,4,5].map(r=>`<div class="h" style="justify-content:start">Clip ${r}</div>`+[0,1,2].map(c=>`<div id="px${r-1}${c}"></div>`).join('')).join('')}</div></div></div>`;
@@ -546,6 +553,19 @@ function openPresent(g,i){g.classList.remove('shake');void g.getBBox();g.classLi
   const w=popEl.offsetWidth,h=popEl.offsetHeight;popEl.style.left=Math.max(8,Math.min(innerWidth-w-8,cx-w/2))+'px';popEl.style.top=Math.max(8,cy-h-26)+'px';
   popT=setTimeout(()=>{if(popEl){popEl.remove();popEl=null}g.classList.remove('open')},5200)},450)}
 addEventListener('scroll',()=>{if(popEl){popEl.remove();popEl=null}},{passive:true});
+
+/* station 1: official videos, covered */
+const YTC={1:['dvgZkm1xWPE',0,30],2:['xFrGuyw1V8s',44,64],3:['Zi_XLOBDo_Y',0,30],4:['eH3giaIzONA',30,60],5:['fNFzfwLM72c',0,30]};
+let ytP=null,ytCur=null,ytApi=null;
+const ytLoad=()=>ytApi||(ytApi=new Promise(r=>{if(window.YT&&YT.Player)return r();window.onYouTubeIframeAPIReady=r;const sc=document.createElement('script');sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc)}));
+function ytStop(){try{ytP&&ytP.stopVideo()}catch(e){}ytCur=null;$('#ytbox').classList.remove('playing');$$('[data-yt]').forEach(b=>{b.classList.remove('playing');b.textContent='▶ Clip '+b.dataset.yt})}
+async function ytPlay(n,btn){if(ytCur===n){ytStop();return}ytStop();stopMusic();$('#ytlabel').textContent='Loading mystery track '+n+'…';await ytLoad();const [id,st,en]=YTC[n];$('#ytbox').classList.remove('revealed');
+ if(!ytP){ytP=new YT.Player('ytp',{width:'100%',height:'100%',videoId:id,playerVars:{start:st,end:en,autoplay:1,controls:0,disablekb:1,rel:0,playsinline:1,iv_load_policy:3},events:{onReady:e=>{e.target.playVideo()},onStateChange:e=>{if(e.data===0)ytStop()},onError:e=>{$('#ytlabel').textContent='This clip cannot play here (YouTube error '+e.data+'). Ask Sandra to play it in the main room.';ytStop()}}})}
+ else ytP.loadVideoById({videoId:id,startSeconds:st,endSeconds:en});
+ ytCur=n;$('#ytlabel').textContent='🎶 Mystery track '+n+' is playing…';$('#ytbox').classList.add('playing');btn.classList.add('playing');btn.textContent='■ Stop'}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-yt]');if(b)ytPlay(+b.dataset.yt,b)});
+$('#ytRev').onclick=()=>{$('#ytbox').classList.toggle('revealed');$('#ytRev').textContent=$('#ytbox').classList.contains('revealed')?'🙈 Cover the video':'👀 Reveal the video'};
+addEventListener('hashchange',()=>{if(location.hash!=='#station-1'&&ytCur)ytStop()});
 
 /* S1 logic */
 const pick1={};
