@@ -359,7 +359,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
       <div><canvas id="cardCv" width="1000" height="625" aria-label="Your New Year card: draw and place stickers here"></canvas>
       <p class="hint">Pick a sticker and click the card to place it. Drag stickers to move them. Select one and use the size buttons or delete it. Switch to the pen to draw.</p></div>
       <div class="card">
-        <div class="field">⏱️ Card timer<div style="display:flex;gap:10px;align-items:center"><span class="wide" id="ctime" style="font-size:30px;font-weight:900;color:var(--berry2)">00:00</span><button class="btn2" id="ctReset">↺ Restart timer</button></div></div>
+        <div class="field">⏱️ Card timer<div style="display:flex;gap:10px;align-items:center"><span class="wide" id="ctime" style="font-size:30px;font-weight:900;color:var(--berry2)">00:00</span></div></div>
         <div class="field">Tool<div class="tray" id="tools"><button data-tool="pen" class="on" title="Pen">✏️</button><button data-tool="move" title="Move stickers">✋</button><button id="cUndo" title="Undo">↩️</button><button id="cBig" title="Bigger">➕</button><button id="cSmall" title="Smaller">➖</button><button id="cDel" title="Delete selected">🗑️</button><button id="cClear" class="kt" title="Clear all">Clear</button></div></div>
         <div class="field">Pen colour<div class="tray" id="swatches"></div></div>
         <div class="field">KION stickers<div class="tray" id="ktray"></div></div>
@@ -833,7 +833,6 @@ document.fonts&&document.fonts.ready.then(drawCard);drawCard();
 
 let rArm=null;$('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(!rArm){b.classList.add('arm');b.textContent='⚠️ Are you sure? Click again';tone(330,0,.15,'square',.08);say('Are you sure?',{pitch:1,rate:1.05});rArm=setTimeout(()=>{rArm=null;b.classList.remove('arm');b.textContent='↺ Reset game'},4000)}
  else{try{Object.keys(localStorage).filter(k=>k.startsWith('wwh-')).forEach(k=>localStorage.removeItem(k))}catch(e){}tone(196,0,.4,'sawtooth',.1);history.replaceState(null,'',location.pathname+location.search);setTimeout(()=>location.reload(),250)}};
-$('#ctReset').onclick=()=>{cStart=Date.now();boing();drawCard()};
 route();
 }
 </script>
