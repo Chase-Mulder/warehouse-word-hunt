@@ -79,6 +79,43 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 :root[data-theme=dark] .st .no{color:#ff8fcf}
 .st h3{font-size:19px}.st p{margin:0;color:var(--soft);font-size:14px;font-weight:400}
 .st .ic{font-size:30px;line-height:1}
+.st{overflow:hidden;padding-top:74px}
+.st::before{content:"";position:absolute;inset:0 0 auto 0;height:54px;background:var(--g,var(--berry))}
+.st::after{content:"";position:absolute;left:0;right:0;top:54px;height:6px;background:repeating-linear-gradient(90deg,#fff 0 10px,transparent 10px 20px);opacity:.5}
+.st .ic{position:absolute;top:22px;left:16px;width:60px;height:60px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font-size:32px;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.st:hover .ic{animation:bob .6s}
+@keyframes bob{40%{transform:translateY(-8px) rotate(-8deg)}70%{transform:translateY(2px) rotate(5deg)}}
+.st .no{margin-left:72px;margin-top:-16px;display:block}
+.st.done::after{content:"✓ " attr(data-l);top:12px;left:auto;right:12px;height:auto;width:auto;background:var(--gold);opacity:1}
+.mm{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.mmc{perspective:700px;background:none;padding:0;aspect-ratio:3/3.4;min-height:0;border-radius:14px}
+.mmc .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.mmc.up .in{transform:rotateY(180deg)}
+.mmc .f,.mmc .b{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;display:grid;place-items:center;align-content:center;text-align:center;padding:6px}
+.mmc .f{background:linear-gradient(135deg,#730E4D,#c2186f);font-size:clamp(22px,4vw,38px);box-shadow:inset 0 0 0 4px rgba(255,255,255,.25)}
+.mmc .b{background:#fff;color:#2a0a20;transform:rotateY(180deg);border:3px solid #f0d6e5}
+.mmc .b b{font:800 clamp(12px,1.6vw,17px) Inter;line-height:1.2}.mmc .b small{font:600 11px Inter;color:#8a6a7d}
+.mmc .mme{font-size:clamp(30px,5vw,52px)}
+.mmc.ok .b{border-color:#F5B400;background:#fff6d6;animation:pop .4s}
+.mmwin{margin-top:14px;text-align:center;font:800 20px Inter;background:linear-gradient(135deg,#F5B400,#ffd84d);color:#2a0a20;border-radius:14px;padding:14px}
+.mmwin span{font:900 40px Archivo;vertical-align:middle;margin-left:6px}
+.code.dec{transition:background .3s,color .3s}.code.dec.lock{background:#0f5132;color:#b6ffd1;box-shadow:0 0 0 4px #2fa36b,0 0 30px rgba(47,163,107,.6)}
+.rbs{display:grid;gap:12px}
+.rb{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:center;background:var(--chip);border-radius:16px;padding:12px;border:2px solid transparent}
+.rb.ok{border-color:#2fa36b;background:light-dark(#e7f8ee,#123d26)}
+.rbe{font-size:clamp(28px,5vw,44px);text-align:center}
+.rbx{display:flex;flex-wrap:wrap;gap:4px}
+.rbx i{width:26px;height:30px;border-radius:6px;background:var(--panel);border:2px solid var(--line);display:grid;place-items:center;font:900 15px Archivo;font-style:normal}
+.rbx i.g{border-color:#F5B400;background:#fff6d6;color:#2a0a20}.rbx i.sp{width:10px;border:0;background:none}
+.rb input{flex:1;min-width:0;height:44px;border-radius:10px;border:2px solid var(--line);padding:0 12px;font:16px Inter;background:var(--panel);color:var(--ink);text-transform:uppercase}
+@media(max-width:600px){.mm{grid-template-columns:repeat(4,minmax(0,1fr))}.rb{grid-template-columns:1fr}}
+.tray{display:flex;flex-wrap:wrap;gap:6px}
+.tray button{min-height:48px;min-width:48px;padding:0 8px;font-size:26px;background:var(--chip);border:2px solid transparent;border-radius:12px}
+.tray button.on{border-color:var(--berry2);background:light-dark(#fbe3f1,#5a1a48)}
+.tray button.kt{font:800 12px Inter;color:var(--ink)}
+.swatch{width:36px;height:36px;min-height:36px;padding:0;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line)}
+.swatch.on{box-shadow:0 0 0 3px var(--berry2)}
+#cardCv{touch-action:none;cursor:crosshair}
 .st.done{border-color:var(--gold);background:linear-gradient(160deg,var(--panel),light-dark(#fff6d6,#3a2a05))}
 .st.done::after{content:"✓ " attr(data-l);position:absolute;top:12px;right:12px;background:var(--gold);color:#2a0a20;font:900 14px Archivo;padding:4px 9px;border-radius:999px}
 /* station */
@@ -242,12 +279,17 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 <section class="band" id="studio" style="background:light-dark(#f1e2eb,#200619)">
   <div class="wrap">
     <h2 class="sec-h">Activity 2: New Year card studio</h2>
-    <p class="sub">Design your team's card for 2027. Your mystery word and the fireworks appear on it automatically. When it looks right, take a screenshot (Windows: Win + Shift + S, Mac: Cmd + Shift + 4) and share it in the main room during the last 10 minutes.</p>
+    <p class="sub">Design your team's card for 2027: draw on it, decorate it with KION and festive stickers, and write your wish. Your mystery word appears on it automatically. When it looks right, take a screenshot (Windows: Win + Shift + S, Mac: Cmd + Shift + 4) and share it in the main room during the last 10 minutes.</p>
     <div class="studio">
-      <canvas id="cardCv" width="1000" height="625" aria-label="Your New Year card preview"></canvas>
+      <div><canvas id="cardCv" width="1000" height="625" aria-label="Your New Year card: draw and place stickers here"></canvas>
+      <p class="hint">Pick a sticker and click the card to place it. Drag stickers to move them. Select one and use the size buttons or delete it. Switch to the pen to draw.</p></div>
       <div class="card">
+        <div class="field">Tool<div class="tray" id="tools"><button data-tool="pen" class="on" title="Pen">✏️</button><button data-tool="move" title="Move stickers">✋</button><button id="cUndo" title="Undo">↩️</button><button id="cBig" title="Bigger">➕</button><button id="cSmall" title="Smaller">➖</button><button id="cDel" title="Delete selected">🗑️</button><button id="cClear" class="kt" title="Clear all">Clear</button></div></div>
+        <div class="field">Pen colour<div class="tray" id="swatches"></div></div>
+        <div class="field">KION stickers<div class="tray" id="ktray"></div></div>
+        <div class="field">Festive stickers<div class="tray" id="etray"></div></div>
         <label class="field">Headline<input id="cHead" value="Happy New Year 2027!" maxlength="40"></label>
-        <label class="field">Your team's wish for next year<textarea id="cWish" rows="3" maxlength="140">May every pallet arrive on time, every AGV find its way home, and every one of us have a bright year.</textarea></label>
+        <label class="field">Your team's wish for next year<textarea id="cWish" rows="2" maxlength="140">May every pallet arrive on time, every AGV find its way home, and every one of us have a bright year.</textarea></label>
         <div class="field">Background<div class="themes" id="themes"></div></div>
         <button class="btnb" id="cAnim">✨ Launch fireworks on the card</button>
       </div>
@@ -321,27 +363,28 @@ $('#startBtn').onclick=()=>{if(!tEnd){tEnd=Date.now()+20*60000;startedAt=Date.no
 
 /* ---------- stations ---------- */
 const S=[
- {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five melodies from around the world, fifteen questions, one painted letter.'},
- {ic:'⏳',t:'Hitster: The Timeline',by:'Game by Sandra',d:'Five festive classics from five centuries: put them in order.'},
+ {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five famous melodies, fifteen questions, one painted letter.'},
+ {ic:'🃏',t:'Festive Memory Match',by:'Game by Sandra',d:'Flip the cards: match holiday symbols to their names around the world.'},
  {ic:'🍲',t:'Festive Feasts',by:'Quiz by Danny',d:'Six holiday dishes, six countries, one surviving letter.'},
- {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Spin the cipher wheel to crack a fleet message.'},
+ {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Turn the dial until a secret message appears.'},
  {ic:'🌍',t:'Greetings Around the World',by:'Puzzle by Matej',d:'Match eight festive greetings to their countries.'},
  {ic:'🎭',t:'Two Truths and a Fake',by:'Puzzle by Matej',d:'Spot the fake tradition in five sets.'},
- {ic:'🔍',t:"Where's the Runaway AGV?",by:'Puzzle by Chase',d:'A warehouse Where\'s Waldo. Zoom in and hunt.'},
+ {ic:'🧩',t:'Emoji Rebus',by:'Puzzle by Chase',d:'Turn emoji pairs into festive words and collect the gold letters.'},
  {ic:'♟️',t:'Checkmate in One',by:'Puzzle by Chase',d:'Play the one move that wins on the spot.'},
  {ic:'🕛',t:'Midnight Around the World',by:'Puzzle by Chase',d:'Read eight clocks: who rings in the New Year first?'},
 ];
-$('#mapGrid').innerHTML=S.map((s,i)=>`<button class="st" id="m${i}" data-i="${i}"><span class="ic">${s.ic}</span><span class="no">STATION ${i+1}</span><h3>${s.t}</h3><p>${s.d}</p></button>`).join('');
+const GR8=['linear-gradient(135deg,#d61f2c,#ff7a59)','linear-gradient(135deg,#1e9e58,#7ed957)','linear-gradient(135deg,#e8781e,#ffc24b)','linear-gradient(135deg,#2b6fd6,#6ec8ff)','linear-gradient(135deg,#13a3b5,#7fe3d1)','linear-gradient(135deg,#8c3cc8,#e07bff)','linear-gradient(135deg,#d61f8a,#ff8fcf)','linear-gradient(135deg,#3a3a5c,#8a8ab8)','linear-gradient(135deg,#730E4D,#c2186f)'];
+$('#mapGrid').innerHTML=S.map((s,i)=>`<button class="st" id="m${i}" data-i="${i}" style="--g:${GR8[i]}"><span class="ic">${s.ic}</span><span class="no">STATION ${i+1}</span><h3>${s.t}</h3><p>${s.d}</p></button>`).join('');
 $$('.st').forEach(b=>b.onclick=()=>{location.hash='station-'+(+b.dataset.i+1)});
 
 const hints=[
  ['Each row of the grid is one horizontal slice of a capital letter.','Rows 2, 4 and 5 should only use column A.'],
- ['Each fun-fact card contains a date or a century.','The middle song was first performed in Austria.'],
+ ['Work as a team: one person remembers the left half of the board, another the right.','The word cards are in the local language: Poro is Finnish, Hanabi is Japanese.'],
  ['Six correct answers cross out six letters.','Panettone is Italian; osechi boxes are Japanese.'],
- ['The first word is a 5-letter question word.','The wheel shift is 7: an H on the outside ring means A.'],
+ ['Keep pressing the arrow (or drag the slider) and watch the decoder screen.','At shift 7 the message becomes readable. Then answer its question.'],
  ['Wesołych Świąt is Polish, Veselé Vánoce is Czech.','The wintry word is something you throw in winter.'],
  ['The fakes are all about dates or things that are simply impossible.','Every fake is tagged with the same letter, a round one.'],
- ['Search the aisle between the first and second rack rows, left of the centre walkway.','Look in map column 5, row 2.'],
+ ['Say the emoji names out loud: the third one is a pun (rain + deer).','The gold letters spell a word that means a happy shout.'],
  ['Black\'s last move: the pawn jumped from f7 to f5. A pawn on e5 can capture it "in passing".','Move the white pawn from e5 to f6.'],
  ['Each clock shows the local time at the moment Frankfurt hits midnight. The further into 1 January a city already is, the earlier it celebrated.','A tiny Pacific island, Kiritimati, celebrates before everyone else. Your letter is the 3rd city.'],
 ];
@@ -353,15 +396,15 @@ const frame=(i,body)=>`<section class="station" id="station-${i+1}">
  <div class="hint" id="hint${i}"></div></section>`;
 
 const clip=n=>`<button class="clip" data-clip="${n}">▶ Clip ${n}</button>`;
-const musicRule=`<p class="hint" style="margin:10px 0 0">🎧 Clips play right here as brand-new instrumental arrangements of traditional melodies from around the world. Captain: press play and share your computer sound in Teams (Share → include computer sound). Press the clip again to stop.</p>`;
+const musicRule=`<p class="hint" style="margin:10px 0 0">🎧 Clips play right here as brand-new instrumental arrangements of the most famous public-domain melodies in the world. Captain: press play and share your computer sound in Teams (Share → include computer sound). Press the clip again to stop.</p>`;
 
 /* S1 */
 const Q1=[
- ['Clip 1',[['Who composed this melody?',['Mozart','Beethoven','Bach']],['Today it is the official anthem of?',['The United Nations','The Olympic Games','The European Union']],['It is the finale of which symphony?',['His 9th','His 5th','His 3rd']]]],
- ['Clip 2',[['Which country does this folk song come from?',['Japan','China','South Korea']],['Its title word means?',['Cherry blossom','Snowflake','Paper lantern']],['It is traditionally played on the?',['Koto','Sitar','Bagpipes']]]],
- ['Clip 3',[['When is this song sung around the world?',['On Christmas morning','At midnight on New Year\'s Eve','At birthday parties']],['Who wrote down its famous words?',['Robert Burns','William Shakespeare','Charles Dickens']],['The title is in which language?',['English','Scots','Irish']]]],
- ['Clip 4',[['This round is originally in which language?',['French','Italian','Spanish']],['It is famously sung as a?',['Round, with voices starting one after another','Duet for two singers','Silent hand-clap game']],['The song asks Brother John if he is?',['Still sleeping','Hungry','Lost']]]],
- ['Clip 5',[['This carol comes from?',['England','Ireland','Australia']],['In the song, the singers demand some?',['Figgy pudding','Hot chocolate','Gingerbread']],['It comes from the tradition of?',['Carolers singing door to door','New Year fireworks','Lantern parades']]]],
+ ['Clip 1',[['This song is sung at?',['Weddings','Birthdays','Graduations']],['The melody began in 1893 as a school song called?',['Good Night to You','Good Day, Dear Teacher','Good Morning to All']],['Right after the song, people usually?',['Blow out candles','Throw rice','Ring a bell']]]],
+ ['Clip 2',[['It was first published under the title?',['One Horse Open Sleigh','Silver Bells','Winter Wonderland']],['It was written in?',['The United States','England','Canada']],['In 1965 astronauts played it on a harmonica in?',['Space','A submarine','The South Pole']]]],
+ ['Clip 3',[['Who composed this piece?',['Mozart','Beethoven','Chopin']],['It was written for which instrument?',['Piano','Violin','Trumpet']],['In Taiwan, this tune is famously played by?',['Ice-cream vans','Garbage trucks','Train stations']]]],
+ ['Clip 4',[['What style of music is this?',['Ragtime','Rock and roll','Reggae']],['Who composed it?',['Scott Joplin','Louis Armstrong','Elvis Presley']],['It became famous again in which 1973 film?',['The Sting','Jaws','Star Wars']]]],
+ ['Clip 5',[['The same melody is also used for?',['The Alphabet Song','Old MacDonald','The Wheels on the Bus']],['Mozart wrote 12 variations on it, based on a French song called?',['Ah! vous dirai-je, maman','Frère Jacques','La Marseillaise']],['In the lyrics, the star is like a?',['Diamond in the sky','Pearl in the sea','Candle in a window']]]],
 ];
 const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(clip).join('')}</div>${musicRule}</div>
 <div class="grid2"><div class="card">${Q1.map(([c,qs],ci)=>`<div class="q"><b>🎵 ${c}</b>${qs.map(([q,o],qi)=>`<div style="margin:6px 0"><div style="font-size:14px;color:var(--soft)">${q}</div><div class="opts">${o.map((x,oi)=>`<button class="opt" data-q="${ci}-${qi}" data-o="${oi}">${'ABC'[oi]} · ${x}</button>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
@@ -369,15 +412,10 @@ const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(clip).join('')}
 <div class="pix" id="pix"><div class="h"></div><div class="h">A</div><div class="h">B</div><div class="h">C</div>${[1,2,3,4,5].map(r=>`<div class="h" style="justify-content:start">Clip ${r}</div>`+[0,1,2].map(c=>`<div id="px${r-1}${c}"></div>`).join('')).join('')}</div></div></div>`;
 
 /* S2 */
-const SONGS=["Jingle Bells","Greensleeves","Carol of the Bells (Shchedryk)","Silent Night","Deck the Halls"];
-const ORDER=["Greensleeves","Deck the Halls","Silent Night","Jingle Bells","Carol of the Bells (Shchedryk)"];
-const FACTS=[["Greensleeves","An English tune so popular that Shakespeare mentions it in a play from the 1590s."],["Deck the Halls","The melody comes from Nos Galan, a Welsh New Year's Eve song first written down in the 1790s."],["Silent Night","First performed on Christmas Eve 1818 in a village church in Oberndorf, Austria."],["Jingle Bells","Published in Boston in 1857 under a different name: One Horse Open Sleigh."],["Carol of the Bells (Shchedryk)","A Ukrainian New Year's song, arranged by Mykola Leontovych and first performed in Kyiv in 1916."]];
-const b2=`<div class="card"><div class="clips">${[6,7,8,9,10].map(clip).join('')}</div>${musicRule}</div>
-<div class="card"><h3 style="font-size:20px">1 · Tap a song, then tap a spot on the timeline</h3><p class="hint">Listen to clips 6 to 10 and work out which song is which. Then use the fun-fact cards to order the songs from oldest to newest.</p><div class="grid2" style="margin:10px 0 14px">${SONGS.map(t=>FACTS.find(f=>f[0]===t)).map(([t,f])=>`<div class="card" style="margin:0;padding:12px 14px"><b>🎼 ${t}</b><div class="hint" style="margin:4px 0 0">${f}</div></div>`).join('')}</div>
-<div class="bank" id="bank"></div>
-<div class="slots" id="slots" style="margin-top:14px">${['Oldest','2nd','Middle','4th','Newest'].map((x,i)=>`<button class="slot ${i==2?'mid':''}" data-s="${i}"><em>${x}</em><span></span></button>`).join('')}</div>
-<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center"><button class="btnb" id="chk2">Check my timeline</button><span id="res2" style="font-weight:700"></span></div>
-<p class="hint">When the timeline is right, your letter is the <b>second</b> letter of the song in the <b>Middle</b> box.</p></div>`;
+const PAIRS=[['🎄','Tannenbaum','Germany'],['🪔','Diya','India'],['🏮','Dēnglong','China'],['🕎','Menorah','Israel'],['🧧','Lì xì','Vietnam'],['🎅','Père Noël','France'],['🍇','Uvas de la suerte','Spain'],['⛄','Sneeuwpop','Netherlands'],['🦌','Poro','Finland'],['🍪','Pepparkakor','Sweden']];
+const b2=`<div class="card"><p style="margin-top:0">Every card hides a holiday symbol or its name in a local language. Flip two cards at a time and match each symbol to its word. Match all ten pairs to unlock the secret letter!</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:12px"><span class="wide" style="font-weight:900">Pairs: <span id="mmPairs">0</span> / 10</span><span style="font-weight:700;color:var(--soft)">Moves: <span id="mmMoves">0</span></span><button class="btn2" id="mmNew">↺ Shuffle again</button></div>
+<div class="mm" id="mm"></div><div id="mmWin" class="mmwin" hidden>🎉 All pairs found! The secret letter is <span>I</span></div></div>`;
 
 /* S3 */
 const Q3=[['🍞 Panettone, a tall sweet bread full of candied fruit',[['Italy','T'],['Spain','R'],['Portugal','E']]],
@@ -396,10 +434,13 @@ const PLAIN='WHICH LETTER APPEARS THREE TIMES IN ELEVEN AND TWICE IN WAREHOUSE';
 const ENC=PLAIN.replace(/[A-Z]/g,c=>String.fromCharCode((c.charCodeAt(0)-65+7)%26+65));
 const AB='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const ring=(r,fs,cl)=>[...AB].map((ch,i)=>{const a=(i/26)*2*Math.PI-Math.PI/2;return `<text x="${160+r*Math.cos(a)}" y="${160+r*Math.sin(a)}" font-size="${fs}" text-anchor="middle" dominant-baseline="central" class="${cl}" transform="rotate(${i*360/26} ${160+r*Math.cos(a)} ${160+r*Math.sin(a)})">${ch}</text>`}).join('');
-const b4=`<div class="card"><p style="margin-top:0">Overnight the fleet controller broadcast one scrambled message to every AGV. Every letter was shifted the same number of places around the alphabet. Spin the inner wheel until the message makes sense, then answer its question.</p><div class="code">${ENC}</div></div>
-<div class="grid2"><div class="card" style="text-align:center"><svg class="wheel" viewBox="0 0 320 320"><circle cx="160" cy="160" r="156" fill="#730E4D"/><g fill="#fff" font-family="Archivo" font-weight="800">${ring(136,17,'')}</g><circle cx="160" cy="160" r="114" fill="#F5B400"/><g id="inner" fill="#2a0a20" font-family="Archivo" font-weight="800">${ring(96,16,'')}</g><circle cx="160" cy="160" r="60" fill="#1f0518"/><text x="160" y="152" fill="#fff" text-anchor="middle" font-size="13" font-family="Inter">outer = coded</text><text x="160" y="172" fill="#F5B400" text-anchor="middle" font-size="13" font-family="Inter">inner = real</text></svg>
-<div style="display:flex;gap:8px;justify-content:center;margin-top:10px"><button class="btnb" id="wl">⟲</button><span class="wide" id="wshift" style="align-self:center;font-weight:900;min-width:90px">Shift 0</span><button class="btnb" id="wr">⟳</button></div></div>
-<div class="card"><h3 style="font-size:20px">Decode it here</h3><p class="hint">Write the real message as you go. Split the words between teammates!</p><textarea rows="5" style="width:100%;font:16px Inter;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink)" aria-label="Decoded message"></textarea></div></div>`;
+const b4=`<div class="card"><p style="margin-top:0">Overnight the fleet controller broadcast one scrambled message to every AGV. Every letter was moved the same number of places along the alphabet. Turn the dial until the decoder screen shows a real message, then answer its question.</p>
+<div class="code" style="opacity:.75"><small style="display:block;font:700 12px Inter;letter-spacing:.08em;color:#f3dbe9;margin-bottom:4px">SCRAMBLED SIGNAL</small>${ENC}</div>
+<div class="code dec" id="dec" style="margin-top:10px"><small style="display:block;font:700 12px Inter;letter-spacing:.08em;color:#7fd8ff;margin-bottom:4px">DECODER SCREEN</small><span>${ENC}</span></div></div>
+<div class="grid2"><div class="card" style="text-align:center"><svg class="wheel" viewBox="0 0 320 320"><circle cx="160" cy="160" r="156" fill="#730E4D"/><g fill="#fff" font-family="Archivo" font-weight="800">${ring(136,17,'')}</g><circle cx="160" cy="160" r="114" fill="#F5B400"/><g id="inner" fill="#2a0a20" font-family="Archivo" font-weight="800">${ring(96,16,'')}</g><circle cx="160" cy="160" r="60" fill="#1f0518"/><text x="160" y="152" fill="#fff" text-anchor="middle" font-size="13" font-family="Inter">outer = scrambled</text><text x="160" y="172" fill="#F5B400" text-anchor="middle" font-size="13" font-family="Inter">inner = real</text></svg>
+<div style="display:flex;gap:8px;justify-content:center;align-items:center;margin-top:10px"><button class="btnb" id="wl" aria-label="Turn back">◀</button><span class="wide" id="wshift" style="font-weight:900;min-width:90px">Shift 0</span><button class="btnb" id="wr" aria-label="Turn forward">▶</button></div>
+<input type="range" id="wsl" min="0" max="25" value="0" aria-label="Dial" style="width:100%;margin-top:12px;accent-color:#730E4D"></div>
+<div class="card"><h3 style="font-size:20px">How it works</h3><p class="hint">Each click turns every letter one step. Somewhere between shift 1 and shift 25, the decoder screen turns into plain English. When it does, the screen lights up.</p><p class="hint">Read the question on the decoder screen and work out the answer together. That answer is your letter.</p></div></div>`;
 
 /* S5 */
 const GR=[["Buon Natale","W"],["Shubh Deepavali (Diwali)","L"],["Frohe Weihnachten","S"],["Wesołych Świąt","A"],["Joyeux Noël","N"],["Vrolijk Kerstfeest","L"],["Feliz Navidad","O"],["Veselé Vánoce","B"]];
@@ -417,9 +458,10 @@ const SETS=[[["In Japan, a popular Christmas dinner is fried chicken from KFC.",
 const b6=`<div class="card"><p style="margin-top:0">Each set has two true traditions and one fake. Tap the card you think is the fake: it flips to show its tag. If you spot every fake, all five tags match.</p><div class="sets">${SETS.map((s,si)=>`<div><b style="display:block;margin:6px 0">Set ${si+1}</b><div class="set">${s.map(([x,t])=>`<button class="flip" data-set="${si}"><div class="in"><div class="f">${x}</div><div class="b"><span>The fake? Tag</span><big>${t}</big></div></div></button>`).join('')}</div></div>`).join('')}</div></div>`;
 
 /* S7 */
-const b7=`<div class="card"><p style="margin-top:0">One AGV got into the holiday spirit and drove off-route. Fleet control's description: <b>🎅 wearing a Santa hat</b>, <b>🎁 carrying a gift box</b>, <b>⬅️ driving left</b> (yellow headlight on its left end). Dozens of AGVs match one or two clues. Only one matches all three. Scroll or use + to zoom, drag to pan, and click the runaway when you find it.</p>
-<div class="viewer" id="viewer"><div class="vtools"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zre" aria-label="Reset view">⤢</button></div><canvas id="scene" width="3000" height="2000" aria-label="Busy warehouse floor seen from above"></canvas></div>
-<p class="hint" id="miss">Wrong clicks: 0</p><p class="hint">Found it? Your letter is the navy location label in the top-left corner of its map square.</p></div>`;
+const RB=[['🍬 + 🦯','CANDY CANE',0,'A striped sweet on every tree'],['🔥 + 🍫','HOT CHOCOLATE',0,'Warm drink for snowy days'],['🌧️ + 🦌','REINDEER',1,'Say it out loud: it is a pun!'],['🛷 + 🔔','SLEIGH BELLS',2,'They ring while Santa rides'],['🎁 + 📄','WRAPPING PAPER',1,'You tear it off on the big day']];
+const b7=`<div class="card"><p style="margin-top:0">Each emoji pair makes a festive word or phrase. Type your answer and press Check. Correct answers light up, and each one drops a <b style="color:#c9a227">gold letter</b> into the cheer meter.</p>
+<div class="rbs">${RB.map(([e,a,g,h],i)=>`<div class="rb" id="rb${i}"><div class="rbe">${e}</div><div class="rbm"><div class="rbx">${[...a].map((ch,k)=>ch===' '?'<i class="sp"></i>':`<i class="${k===g?'g':''}"></i>`).join('')}</div><div class="hint" style="margin:4px 0 6px">${h}</div><div style="display:flex;gap:6px"><input data-rb="${i}" placeholder="Your answer" aria-label="Answer ${i+1}"><button class="btnb" data-rbc="${i}">Check</button></div></div></div>`).join('')}</div></div>
+<div class="card" style="text-align:center"><h3 style="font-size:20px">Cheer meter</h3><div class="read" id="cheer">${RB.map(()=>'<span class="m"></span>').join('')}</div><p class="hint">When the meter is full, the gold letters spell a happy shout. Your letter is its <b>last</b> letter.</p></div>`;
 
 /* S8 */
 const b8=`<div class="grid2"><div class="card" style="display:grid;place-items:center"><div class="chess" id="chess"></div></div>
@@ -440,7 +482,7 @@ $('#stations').innerHTML=[b1,b2,b3,b4,b5,b6,b7,b8,b9].map((b,i)=>frame(i,b)).joi
 
 /* routing */
 function route(){const m=/^#station-([1-9])$/.exec(location.hash);$$('.station').forEach(s=>s.classList.remove('show'));
- if(m){const s=$('#station-'+m[1]);s.classList.add('show');s.scrollIntoView({behavior:'smooth'});if(m[1]==='7')fitScene()}}
+ if(m){const s=$('#station-'+m[1]);s.classList.add('show');s.scrollIntoView({behavior:'smooth'});}}
 addEventListener('hashchange',route);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-back]');if(b){location.hash='map';$('#map').scrollIntoView({behavior:'smooth'})}});
 
@@ -458,11 +500,11 @@ $('#finBtn').onclick=()=>{$('#finale').classList.remove('show');$('#studio').scr
 
 /* music: public-domain melodies, synthesised */
 const MEL={
-1:[112,'flute',"E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2"],
-2:[72,'koto',"A4 A4 B4:2 A4 A4 B4:2 A4 B4 C5 B4 A4 B4:.5 A4:.5 F4:2 E4 C4 E4 F4 E4 E4:.5 C4:.5 B3:2"],
-3:[88,'box',"C4 F4:1.5 E4:.5 F4 A4 G4:1.5 F4:.5 G4 A4 F4:1.5 F4:.5 A4 C5 D5:3 D5 C5:1.5 A4:.5 A4 F4 G4:1.5 F4:.5 G4 A4 F4:1.5 D4:.5 D4 C4 F4:3"],
-4:[126,'bell',"C4 D4 E4 C4 C4 D4 E4 C4 E4 F4 G4:2 E4 F4 G4:2 G4:.5 A4:.5 G4:.5 F4:.5 E4 C4 G4:.5 A4:.5 G4:.5 F4:.5 E4 C4 C4 G3 C4:2 C4 G3 C4:2"],
-5:[150,'celesta',"D4 G4 G4:.5 A4:.5 G4:.5 F#4:.5 E4 E4 E4 A4 A4:.5 B4:.5 A4:.5 G4:.5 F#4 D4 D4 B4 B4:.5 C5:.5 B4:.5 A4:.5 G4 E4 D4:.5 D4:.5 E4 A4 F#4 G4:3"],
+1:[100,'box',"G4:.75 G4:.25 A4 G4 C5 B4:2 G4:.75 G4:.25 A4 G4 D5 C5:2 G4:.75 G4:.25 G5 E5 C5 B4 A4:2 F5:.75 F5:.25 E5 C5 D5 C5:3"],
+2:[168,'sleigh',"E4 E4 E4:2 E4 E4 E4:2 E4 G4 C4:1.5 D4:.5 E4:4 F4 F4 F4:1.5 F4:.5 F4 E4 E4 E4:.5 E4:.5 E4 D4 D4 E4 D4:2 G4:2"],
+3:[250,'box',"E5 D#5 E5 D#5 E5 B4 D5 C5 A4:2 R C4 E4 A4 B4:2 R E4 G#4 B4 C5:2 R E4 E5 D#5 E5 D#5 E5 B4 D5 C5 A4:2 R C4 E4 A4 B4:2 R E4 C5 B4 A4:4"],
+4:[104,'koto',"D4:.5 D#4:.5 E4:.5 C5 E4:.5 C5 E4:.5 C5:2.5 C5:.5 D5:.5 D#5:.5 E5:.5 C5:.5 D5:.5 E5 B4:.5 D5 C5:3"],
+5:[100,'celesta',"C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2"],
 6:[108,'koto',"A4 C5:2 D5 E5:1.5 F5:.5 E5 D5:2 B4 G4:1.5 A4:.5 B4 C5:2 A4 A4:1.5 G#4:.5 A4 B4:2 G#4 E4:2 A4 C5:2 D5 E5:1.5 F5:.5 E5 D5:2 B4 G4:1.5 A4:.5 B4 C5:1.5 B4:.5 A4 G#4:1.5 F#4:.5 G#4 A4:3"],
 7:[132,'bell',"G4:1.5 F4:.5 E4 D4 C4 D4 E4 C4 D4:.5 E4:.5 F4:.5 D4:.5 E4:1.5 D4:.5 C4 B3 C4:2 G4:1.5 F4:.5 E4 D4 C4 D4 E4 C4 D4:.5 E4:.5 F4:.5 D4:.5 E4:1.5 D4:.5 C4 B3 C4:2"],
 8:[66,'box',"G4:1.5 A4:.5 G4 E4:3 G4:1.5 A4:.5 G4 E4:3 D5:2 D5 B4:3 C5:2 C5 G4:3 A4:2 A4 C5:1.5 B4:.5 A4 G4:1.5 A4:.5 G4 E4:3"],
@@ -483,7 +525,7 @@ function voice(out,type,f,t,d){const o=ac.createOscillator(),g=ac.createGain(),n
 function jingle1(out,t){const len=.12,b=ac.createBuffer(1,ac.sampleRate*len,ac.sampleRate),dd=b.getChannelData(0);for(let i=0;i<dd.length;i++)dd[i]=(Math.random()*2-1)*(1-i/dd.length);const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=b;f.type='highpass';f.frequency.value=6000;g.gain.value=.12;s.connect(f).connect(g).connect(out);s.start(t)}
 function playClip(n,btn){if(musicBtn===btn){stopMusic();return}stopMusic();try{ac=ac||new AudioContext();ac.resume()}catch(e){return}
  const [bpm,inst,str]=MEL[n],beat=60/bpm;musicOut=ac.createGain();musicOut.gain.value=.9;musicOut.connect(ac.destination);
- let t=ac.currentTime+.08;const t0=t;for(const tok of str.split(' ')){const [nn,len]=tok.split(':'),d=(+len||1)*beat;voice(musicOut,inst==='sleigh'?'bell':inst,hz(nn),t,d);if(inst==='sleigh'){jingle1(musicOut,t);if(d>beat*1.2)jingle1(musicOut,t+beat)}t+=d}
+ let t=ac.currentTime+.08;const t0=t;for(const tok of str.split(' ')){const [nn,len]=tok.split(':'),d=(+len||1)*beat;if(nn!=='R')voice(musicOut,inst==='sleigh'?'bell':inst,hz(nn),t,d);if(inst==='sleigh'){jingle1(musicOut,t);if(d>beat*1.2)jingle1(musicOut,t+beat)}t+=d}
  musicBtn=btn;btn.classList.add('playing');btn.textContent='■ Stop';musicTimer=setTimeout(stopMusic,(t-t0)*1000+1600)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-clip]');if(b)playClip(+b.dataset.clip,b)});
 
@@ -510,15 +552,17 @@ const pick1={};
 $$('#station-1 .opt').forEach(b=>b.onclick=()=>{const q=b.dataset.q;$$(`#station-1 .opt[data-q="${q}"]`).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');pick1[q]=+b.dataset.o;blip();
  for(let r=0;r<5;r++){const used=new Set([0,1,2].map(k=>pick1[r+'-'+k]).filter(v=>v!==undefined));for(let c=0;c<3;c++)$('#px'+r+c).classList.toggle('on',used.has(c))}});
 
-/* S2 logic */
-let picked=null;const slotV=Array(5).fill(null);
-function renderBank(){$('#bank').innerHTML=SONGS.filter(s=>!slotV.includes(s)).map(s=>`<button class="song" data-song="${s}">${s}</button>`).join('')||'<span class="hint">All songs placed. Tap a placed song to take it back.</span>';
- $$('#slots .slot').forEach((el,i)=>{el.querySelector('span').innerHTML=slotV[i]?`<span class="song" style="display:block">${slotV[i]}</span>`:'';el.classList.remove('ok','bad')});
- $$('#bank .song').forEach(b=>b.onclick=()=>{picked=b.dataset.song;$$('#bank .song').forEach(x=>x.classList.toggle('pick',x===b));blip()})}
-$$('#slots .slot').forEach((el,i)=>el.onclick=()=>{if(picked){slotV[i]=picked;picked=null}else if(slotV[i])slotV[i]=null;renderBank()});
-renderBank();
-$('#chk2').onclick=()=>{let n=0;$$('#slots .slot').forEach((el,i)=>{const ok=slotV[i]===ORDER[i];if(ok)n++;el.classList.add(slotV[i]?(ok?'ok':'bad'):'bad')});
- $('#res2').textContent=n===5?'🎉 Perfect timeline! Now read the middle box.':`${n} of 5 in the right place. Keep listening!`;n===5?tone(988,0,.3):buzz()};
+/* S2 logic: memory match */
+let mmOpen=[],mmLock=false,mmFound=0,mmMoves=0;
+function mmDeal(){const cards=PAIRS.flatMap(([e,w,c],i)=>[{i,f:`<span class="mme">${e}</span>`},{i,f:`<b>${w}</b><small>${c}</small>`}]).sort(()=>Math.random()-.5);
+ mmOpen=[];mmFound=0;mmMoves=0;$('#mmPairs').textContent=0;$('#mmMoves').textContent=0;$('#mmWin').hidden=true;
+ $('#mm').innerHTML=cards.map(c=>`<button class="mmc" data-p="${c.i}"><div class="in"><div class="f">🎁</div><div class="b">${c.f}</div></div></button>`).join('');
+ $$('.mmc').forEach(b=>b.onclick=()=>{if(mmLock||b.classList.contains('up'))return;b.classList.add('up');blip();mmOpen.push(b);
+  if(mmOpen.length===2){mmMoves++;$('#mmMoves').textContent=mmMoves;const [a,c]=mmOpen;mmOpen=[];
+   if(a.dataset.p===c.dataset.p){a.classList.add('ok');c.classList.add('ok');mmFound++;$('#mmPairs').textContent=mmFound;tone(880,0,.12);tone(1175,.1,.18);
+    if(mmFound===10){$('#mmWin').hidden=false;jingle();party(4)}}
+   else{mmLock=true;setTimeout(()=>{a.classList.remove('up');c.classList.remove('up');mmLock=false},900)}}})}
+$('#mmNew').onclick=mmDeal;mmDeal();
 
 /* S3 logic */
 const pick3={};
@@ -527,8 +571,9 @@ $$('#station-3 .opt').forEach(b=>b.onclick=()=>{const k=b.dataset.k;$$(`#station
  used.forEach(t=>{const s=sp.find(x=>x.textContent===t&&!x.classList.contains('x'));if(s)s.classList.add('x')})});
 
 /* S4 logic */
-let sh=0;const setW=()=>{$('#inner').style.transform=`rotate(${sh*360/26}deg)`;$('#wshift').textContent='Shift '+sh;blip()};
-$('#wl').onclick=()=>{sh=(sh+25)%26;setW()};$('#wr').onclick=()=>{sh=(sh+1)%26;setW()};
+let sh=0;const setW=()=>{$('#inner').style.transform=`rotate(${sh*360/26}deg)`;$('#wshift').textContent='Shift '+sh;$('#wsl').value=sh;
+ $('#dec span').textContent=ENC.replace(/[A-Z]/g,c=>AB[(AB.indexOf(c)-sh+26)%26]);const ok=sh===7;$('#dec').classList.toggle('lock',ok);if(ok){tone(988,0,.15);tone(1319,.12,.25)}else blip()};
+$('#wl').onclick=()=>{sh=(sh+25)%26;setW()};$('#wr').onclick=()=>{sh=(sh+1)%26;setW()};$('#wsl').oninput=e=>{sh=+e.target.value;setW()};
 
 /* S5 logic */
 let gpick=null;const place=Array(8).fill(null);
@@ -543,48 +588,14 @@ renderG();
 $$('.flip').forEach(b=>b.onclick=()=>{const s=b.dataset.set;$$(`.flip[data-set="${s}"]`).forEach(x=>x.classList.toggle('sel',x===b&&!x.classList.contains('sel')));blip()});
 
 
-function drawScene(cv){const d=cv.getContext('2d');let seed=42;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647,ri=(a,b)=>a+Math.floor(rnd()*(b-a+1)),pick=a=>a[Math.floor(rnd()*a.length)];
- const W=3000,H=2000,occ=[];const R=(x,y,w,h,c)=>{d.fillStyle=c;d.fillRect(x,y,w,h)};
- const free=b=>b[0]>=0&&b[2]<=W&&b[1]>=0&&b[3]<=H&&!occ.some(o=>b[0]<o[2]+6&&b[2]>o[0]-6&&b[1]<o[3]+6&&b[3]>o[1]-6);
- R(0,0,W,H,'#c8ccd2');
- for(const ry of [120,560,1000,1440])for(const [x0,x1] of [[140,1350],[1650,2860]]){R(x0,ry,x1-x0,170,'#eb781e');for(let x=x0;x<x1;x+=62){R(x,ry,8,170,'#1e6ebe');for(const yy of [ry+8,ry+90]){R(x+12,yy,44,72,pick(['#b08048','#966939','#c8a064','#3c78b4','#5a9650','#dcdcdc']))}}occ.push([x0,ry,x1,ry+170])}
- for(const y of [380,820,1260,1700])for(let x=0;x<W;x+=90)R(x,y,50,8,'#fac800');
- R(1420,0,160,H,'#b9bec6');for(let y=0;y<H;y+=90)R(1496,y,8,50,'#fac800');
- R(100,1860,2800,70,'#5a5f69');occ.push([100,1860,2900,1930]);for(let x=160;x<2860;x+=140)R(x,1868,60,54,pick(['#b08048','#c8a064']));
- const hat=(x,y,s,dir)=>{d.fillStyle='#dc141e';d.beginPath();d.moveTo(x-s*.6,y);d.lineTo(x+s*.6,y);d.lineTo(x+dir*s*.9,y-s*1.1);d.fill();R(x-s*.7,y-s*.15,s*1.4,s*.33,'#fff');d.beginPath();d.arc(x+dir*s*.9,y-s*1.1,s*.25,0,7);d.fill()};
- const gift=(x,y,s,c)=>{R(x-s/2,y-s/2,s,s,c);R(x-s*.08,y-s/2,s*.16,s,'#fad200');R(x-s/2,y-s*.08,s,s*.16,'#fad200')};
- const agv=(x,y,dir,h,g)=>{d.fillStyle='#e8ecf2';d.strokeStyle='#0a2d5a';d.lineWidth=3;d.beginPath();d.roundRect(x-35,y-22,70,44,10);d.fill();d.stroke();R(x-29,y+10,58,6,'#005eaa');const fx=x+dir*29;d.fillStyle='#fac800';d.beginPath();d.moveTo(fx,y-8);d.lineTo(fx,y+8);d.lineTo(fx+dir*12,y);d.fill();d.fillStyle='#28c85a';d.beginPath();d.arc(x-dir*20,y-9,5,0,7);d.fill();if(g)gift(x,y-6,26,pick(['#1ea050','#8c3cc8','#1e78dc']));if(h)hat(x+dir*14,y-22,18,-dir)};
- const fork=(x,y,dir)=>{R(x-40,y-26,70,52,'#cd1923');R(x-22,y-16,32,32,'#28282d');const fx=dir>0?x+30:x-90;R(fx,y-20,50,8,'#464646');R(fx,y+12,50,8,'#464646')};
- const worker=(x,y)=>{d.fillStyle='#ff7800';d.beginPath();d.ellipse(x,y+6,16,16,0,0,7);d.fill();d.fillStyle='#fad200';d.beginPath();d.arc(x,y-10,10,0,7);d.fill()};
- const place=(fn,bb,n,area)=>{for(let k=0;k<n;k++){for(let t=0;t<4000;t++){const x=area?ri(area[0],area[1]):ri(60,W-60),y=area?ri(area[2],area[3]):ri(60,H-180);const b=bb(x,y);if(free(b)){occ.push(b);fn(x,y);break}}}};
- occ.push([1045,413,1155,498]);agv(1100,468,-1,true,true);
- const ab=(x,y)=>[x-55,y-55,x+55,y+30];
- [[1,1,1,5],[-1,1,0,6],[-1,0,1,6],[1,1,0,4],[1,0,1,4]].forEach(([dr,h,g,n])=>place((x,y)=>agv(x,y,dr,!!h,!!g),ab,n));
- place((x,y)=>agv(x,y,rnd()<.5?-1:1,false,false),ab,40);
- place((x,y)=>fork(x,y,rnd()<.5?-1:1),(x,y)=>[x-95,y-30,x+85,y+30],14);
- place(worker,(x,y)=>[x-18,y-22,x+18,y+24],45);
- place((x,y)=>gift(x,y,30,pick(['#1ea050','#8c3cc8','#1e78dc','#dc1e28'])),(x,y)=>[x-20,y-20,x+20,y+20],25);
- place((x,y)=>hat(x,y,16,1),(x,y)=>[x-20,y-30,x+20,y+10],12);
- place((x,y)=>{R(x-36,y-26,72,52,'#be965f');R(x-36,y-2,72,4,'#6e5028')},(x,y)=>[x-38,y-28,x+38,y+28],30);
- place((x,y)=>{d.fillStyle='#147832';d.beginPath();d.moveTo(x,y-38);d.lineTo(x-24,y+18);d.lineTo(x+24,y+18);d.fill();R(x-5,y+18,10,10,'#643c14');d.fillStyle='#fad200';d.beginPath();d.arc(x,y-40,6,0,7);d.fill()},(x,y)=>[x-26,y-40,x+26,y+30],8);
- seed=9;const L='ABCDEFGHJKLMNOPTUVWXYZ';d.strokeStyle='#283c5a';d.lineWidth=3;
- for(let c=1;c<12;c++){d.beginPath();d.moveTo(c*250,0);d.lineTo(c*250,H);d.stroke()}for(let r=1;r<8;r++){d.beginPath();d.moveTo(0,r*250);d.lineTo(W,r*250);d.stroke()}
- d.font='bold 30px Inter,Arial,sans-serif';d.textAlign='center';d.textBaseline='middle';
- for(let r=0;r<8;r++)for(let c=0;c<12;c++){const l=(r===1&&c===4)?'R':pick([...L]);R(c*250+6,r*250+6,46,40,'#0a2d5a');d.fillStyle='#fff';d.fillText(l,c*250+29,r*250+27)}}
-
-/* S7 logic: pan/zoom */
-const V=$('#viewer'),IM=$('#scene');let z=.3,ox=0,oy=0,drag=null,moved=0,miss=0;const TX=1100,TY=468,IW=3000,IH=2000;drawScene(IM);
-const apply=()=>{const vw=V.clientWidth,vh=V.clientHeight,min=Math.min(vw/IW,vh/IH);z=Math.max(min,Math.min(2.5,z));ox=Math.min(0,Math.max(vw-IW*z,ox));oy=Math.min(0,Math.max(vh-IH*z,oy));if(IW*z<vw)ox=(vw-IW*z)/2;if(IH*z<vh)oy=(vh-IH*z)/2;IM.style.transform=`translate(${ox}px,${oy}px) scale(${z})`;$$('.found').forEach(f=>{f.style.left=ox+TX*z+'px';f.style.top=oy+TY*z+'px'})};
-function fitScene(){requestAnimationFrame(()=>{z=Math.min(V.clientWidth/IW,V.clientHeight/IH);ox=oy=0;apply()})}
-const zoomAt=(f,cx,cy)=>{const nz=Math.max(.05,Math.min(2.5,z*f));ox=cx-(cx-ox)*nz/z;oy=cy-(cy-oy)*nz/z;z=nz;apply()};
-V.addEventListener('wheel',e=>{e.preventDefault();const r=V.getBoundingClientRect();zoomAt(e.deltaY<0?1.2:1/1.2,e.clientX-r.left,e.clientY-r.top)},{passive:false});
-$('#zin').onclick=e=>{e.stopPropagation();zoomAt(1.4,V.clientWidth/2,V.clientHeight/2)};$('#zout').onclick=e=>{e.stopPropagation();zoomAt(1/1.4,V.clientWidth/2,V.clientHeight/2)};$('#zre').onclick=e=>{e.stopPropagation();fitScene()};
-V.addEventListener('pointerdown',e=>{if(e.target.closest('.vtools'))return;drag={x:e.clientX,y:e.clientY,ox,oy};moved=0;V.setPointerCapture(e.pointerId)});
-V.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));ox=drag.ox+dx;oy=drag.oy+dy;apply()});
-V.addEventListener('pointerup',e=>{if(!drag)return;drag=null;if(moved>6)return;const r=V.getBoundingClientRect(),px=(e.clientX-r.left-ox)/z,py=(e.clientY-r.top-oy)/z;
- if(Math.hypot(px-TX,py-TY)<45){if(!$('.found')){const f=document.createElement('div');f.className='found';V.appendChild(f);apply()}jingle();party(3);$('#miss').innerHTML='🎉 <b>Found the runaway AGV!</b> Now read its square\'s location label.'}
- else{miss++;$('#miss').textContent=`Wrong clicks: ${miss}. That AGV is on its normal route.`;const p=document.createElement('div');p.className='ping';p.style.left=e.clientX-r.left+'px';p.style.top=e.clientY-r.top+'px';V.appendChild(p);setTimeout(()=>p.remove(),700);buzz()}});
-addEventListener('resize',()=>{if($('#station-7').classList.contains('show'))apply()});
+/* S7 logic: emoji rebus */
+const norm=v=>v.toUpperCase().replace(/[^A-Z]/g,'');
+function rbCheck(i){const inp=$(`[data-rb="${i}"]`),[,a,g]=RB[i],box=$('#rb'+i);
+ if(norm(inp.value)===norm(a)){box.classList.add('ok');inp.disabled=true;let k=0;$$(`#rb${i} .rbx i`).forEach((el,j)=>{if(!el.classList.contains('sp')){el.textContent=a.replace(/ /g,'')[k];k++}});
+  $$('#cheer span')[i].textContent=a[g];tone(880,0,.12);tone(1175,.1,.2);if($$('#cheer span').every(x=>x.textContent))party(4)}
+ else{buzz();box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake')}}
+$$('[data-rbc]').forEach(b=>b.onclick=()=>rbCheck(+b.dataset.rbc));
+$$('[data-rb]').forEach(inp=>inp.onkeydown=e=>{if(e.key==='Enter')rbCheck(+inp.dataset.rb)});
 
 /* S8 logic: chess */
 const START={a8:'♜',b8:'♞',c8:'♝',f8:'♜',h8:'♝',a7:'♟',h7:'♚',c6:'♟',e6:'♟',h6:'♟',a5:'♛',b5:'♟',f5:'♟',d6:'♘w',e5:'♙w',h5:'♘w',d4:'♙w',g4:'♖w',c3:'♙w',d3:'♕w',f3:'♗w',a2:'♙w',b2:'♙w',f2:'♙w',g2:'♙w',a1:'♖w',e1:'♔w'};
@@ -610,26 +621,57 @@ $$('#cslots .slot').forEach((el,i)=>el.onclick=()=>{if(cpick!==null){cslot[i]=cp
 renderCities();
 $('#chk9').onclick=()=>{let n=0;$$('#cslots .slot').forEach((el,i)=>{const ok=cslot[i]===i;if(ok)n++;el.classList.add(ok?'ok':'bad')});$('#res9').textContent=n===8?'🎆 Perfect! Happy New Year around the world. Now read the 3rd spot.':`${n} of 8 in the right place. Look at the dates and the sun and moon again!`;n===8?(tone(988,0,.3),party(2)):buzz()};
 
-/* card studio */
-const TH=[['Night fireworks','#1f0518','#730E4D'],['KION berry','#730E4D','#c2186f'],['Snowy warehouse','#203a5c','#7aa7d8']];let th=0;
+/* card studio: draw + stickers */
+const TH=[['Night fireworks','#1f0518','#730E4D'],['KION berry','#730E4D','#c2186f'],['Snowy warehouse','#203a5c','#7aa7d8'],['Golden gala','#3b2500','#c9a227']];let th=0;
 $('#themes').innerHTML=TH.map((t,i)=>`<button class="btn2" data-th="${i}" style="background:linear-gradient(135deg,${t[1]},${t[2]});color:#fff">${t[0]}</button>`).join('');
 $$('[data-th]').forEach(b=>b.onclick=()=>{th=+b.dataset.th;drawCard()});
-const cv=$('#cardCv'),cx=cv.getContext('2d');let sparks=[];
+const cv=$('#cardCv'),cx=cv.getContext('2d');let sparks=[],strokes=[],stk=[],sel=-1,tool='pen',pen='#F5B400',pending=null,act=null;
 const logo=new Image();logo.src='https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg';logo.onload=()=>drawCard();
+const KST=[['agv','AGV'],['fork','Forklift'],['pallet','Pallet'],['kion','KION'],['crate','Crate']],EST=['🎆','🎁','⛄','🎄','⭐','🦌','🍪','❄️','🎅','🥂','🎉','🧦','🕯️','🏮','🪔','🌟'];
+$('#ktray').innerHTML=KST.map(([k,n])=>`<button class="kt" data-st="${k}">${n}</button>`).join('');
+$('#etray').innerHTML=EST.map(e=>`<button data-st="e:${e}">${e}</button>`).join('');
+$('#swatches').innerHTML=['#F5B400','#ffffff','#ff5fb4','#7fd8ff','#2fa36b','#D2232A','#1a1420'].map(c=>`<button class="swatch ${c==='#F5B400'?'on':''}" data-c="${c}" style="background:${c}" aria-label="Colour ${c}"></button>`).join('');
+$$('[data-c]').forEach(b=>b.onclick=()=>{pen=b.dataset.c;$$('[data-c]').forEach(x=>x.classList.toggle('on',x===b));setTool('pen')});
+function setTool(t){tool=t;pending=null;$$('[data-tool]').forEach(x=>x.classList.toggle('on',x.dataset.tool===t));$$('[data-st]').forEach(x=>x.classList.remove('on'))}
+$$('[data-tool]').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
+$$('[data-st]').forEach(b=>b.onclick=()=>{pending=b.dataset.st;tool='place';$$('[data-tool]').forEach(x=>x.classList.remove('on'));$$('[data-st]').forEach(x=>x.classList.toggle('on',x===b));blip()});
+$('#cUndo').onclick=()=>{const last=strokes.length&&(!stk.length||strokes[strokes.length-1].t>stk[stk.length-1].t)?'s':'k';if(last==='s')strokes.pop();else stk.pop();sel=-1;drawCard()};
+$('#cBig').onclick=()=>{if(stk[sel]){stk[sel].s=Math.min(3,stk[sel].s*1.2);drawCard()}};$('#cSmall').onclick=()=>{if(stk[sel]){stk[sel].s=Math.max(.3,stk[sel].s/1.2);drawCard()}};
+$('#cDel').onclick=()=>{if(stk[sel]){stk.splice(sel,1);sel=-1;drawCard()}};$('#cClear').onclick=()=>{strokes=[];stk=[];sel=-1;drawCard()};
+const rr=(x,y,w,h,r,f)=>{cx.fillStyle=f;cx.beginPath();cx.roundRect(x,y,w,h,r);cx.fill()};
+function drawSticker(o){cx.save();cx.translate(o.x,o.y);cx.scale(o.s,o.s);
+ if(o.k.startsWith('e:')){cx.font='80px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif';cx.textAlign='center';cx.textBaseline='middle';cx.fillText(o.k.slice(2),0,4)}
+ else if(o.k==='agv'){rr(-60,-18,120,40,12,'#f4f4f6');cx.strokeStyle='#730E4D';cx.lineWidth=5;cx.beginPath();cx.roundRect(-60,-18,120,40,12);cx.stroke();rr(-50,2,100,7,3,'#730E4D');cx.fillStyle='#F5B400';cx.beginPath();cx.arc(50,-6,5,0,7);cx.fill();cx.fillStyle='#222';[-36,36].forEach(w=>{cx.beginPath();cx.arc(w,24,11,0,7);cx.fill()});rr(-34,-56,68,38,4,'#D2232A');rr(-5,-56,10,38,0,'#F5B400');rr(-34,-41,68,8,0,'#F5B400')}
+ else if(o.k==='fork'){rr(-50,-30,70,50,10,'#D2232A');rr(-38,-62,40,34,6,'rgba(30,30,40,.85)');rr(22,-75,10,95,2,'#555');rr(30,8,48,8,2,'#666');rr(30,-8,48,6,2,'#666');cx.fillStyle='#222';[-34,6].forEach(w=>{cx.beginPath();cx.arc(w,24,13,0,7);cx.fill()})}
+ else if(o.k==='pallet'){rr(-60,10,120,10,2,'#9c6b3c');[-55,-5,45].forEach(x=>rr(x,20,12,10,2,'#7a5230'));rr(-50,-40,48,50,4,'#c8a064');rr(2,-40,48,50,4,'#b08048');rr(-26,-80,52,40,4,'#d8b27a')}
+ else if(o.k==='crate'){rr(-45,-45,90,90,8,'#b5835a');cx.strokeStyle='#6b4423';cx.lineWidth=5;cx.strokeRect(-45,-45,90,90);cx.beginPath();cx.moveTo(-45,-45);cx.lineTo(45,45);cx.moveTo(45,-45);cx.lineTo(-45,45);cx.stroke();cx.fillStyle='#fff';cx.font='900 18px Archivo,sans-serif';cx.textAlign='center';cx.fillText('KION',0,6)}
+ else if(o.k==='kion'){if(logo.complete&&logo.naturalWidth){cx.filter='brightness(0) invert(1)';const w=170,h=w*logo.naturalHeight/logo.naturalWidth;cx.drawImage(logo,-w/2,-h/2,w,h)}else{cx.fillStyle='#fff';cx.font='900 48px Archivo,sans-serif';cx.textAlign='center';cx.textBaseline='middle';cx.fillText('KION',0,0)}}
+ cx.restore();if(stk[sel]===o){cx.save();cx.strokeStyle='#F5B400';cx.setLineDash([8,6]);cx.lineWidth=3;cx.strokeRect(o.x-70*o.s,o.y-70*o.s,140*o.s,140*o.s);cx.restore()}}
 function wrapText(t,x,y,mw,lh){const w=t.split(' ');let l='';for(const word of w){const tt=l+word+' ';if(cx.measureText(tt).width>mw&&l){cx.fillText(l,x,y);l=word+' ';y+=lh}else l=tt}cx.fillText(l,x,y)}
 function drawCard(){const t=TH[th],g=cx.createLinearGradient(0,0,1000,625);g.addColorStop(0,t[1]);g.addColorStop(1,t[2]);cx.fillStyle=g;cx.fillRect(0,0,1000,625);
  cx.fillStyle='rgba(255,255,255,.08)';for(let x=40;x<1000;x+=120){cx.fillRect(x,380,10,200)}for(let y=400;y<600;y+=60)cx.fillRect(0,y,1000,8);
  cx.fillStyle='#1a1420';cx.fillRect(0,580,1000,45);cx.fillStyle='#F5B400';for(let x=0;x<1000;x+=80)cx.fillRect(x,598,40,6);
- const bursts=[[150,120,'#F5B400'],[850,110,'#ff5fb4'],[720,60,'#7fd8ff'],[300,60,'#fff']];bursts.forEach(([bx,by,col])=>{cx.strokeStyle=col;cx.lineWidth=4;for(let k=0;k<18;k++){const a=k/18*6.283;cx.beginPath();cx.moveTo(bx+14*Math.cos(a),by+14*Math.sin(a));cx.lineTo(bx+60*Math.cos(a),by+60*Math.sin(a));cx.stroke()}});
- for(const s of sparks){cx.globalAlpha=Math.max(0,s.l/60);cx.fillStyle=s.c;cx.fillRect(s.x,s.y,4,4)}cx.globalAlpha=1;
- if(logo.complete&&logo.naturalWidth){cx.save();cx.filter='brightness(0) invert(1)';cx.drawImage(logo,40,30,150,150*logo.naturalHeight/logo.naturalWidth);cx.restore()}
- cx.fillStyle='#fff';cx.textAlign='center';cx.font='900 58px Archivo, sans-serif';cx.fillText($('#cHead').value,500,240);
- cx.font='500 26px Inter, sans-serif';cx.fillStyle='#f6dfee';wrapText($('#cWish').value,500,295,760,36);
- cx.font='900 64px Archivo, sans-serif';cx.fillStyle='#F5B400';cx.fillText(solved.length===9?WORD:WORD.split('').map((ch,i)=>solved.includes(i)?ch:'_').join(' '),500,470);
- cx.font='700 22px Inter, sans-serif';cx.fillStyle='#fff';cx.fillText('From team '+(team||'?')+' · KION End of Year 2026',500,540)}
+ cx.textAlign='center';cx.textBaseline='alphabetic';cx.fillStyle='#fff';cx.font='900 58px Archivo, sans-serif';cx.fillText($('#cHead').value,500,170);
+ cx.font='500 25px Inter, sans-serif';cx.fillStyle='#f6dfee';wrapText($('#cWish').value,500,222,760,34);
+ cx.font='900 64px Archivo, sans-serif';cx.fillStyle='#F5B400';cx.fillText(solved.length===9?WORD:WORD.split('').map((ch,i)=>solved.includes(i)?ch:'_').join(' '),500,400);
+ cx.font='700 22px Inter, sans-serif';cx.fillStyle='#fff';cx.fillText('From team '+(team||'?')+' · KION End of Year 2026',500,560);
+ cx.lineCap='round';cx.lineJoin='round';for(const st of strokes){cx.strokeStyle=st.c;cx.lineWidth=st.w;cx.beginPath();st.p.forEach(([x,y],i)=>i?cx.lineTo(x,y):cx.moveTo(x,y));cx.stroke()}
+ stk.forEach(drawSticker);
+ for(const s of sparks){cx.globalAlpha=Math.max(0,s.l/60);cx.fillStyle=s.c;cx.fillRect(s.x,s.y,4,4)}cx.globalAlpha=1}
+const cpos=e=>{const r=cv.getBoundingClientRect();return [(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]};
+const hit=(x,y)=>{for(let i=stk.length-1;i>=0;i--){const o=stk[i];if(Math.abs(x-o.x)<70*o.s&&Math.abs(y-o.y)<70*o.s)return i}return -1};
+cv.addEventListener('pointerdown',e=>{const [x,y]=cpos(e);cv.setPointerCapture(e.pointerId);
+ const h=hit(x,y);
+ if(tool==='place'&&pending&&h<0){stk.push({k:pending,x,y,s:1,t:Date.now()});sel=stk.length-1;tone(784,0,.1);tone(1047,.08,.12);drawCard();return}
+ if(h>=0&&tool!=='pen'){sel=h;act={m:'drag',dx:x-stk[h].x,dy:y-stk[h].y};drawCard();return}
+ if(tool==='move'){sel=-1;drawCard();return}
+ sel=-1;strokes.push({c:pen,w:7,p:[[x,y]],t:Date.now()});act={m:'draw'};drawCard()});
+cv.addEventListener('pointermove',e=>{if(!act)return;const [x,y]=cpos(e);if(act.m==='draw'){strokes[strokes.length-1].p.push([x,y])}else if(stk[sel]){stk[sel].x=x-act.dx;stk[sel].y=y-act.dy}drawCard()});
+addEventListener('pointerup',()=>{act=null});
 $('#cHead').oninput=drawCard;$('#cWish').oninput=drawCard;
-$('#cAnim').onclick=()=>{const cols=['#F5B400','#ff5fb4','#fff','#7fd8ff'];for(let b=0;b<5;b++){const bx=100+Math.random()*800,by=60+Math.random()*180,c=cols[b%4];for(let i=0;i<60;i++){const a=Math.random()*6.283,s=Math.random()*5+1;sparks.push({x:bx,y:by,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:60,c})}}
+$('#cAnim').onclick=()=>{const cols=['#F5B400','#ff5fb4','#fff','#7fd8ff'];for(let b=0;b<6;b++){const bx=100+Math.random()*800,by=60+Math.random()*200,c=cols[b%4];for(let i=0;i<70;i++){const a=Math.random()*6.283,s=Math.random()*5+1;sparks.push({x:bx,y:by,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:60,c})}}
  tone(300,0,.4,'sine');const step=()=>{sparks=sparks.filter(s=>s.l>0);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.vy+=.06;s.l--});drawCard();if(sparks.length)requestAnimationFrame(step)};step()};
+stk=[{k:'agv',x:150,y:520,s:1,t:0},{k:'e:🎆',x:880,y:90,s:1.1,t:0},{k:'e:🎁',x:860,y:500,s:.9,t:0}];
 document.fonts&&document.fonts.ready.then(drawCard);drawCard();
 
 route();
