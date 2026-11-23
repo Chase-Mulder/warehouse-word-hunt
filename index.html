@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warehouse Word Hunt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a festive night shift in a KION warehouse: playful, bright, team energy
+   IDEA: a fleet-control console: nine stations on the warehouse floor, a letter board, live robots
+   PICTURE: night warehouse hero with KION racks, fireworks overhead and an AGV hauling a gift
+   COLOUR and TYPE: KION berry #730E4D leads, deep night berry ground, gold accent, Linde red; Archivo wide + Inter
+   LAYOUT: hero, sticky letter board, station map, one station open at a time, card studio */
+:root{color-scheme:light dark;--berry:#730E4D;--berry2:#9B1466;--night:#1f0518;--night2:#2d0a24;--gold:#F5B400;--red:#D2232A;--ice:#fff;
+--bg:light-dark(#f7f0f4,#160412);--panel:light-dark(#ffffff,#260a1f);--ink:light-dark(#2a0a20,#f6e9f1);--soft:light-dark(#6d5565,#c9acbf);--line:light-dark(#ead7e2,#4a1d3e);--chip:light-dark(#f3e6ee,#3a1230)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3,.wide{font-family:Archivo,Inter,sans-serif;font-stretch:125%;line-height:1.05;text-wrap:balance;margin:0}
+button,input{font:inherit}
+button{cursor:pointer;border:0;border-radius:12px;min-height:44px;padding:0 18px;font-weight:700}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{background:var(--gold);color:#2a0a20}.btn2{background:var(--chip);color:var(--ink)}.btnb{background:var(--berry);color:#fff}
+a{color:inherit}
+/* hero */
+.hero{position:relative;min-height:560px;overflow:hidden;color:#fff;background:var(--night);isolation:isolate}
+.hero .photo{position:absolute;inset:0;background:url(https://www.kiongroup.com/KION-Website-Main/About-us/KION-at-a-glance/KION_Warehouse_Omniverse_image_1200x674.jpg) center/cover;filter:saturate(.7) brightness(.4);z-index:-3}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,5,24,.55),rgba(115,14,77,.75) 60%,rgba(31,5,24,.95));z-index:-2}
+#sky{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hin{max-width:1240px;margin:0 auto;padding:28px max(5vw,16px) 150px;position:relative}
+.logo{height:34px;display:block}
+.hero h1{font-size:clamp(40px,7vw,84px);font-weight:900;margin:56px 0 14px;letter-spacing:-.01em}
+.hero h1 span{color:var(--gold)}
+.hero p.lead{font-size:clamp(17px,2vw,20px);max-width:640px;margin:0 0 26px;color:#f3dbe9}
+.start{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.start input{min-height:48px;border-radius:12px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;padding:0 16px;font-size:16px;width:min(320px,100%)}
+.start input::placeholder{color:#e9c9dc}
+.floor{position:absolute;left:0;right:0;bottom:0;height:70px;background:#1a1420;border-top:4px solid #3b2a3a}
+.floor::after{content:"";position:absolute;left:0;right:0;top:30px;height:6px;background:repeating-linear-gradient(90deg,var(--gold) 0 60px,transparent 60px 120px)}
+.agv{position:absolute;bottom:52px;left:-180px;width:170px;animation:drive 14s linear infinite}
+@keyframes drive{to{left:calc(100% + 40px)}}
+.snow{position:absolute;top:-10px;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.8;animation:fall linear infinite;z-index:-1}
+@keyframes fall{to{transform:translateY(620px) translateX(30px)}}
+.rack3{position:absolute;right:max(5vw,16px);top:70px;width:min(400px,34vw);filter:drop-shadow(0 18px 30px rgba(0,0,0,.45))}
+.rack3 .cr text{font:900 46px Archivo,sans-serif}.rack3 .cr.on rect.box{fill:#F5B400}.rack3 .cr.on text{fill:#2a0a20}
+.rack3 .cr rect.box{transition:fill .6s}
+@keyframes glow{50%{opacity:.55}}.rack3 .q{animation:glow 2.4s ease-in-out infinite}
+@media(max-width:900px){.rack3{display:none}}
+/* board */
+.board{position:sticky;top:0;z-index:20;background:var(--berry);color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.bin{max-width:1240px;margin:0 auto;padding:10px max(5vw,16px);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.tiles{display:flex;gap:6px;flex:1 1 380px}
+.tile{flex:1;max-width:58px;aspect-ratio:1/1.15;border-radius:10px;background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.4);display:grid;place-items:center;font:900 clamp(18px,3vw,30px) Archivo,sans-serif;position:relative;transition:transform .5s}
+.tile small{position:absolute;top:2px;left:5px;font:600 10px Inter;opacity:.7}
+.tile.on{background:var(--gold);color:#2a0a20;border:2px solid var(--gold);transform:rotateY(360deg)}
+.timer{font:800 22px Archivo,sans-serif;font-stretch:110%;min-width:84px;text-align:center}
+.team{font-weight:700;opacity:.9}
+/* map */
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}.wrap{max-width:1240px;margin:0 auto}
+.sec-h{font-size:clamp(28px,4vw,40px);margin-bottom:8px}.sub{color:var(--soft);margin:0 0 22px;max-width:70ch}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.st{position:relative;text-align:left;background:var(--panel);color:var(--ink);border:2px solid var(--line);border-radius:18px;padding:16px;min-height:150px;display:flex;flex-direction:column;gap:6px;transition:transform .2s,box-shadow .2s}
+.st:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(115,14,77,.22)}
+.st .no{font:900 13px Inter;color:var(--berry2);letter-spacing:.02em}
+:root[data-theme=dark] .st .no{color:#ff8fcf}
+.st h3{font-size:19px}.st p{margin:0;color:var(--soft);font-size:14px;font-weight:400}
+.st .ic{font-size:30px;line-height:1}
+.st.done{border-color:var(--gold);background:linear-gradient(160deg,var(--panel),light-dark(#fff6d6,#3a2a05))}
+.st.done::after{content:"✓ " attr(data-l);position:absolute;top:12px;right:12px;background:var(--gold);color:#2a0a20;font:900 14px Archivo;padding:4px 9px;border-radius:999px}
+/* station */
+.station{display:none;scroll-margin-top:110px}#stage,#map,#studio{scroll-margin-top:96px}.station.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+.shead{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.badge{background:var(--berry);color:#fff;border-radius:16px;padding:10px 16px;text-align:center;font:900 30px Archivo}
+.badge small{display:block;font:700 11px Inter;opacity:.8}
+.shead h2{font-size:clamp(26px,4vw,40px)}.shead .by{color:var(--soft);font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:clamp(16px,2.5vw,26px);margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.clips{display:flex;flex-wrap:wrap;gap:8px}
+.clip{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;text-decoration:none;border-radius:999px;padding:10px 16px;font-weight:700;min-height:44px}
+.clip:hover{filter:brightness(1.1)}
+.q{padding:12px 0;border-top:1px solid var(--line)}.q:first-child{border-top:0}
+.q b{display:block;margin-bottom:6px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{background:var(--chip);color:var(--ink);font-weight:600;font-size:15px;border:2px solid transparent;text-align:left}
+.opt.sel{border-color:var(--berry2);background:light-dark(#fbe3f1,#5a1a48)}
+.tag{font:800 12px Inter;color:var(--berry2);margin-left:6px}
+:root[data-theme=dark] .tag{color:#ff8fcf}
+.pix{display:grid;grid-template-columns:70px repeat(3,46px);gap:5px;align-items:center}
+.pix div{height:40px;border-radius:7px;background:var(--chip);display:grid;place-items:center;font-weight:800;font-size:13px}
+.pix .h{background:none}.pix .on{background:var(--berry);color:#fff;animation:pop .3s}
+.answer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:light-dark(#fff6d6,#3a2a05);border:2px solid var(--gold);border-radius:16px;padding:14px}
+.answer input{width:64px;height:56px;text-align:center;font:900 28px Archivo;text-transform:uppercase;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink)}
+.answer .msg{font-weight:700}
+.shake{animation:shake .4s}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.hint{color:var(--soft);font-size:15px;margin-top:8px}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.photos img{width:100%;height:120px;object-fit:cover;border-radius:12px;display:block;background:#fff}
+.strip{display:flex;gap:8px;justify-content:center;margin:12px 0}
+.strip span{width:58px;height:66px;display:grid;place-items:center;font:900 32px Archivo;border-radius:12px;background:light-dark(#fff6d6,#3a2a05);border:2px solid var(--gold);transition:.4s}
+.strip span.x{opacity:.25;text-decoration:line-through;transform:scale(.85) rotate(-8deg)}
+/* timeline */
+.bank,.slots{display:flex;flex-wrap:wrap;gap:8px}
+.song{background:var(--berry);color:#fff;font-weight:700;border-radius:12px;padding:10px 14px;min-height:44px}
+.song.pick{outline:3px solid var(--gold)}
+.slots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.slot{min-height:96px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:6px;align-items:stretch;background:var(--chip);color:var(--ink);text-align:center;font-weight:400}
+.slot em{font-style:normal;font-size:12px;color:var(--soft);font-weight:700}
+.slot.mid{border-color:var(--gold)}.slot.ok{border:2px solid #2fa36b}.slot.bad{border:2px solid var(--red)}
+/* cipher */
+.code{font:800 clamp(17px,2.4vw,24px)/1.5 "Courier New",monospace;letter-spacing:.12em;background:var(--night);color:#ffd84d;padding:16px;border-radius:14px;overflow-wrap:anywhere}
+.wheel{width:min(320px,100%);aspect-ratio:1;display:block;margin:0 auto}
+.wheel #inner{transition:transform .35s;transform-origin:160px 160px}
+/* flags */
+.flags{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cty{background:var(--chip);border:2px solid var(--line);border-radius:14px;padding:8px;text-align:left;color:var(--ink);font-weight:700;display:flex;flex-direction:column;gap:6px;min-height:120px}
+.flag{height:46px;border-radius:6px;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.cty .drop{font-size:13px;font-weight:600;color:var(--soft)}
+.cty.has{border-color:var(--berry2)}
+.read{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.read span{width:44px;height:52px;border-radius:10px;display:grid;place-items:center;font:900 24px Archivo;background:var(--chip);border:2px solid var(--line)}
+.read span.m{border-color:var(--gold)}
+/* truths */
+.sets{display:grid;gap:12px}
+.set{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px}
+.flip{perspective:800px;background:none;padding:0;min-height:120px;text-align:left}
+.flip .in{position:relative;height:100%;min-height:120px;transition:transform .5s;transform-style:preserve-3d}
+.flip.sel .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;border-radius:14px;padding:12px;backface-visibility:hidden;display:flex;align-items:center;font-weight:600;font-size:15px}
+.flip .f{background:var(--chip);color:var(--ink);border:2px solid var(--line)}
+.flip .b{background:var(--berry);color:#fff;transform:rotateY(180deg);flex-direction:column;justify-content:center;text-align:center}
+.flip .b big{font:900 42px Archivo}
+/* scene */
+.viewer{position:relative;height:min(70vh,560px);overflow:hidden;border-radius:16px;background:#c8ccd2;cursor:grab;touch-action:none;border:3px solid var(--berry)}
+.viewer img,.viewer canvas{position:absolute;left:0;top:0;transform-origin:0 0;user-select:none;-webkit-user-drag:none;max-width:none}
+.vtools{position:absolute;right:10px;top:10px;display:flex;gap:6px;z-index:2}
+.vtools button{background:var(--berry);color:#fff;width:44px;padding:0;font-size:20px}
+.ping{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:4px solid var(--red);pointer-events:none;animation:ping .7s forwards}
+@keyframes ping{from{transform:scale(.4);opacity:1}to{transform:scale(1.6);opacity:0}}
+.found{position:absolute;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:6px solid var(--gold);box-shadow:0 0 0 6px rgba(245,180,0,.35);pointer-events:none;animation:pop .4s}
+/* chess */
+.chess{display:grid;grid-template-columns:repeat(8,1fr);width:min(440px,100%);aspect-ratio:1;border:4px solid var(--berry);border-radius:8px;overflow:hidden}
+.sq{position:relative;display:grid;place-items:center;font-size:clamp(24px,5.5vw,42px);line-height:1;padding:0;border-radius:0;min-height:0;background:#f0e3ea;color:#111}
+.sq.dk{background:#a35c86}.sq.lb{background:#9fd3f0 !important}.sq.sel{box-shadow:inset 0 0 0 4px var(--gold)}
+.sq .lt{position:absolute;top:2px;right:3px;font:900 11px Inter;background:var(--gold);color:#2a0a20;border-radius:50%;width:17px;height:17px;display:grid;place-items:center}
+.sq .co{position:absolute;bottom:1px;left:3px;font:700 9px Inter;opacity:.6}
+.w{color:#fff;text-shadow:0 0 2px #000,0 0 2px #000,0 0 1px #000}
+/* agv game */
+.game{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;align-items:start}
+.gg{display:grid;grid-template-columns:repeat(8,1fr);width:min(420px,100%);aspect-ratio:1;gap:3px;background:var(--line);padding:3px;border-radius:12px;position:relative}
+.gc{background:light-dark(#eef0f4,#2b2430);border-radius:5px;display:grid;place-items:center;font-size:20px;position:relative}
+.gc.rack{background:repeating-linear-gradient(90deg,#e8781e 0 6px,#b0804a 6px 18px)}
+.gc.trail{background:light-dark(#fde7f3,#4d1a40)}
+.bot{position:absolute;width:12.5%;height:12.5%;display:grid;place-items:center;transition:left .35s,top .35s,transform .35s;font-size:22px;pointer-events:none}
+.bot div{width:78%;height:78%;border-radius:8px;background:#fff;border:3px solid var(--berry);display:grid;place-items:center;position:relative}
+.bot div::after{content:"";position:absolute;top:-9px;left:50%;margin-left:-7px;border:7px solid transparent;border-bottom:9px solid var(--gold);border-top:0}
+.pal{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.prog{display:flex;flex-wrap:wrap;gap:6px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px}
+.blk{background:var(--berry);color:#fff;font:800 14px Inter;border-radius:10px;padding:0 12px}
+.blk.t{background:#0b6fb8}.blk.u{background:#6b3fa0}.blk.run{outline:3px solid var(--gold)}
+.blk.fw{background:#2b8a57}
+.meter{font-weight:700;margin:8px 0}
+/* finale */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
+.finale{position:fixed;inset:0;z-index:40;background:rgba(31,5,24,.92);display:none;place-items:center;text-align:center;color:#fff;padding:20px}
+.finale.show{display:grid}
+.finale h2{font-size:clamp(46px,10vw,120px);color:var(--gold);letter-spacing:.04em}
+/* card studio */
+.studio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;align-items:start}
+.studio canvas{width:100%;border-radius:16px;display:block;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;font-weight:700}
+.field input,.field textarea{font:16px Inter;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink)}
+.themes{display:flex;gap:8px;flex-wrap:wrap}
+.foot{background:var(--night);color:#d9bfd0;font-size:14px}
+.foot img{height:24px}
+@media(max-width:600px){.slots{grid-template-columns:1fr 1fr}.hin{padding-bottom:130px}.tile small{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="photo"></div>
+  <canvas id="sky"></canvas>
+  <div class="hin">
+    <img class="logo" src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
+    <h1>Warehouse<br><span>Word Hunt</span></h1>
+    <p class="lead">Our AGV fleet controller has hidden a festive word across nine stations of the warehouse. Every station holds one letter. Crack all nine before the shift ends to light up the sky.</p>
+    <div class="start">
+      <input id="teamIn" placeholder="Your team name" maxlength="28" aria-label="Team name">
+      <button class="btn" id="startBtn">▶ Start the 20-minute shift</button>
+      <button class="btn2" id="soundBtn" style="background:rgba(255,255,255,.15);color:#fff">🔊 Sound on</button>
+    </div>
+  </div>
+  <svg class="rack3" viewBox="0 0 420 460" aria-hidden="true"><rect x="10" y="0" width="14" height="460" fill="#e8781e"/><rect x="396" y="0" width="14" height="460" fill="#e8781e"/>
+<rect x="10" y="134" width="400" height="10" fill="#1e6fbf"/><rect x="10" y="264" width="400" height="10" fill="#1e6fbf"/><rect x="10" y="394" width="400" height="10" fill="#1e6fbf"/>
+<g class="cr" id="cr0"><rect class="box" x="30" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 86h100M80 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="102" text-anchor="middle" fill="#fff">?</text><text x="38" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">1</text></g><g class="cr" id="cr1"><rect class="box" x="150" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 86h100M200 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="102" text-anchor="middle" fill="#fff">?</text><text x="158" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">2</text></g><g class="cr" id="cr2"><rect class="box" x="270" y="40" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 86h100M320 40v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="42" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="102" text-anchor="middle" fill="#fff">?</text><text x="278" y="58" font-size="14" style="font:700 13px Inter" fill="#fff">3</text></g><g class="cr" id="cr3"><rect class="box" x="30" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 216h100M80 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="232" text-anchor="middle" fill="#fff">?</text><text x="38" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">4</text></g><g class="cr" id="cr4"><rect class="box" x="150" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 216h100M200 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="232" text-anchor="middle" fill="#fff">?</text><text x="158" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">5</text></g><g class="cr" id="cr5"><rect class="box" x="270" y="170" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 216h100M320 170v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="172" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="232" text-anchor="middle" fill="#fff">?</text><text x="278" y="188" font-size="14" style="font:700 13px Inter" fill="#fff">6</text></g><g class="cr" id="cr6"><rect class="box" x="30" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M30 346h100M80 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="68" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="80" y="362" text-anchor="middle" fill="#fff">?</text><text x="38" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">7</text></g><g class="cr" id="cr7"><rect class="box" x="150" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M150 346h100M200 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="188" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="200" y="362" text-anchor="middle" fill="#fff">?</text><text x="158" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">8</text></g><g class="cr" id="cr8"><rect class="box" x="270" y="300" width="100" height="92" rx="6" fill="#b5835a" stroke="#6b4423" stroke-width="4"/><path d="M270 346h100M320 300v92" stroke="#6b4423" stroke-width="3" opacity=".5"/><rect x="308" y="302" width="24" height="88" fill="#d61f2c" opacity=".85"/><text class="q" x="320" y="362" text-anchor="middle" fill="#fff">?</text><text x="278" y="318" font-size="14" style="font:700 13px Inter" fill="#fff">9</text></g><text x="210" y="452" text-anchor="middle" style="font:700 15px Inter" fill="#F5B400">9 crates · 9 letters</text></svg>
+  <div class="floor"></div>
+  <svg class="agv" viewBox="0 0 170 90" aria-hidden="true">
+    <rect x="30" y="0" width="80" height="44" rx="4" fill="#D2232A"/><rect x="66" y="0" width="8" height="44" fill="#F5B400"/><rect x="30" y="18" width="80" height="8" fill="#F5B400"/>
+    <path d="M70 0c-10-14-26-6-14 0M70 0c10-14 26-6 14 0" stroke="#F5B400" stroke-width="5" fill="none"/>
+    <rect x="10" y="44" width="150" height="30" rx="8" fill="#f4f4f6" stroke="#730E4D" stroke-width="4"/>
+    <rect x="20" y="58" width="130" height="6" fill="#730E4D"/><circle cx="152" cy="52" r="4" fill="#F5B400"/>
+    <circle cx="38" cy="80" r="9" fill="#222"/><circle cx="132" cy="80" r="9" fill="#222"/>
+    <path d="M118 28 l22 0 l-6 -16 z" fill="#d61f2c"/><circle cx="134" cy="10" r="4" fill="#fff"/><rect x="116" y="26" width="26" height="6" rx="3" fill="#fff"/>
+  </svg>
+</header>
+
+<div class="board" id="board">
+  <div class="bin">
+    <div class="tiles" id="tiles"></div>
+    <div class="team" id="teamOut">Team: ?</div>
+    <div class="timer" id="timer">20:00</div>
+  </div>
+</div>
+
+<main>
+<section class="band" id="map">
+  <div class="wrap">
+    <h2 class="sec-h">Station map</h2>
+    <p class="sub">Solve the stations in any order and split your team up. Enter each letter at the bottom of its station: a correct letter lights up the board. Stuck? Press Hint, or ask a moderator when they visit your breakout room.</p>
+    <div class="map" id="mapGrid"></div>
+  </div>
+</section>
+
+<section class="band" id="stage" style="padding-top:0"><div class="wrap" id="stations"></div></section>
+
+<section class="band" id="studio" style="background:light-dark(#f1e2eb,#200619)">
+  <div class="wrap">
+    <h2 class="sec-h">Activity 2: New Year card studio</h2>
+    <p class="sub">Design your team's card for 2027. Your mystery word and the fireworks appear on it automatically. When it looks right, take a screenshot (Windows: Win + Shift + S, Mac: Cmd + Shift + 4) and share it in the main room during the last 10 minutes.</p>
+    <div class="studio">
+      <canvas id="cardCv" width="1000" height="625" aria-label="Your New Year card preview"></canvas>
+      <div class="card">
+        <label class="field">Headline<input id="cHead" value="Happy New Year 2027!" maxlength="40"></label>
+        <label class="field">Your team's wish for next year<textarea id="cWish" rows="3" maxlength="140">May every pallet arrive on time, every AGV find its way home, and every one of us have a bright year.</textarea></label>
+        <div class="field">Background<div class="themes" id="themes"></div></div>
+        <button class="btnb" id="cAnim">✨ Launch fireworks on the card</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="band" style="background:linear-gradient(rgba(115,14,77,.82),rgba(31,5,24,.9)),url(https://www.kiongroup.com/KION-Website-Main/Homepage/Teaser/KION-Global_Landingpages_image_1200x674.jpg) center/cover;color:#fff"><div class="wrap"><h2 class="sec-h" style="color:#fff">One KION, many celebrations</h2><p class="sub" style="color:#f3dbe9">Colleagues across Europe, the Americas and Asia-Pacific playing together tonight.</p><div class="photos" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Innovation/KCU20/_DSC5201_image_737x414.jpg" alt="KION colleagues with Linde trucks" style="height:170px"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Growth/2026/10-Years-Dematic/Thumbnail_10years_2_image_737x414.jpg" alt="Dematic collage" style="height:170px"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Sustainability/Supplier-Sustainability/Dematic_Stage_image_737x414.jpg" alt="Automated truck" style="height:170px"><img src="https://www.kiongroup.com/KION-Website-Main/About-us/KION-at-a-glance/KION_Eurofork_KIONRed_image_1200x674.png" alt="Digital warehouse" style="height:170px"></div><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:center;margin-top:26px"><img src="https://www.kiongroup.com/Administration/SVG/logo_linde.svg" alt="Linde" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_still.svg" alt="Still" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_dematic.svg" alt="Dematic" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_baoli.svg" alt="Baoli" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_fenwick.svg" alt="Fenwick" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_voltas.svg" alt="Voltas" style="height:30px;filter:brightness(0) invert(1);opacity:.9"></div></div></section>
+<footer class="foot band">
+  <div class="wrap" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+    <img src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
+    <span>KION End of Year Event · 9 December 2026 · Hosts: Anne, Chase, Danny, Matej and Sandra</span>
+    <span>Photos and logos: kiongroup.com. Warehouse illustrations made for this event. Song clips open official videos on YouTube.</span>
+  </div>
+</footer>
+
+<div class="finale" id="finale" role="dialog" aria-live="polite">
+  <div>
+    <p style="font-weight:700;letter-spacing:.06em">ALL NINE STATIONS CLEARED</p>
+    <h2>FIREWORKS</h2>
+    <p id="finTime" style="font-size:20px"></p>
+    <p>Now head to Activity 2 and put your word on your New Year card.</p>
+    <button class="btn" id="finBtn">Open the card studio</button>
+  </div>
+</div>
+<canvas id="fx"></canvas>
+
+<script>
+{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const WORD=atob('RklSRVdPUktT');
+const store={get(k,d){try{return JSON.parse(localStorage.getItem('wwh-'+k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem('wwh-'+k,JSON.stringify(v))}catch(e){}}};
+let solved=store.get('solved',[]), sound=true;
+
+/* ---------- audio ---------- */
+let ac=null;
+function tone(f,t,d,type='triangle',v=.18){if(!sound)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,ac.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+d);o.connect(g).connect(ac.destination);o.start(ac.currentTime+t);o.stop(ac.currentTime+t+d+.05)}catch(e){}}
+const jingle=()=>[659,659,659,0,659,659,659,0,659,784,523,587,659].forEach((n,i)=>n&&tone(n,i*.13,.22));
+const buzz=()=>{tone(140,0,.25,'sawtooth',.12);tone(110,.12,.3,'sawtooth',.12)};
+const blip=()=>tone(880,0,.08,'square',.06);
+$('#soundBtn').onclick=e=>{sound=!sound;e.target.textContent=sound?'🔊 Sound on':'🔈 Sound off'};
+
+/* ---------- fireworks engine ---------- */
+function makeFx(cv,ambient){
+  const c=cv.getContext('2d');let P=[],W=0,H=0;
+  const size=()=>{W=cv.width=cv.clientWidth*devicePixelRatio;H=cv.height=cv.clientHeight*devicePixelRatio};
+  size();new ResizeObserver(size).observe(cv);
+  const cols=['#F5B400','#ff5fb4','#ffffff','#7fd8ff','#ff4d4d','#b388ff'];
+  function burst(x,y,n=70){const col=cols[Math.random()*cols.length|0];for(let i=0;i<n;i++){const a=Math.random()*6.283,s=(Math.random()*4+1.5)*devicePixelRatio;P.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:60+Math.random()*30,col})}}
+  function loop(){c.clearRect(0,0,W,H);
+    if(ambient&&Math.random()<.035)burst(Math.random()*W,Math.random()*H*.5+H*.05,50);
+    P=P.filter(p=>p.l>0);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.vy+=.05*devicePixelRatio;p.vx*=.985;p.l--;c.globalAlpha=Math.min(1,p.l/40);c.fillStyle=p.col;c.fillRect(p.x,p.y,2.5*devicePixelRatio,2.5*devicePixelRatio)}
+    c.globalAlpha=1;requestAnimationFrame(loop)}
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)loop();
+  return {burst:(x,y,n)=>burst(x*devicePixelRatio,y*devicePixelRatio,n)};
+}
+const sky=makeFx($('#sky'),true), fx=makeFx($('#fx'),false);
+const party=(n=5)=>{for(let i=0;i<n;i++)setTimeout(()=>fx.burst(innerWidth*(.15+Math.random()*.7),innerHeight*(.15+Math.random()*.4),90),i*220)};
+for(let i=0;i<40;i++){const s=document.createElement('i');s.className='snow';s.style.left=Math.random()*100+'%';s.style.animationDuration=6+Math.random()*8+'s';s.style.animationDelay=-Math.random()*10+'s';s.style.transform=`scale(${.4+Math.random()})`;$('.hero').appendChild(s)}
+
+/* ---------- board + timer ---------- */
+$('#tiles').innerHTML=[...WORD].map((_,i)=>`<div class="tile" id="t${i}"><small>${i+1}</small></div>`).join('');
+let team=store.get('team','');$('#teamIn').value=team;
+const showTeam=()=>$('#teamOut').textContent='Team: '+(team||'?');showTeam();
+$('#teamIn').oninput=e=>{team=e.target.value.trim();store.set('team',team);showTeam();drawCard()};
+let tEnd=store.get('tEnd',0),startedAt=store.get('start',0);
+function tick(){if(!tEnd)return;const s=Math.max(0,Math.round((tEnd-Date.now())/1000));$('#timer').textContent=s?`${String(s/60|0).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`:'TIME!';}
+setInterval(tick,1000);tick();
+$('#startBtn').onclick=()=>{if(!tEnd){tEnd=Date.now()+20*60000;startedAt=Date.now();store.set('tEnd',tEnd);store.set('start',startedAt)}jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
+
+/* ---------- stations ---------- */
+const S=[
+ {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five clips, fifteen questions, one painted letter.'},
+ {ic:'⏳',t:'Hitster: The Timeline',by:'Game by Sandra',d:'Put five global hits in release order.'},
+ {ic:'🍲',t:'Festive Feasts',by:'Quiz by Danny',d:'Six holiday dishes, six countries, one surviving letter.'},
+ {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Spin the cipher wheel to crack a fleet message.'},
+ {ic:'🌍',t:'Greetings Around the World',by:'Puzzle by Matej',d:'Match eight festive greetings to their countries.'},
+ {ic:'🎭',t:'Two Truths and a Fake',by:'Puzzle by Matej',d:'Spot the fake tradition in five sets.'},
+ {ic:'🔍',t:"Where's the Runaway AGV?",by:'Puzzle by Chase',d:'A warehouse Where\'s Waldo. Zoom in and hunt.'},
+ {ic:'♟️',t:'Checkmate in One',by:'Puzzle by Chase',d:'Play the one move that wins on the spot.'},
+ {ic:'🕛',t:'Midnight Around the World',by:'Puzzle by Chase',d:'Read eight clocks: who rings in the New Year first?'},
+];
+$('#mapGrid').innerHTML=S.map((s,i)=>`<button class="st" id="m${i}" data-i="${i}"><span class="ic">${s.ic}</span><span class="no">STATION ${i+1}</span><h3>${s.t}</h3><p>${s.d}</p></button>`).join('');
+$$('.st').forEach(b=>b.onclick=()=>{location.hash='station-'+(+b.dataset.i+1)});
+
+const hints=[
+ ['Each row of the grid is one horizontal slice of a capital letter.','Rows 2, 4 and 5 should only use column A.'],
+ ['Only one song is from the 1990s.','The middle song was released in 1999.'],
+ ['Six correct answers cross out six letters.','Panettone is Italian; osechi boxes are Japanese.'],
+ ['The first word is a 5-letter question word.','The wheel shift is 7: an H on the outside ring means A.'],
+ ['Wesołych Świąt is Polish, Veselé Vánoce is Czech.','The wintry word is something you throw in winter.'],
+ ['The fakes are all about dates or things that are simply impossible.','Every fake is tagged with the same letter, a round one.'],
+ ['Search the aisle between the first and second rack rows, left of the centre walkway.','Look in map column 5, row 2.'],
+ ['Black\'s last move: the pawn jumped from f7 to f5. A pawn on e5 can capture it "in passing".','Move the white pawn from e5 to f6.'],
+ ['Each clock shows the local time at the moment Frankfurt hits midnight. The further into 1 January a city already is, the earlier it celebrated.','A tiny Pacific island, Kiritimati, celebrates before everyone else. Your letter is the 3rd city.'],
+];
+const frame=(i,body)=>`<section class="station" id="station-${i+1}">
+ <button class="btn2" data-back>← Station map</button>
+ <div class="shead" style="margin-top:14px"><div class="badge"><small>STATION</small>${i+1}</div><div><h2>${S[i].ic} ${S[i].t}</h2><div class="by">${S[i].by}</div></div></div>
+ ${body}
+ <div class="answer" id="ans${i}"><b>Your letter:</b><input maxlength="1" aria-label="Letter for station ${i+1}" id="in${i}"><button class="btnb" data-check="${i}">Scan letter</button><button class="btn2" data-hint="${i}">💡 Hint</button><span class="msg" id="msg${i}"></span></div>
+ <div class="hint" id="hint${i}"></div></section>`;
+
+const CL={1:['dvgZkm1xWPE',6,30],2:['xFrGuyw1V8s',44,64],3:['Zi_XLOBDo_Y',0,30],4:['eH3giaIzONA',30,55],5:['9bZkp7q19f0',111,145],6:['fNFzfwLM72c',10,35],7:['djV11Xbc914',0,30],8:['4fndeDfaWCg',50,75],9:['pRpeEdMmmQ0',45,70],10:['4NRXx6U8ABQ',60,85]};
+const clip=n=>`<a class="clip" target="_blank" rel="noopener" href="https://www.youtube.com/embed/${CL[n][0]}?start=${CL[n][1]}&end=${CL[n][2]}&autoplay=1&rel=0">▶ Clip ${n}</a>`;
+const musicRule=`<p class="hint" style="margin:10px 0 0">🎧 Captain only: open the clip, share <b>sound only</b> in Teams and keep the video hidden (it shows the artist). Everyone else: no peeking!</p>`;
+
+/* S1 */
+const Q1=[
+ ['Clip 1',[['Released in?',['2005','2008','2011']],['The band comes from?',['United States','Australia','United Kingdom']],['The Latin title means?',['Long live life','Dance forever','Love is beautiful']]]],
+ ['Clip 2',[['Released in?',['1976','1972','1980']],['The group comes from?',['Sweden','Germany','Belgium']],['Their breakthrough?',['Winning Eurovision','Winning a Grammy','Singing at the Olympics']]]],
+ ['Clip 3',[['Released in?',['1979','1983','1987']],['Which album?',['Bad','Thriller','Dangerous']],['The artist was called?',['The King of Pop','The King of Rock','The King of Soul']]]],
+ ['Clip 4',[['Released in?',['1987','1984','1991']],['The singer was born in?',['United States','United Kingdom','Canada']],['She starred in?',['The Bodyguard','Pretty Woman','Dirty Dancing']]]],
+ ['Clip 5',[['A worldwide hit in?',['2012','2010','2015']],['The performer comes from?',['South Korea','Japan','China']],['What made it famous?',['A horse-riding dance','A guitar solo','A football chant']]]],
+];
+const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(clip).join('')}</div>${musicRule}</div>
+<div class="grid2"><div class="card">${Q1.map(([c,qs],ci)=>`<div class="q"><b>🎵 ${c}</b>${qs.map(([q,o],qi)=>`<div style="margin:6px 0"><div style="font-size:14px;color:var(--soft)">${q}</div><div class="opts">${o.map((x,oi)=>`<button class="opt" data-q="${ci}-${qi}" data-o="${oi}">${'ABC'[oi]} · ${x}</button>`).join('')}</div></div>`).join('')}</div>`).join('')}</div>
+<div class="card"><h3 style="font-size:20px;margin-bottom:6px">Your answers paint the letter</h3><p class="hint" style="margin-top:0">Every answer you pick colours its column (A, B or C) in that clip's row. Five rows, one capital letter.</p>
+<div class="pix" id="pix"><div class="h"></div><div class="h">A</div><div class="h">B</div><div class="h">C</div>${[1,2,3,4,5].map(r=>`<div class="h" style="justify-content:start">Clip ${r}</div>`+[0,1,2].map(c=>`<div id="px${r-1}${c}"></div>`).join('')).join('')}</div></div></div>`;
+
+/* S2 */
+const SONGS=["Waka Waka (This Time for Africa)","Stayin' Alive","Blinding Lights","I Want It That Way","Take On Me"];
+const ORDER=["Stayin' Alive","Take On Me","I Want It That Way","Waka Waka (This Time for Africa)","Blinding Lights"];
+const b2=`<div class="card"><div class="clips">${[6,7,8,9,10].map(clip).join('')}</div>${musicRule}</div>
+<div class="card"><h3 style="font-size:20px">1 · Tap a song, then tap a spot on the timeline</h3><p class="hint">Listen to the clips to work out which song is which, then order them from oldest to newest.</p>
+<div class="bank" id="bank"></div>
+<div class="slots" id="slots" style="margin-top:14px">${['Oldest','2nd','Middle','4th','Newest'].map((x,i)=>`<button class="slot ${i==2?'mid':''}" data-s="${i}"><em>${x}</em><span></span></button>`).join('')}</div>
+<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center"><button class="btnb" id="chk2">Check my timeline</button><span id="res2" style="font-weight:700"></span></div>
+<p class="hint">When the timeline is right, your letter is the first letter of the song in the <b>Middle</b> box.</p></div>`;
+
+/* S3 */
+const Q3=[['🍞 Panettone, a tall sweet bread full of candied fruit',[['Italy','T'],['Spain','R'],['Portugal','E']]],
+ ['🫔 Tamales wrapped in corn husks, a Christmas Eve favourite',[['Peru','S'],['Mexico','I'],['Cuba','N']]],
+ ['🍰 Bûche de Noël, a cake shaped like a Yule log, was invented in',[['Belgium','L'],['Switzerland','T'],['France','N']]],
+ ['🥟 Jiaozi dumplings, folded together on Lunar New Year\'s Eve',[['China','S'],['Thailand','E'],['Indonesia','R']]],
+ ['🍬 Gulab jamun and boxes of sweets shared at Diwali',[['Morocco','I'],['India','E'],['Turkey','N']]],
+ ['🍱 Osechi ryōri, beautiful lacquered boxes eaten on New Year\'s Day',[['Japan','L'],['South Korea','T'],['Vietnam','S']]]];
+const b3=`<div class="photos"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Innovation/KCU20/_DSC5201_image_737x414.jpg" alt="KION colleagues with Linde trucks"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Growth/2026/10-Years-Dematic/Thumbnail_10years_2_image_737x414.jpg" alt="Dematic collage"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Sustainability/Supplier-Sustainability/Dematic_Stage_image_737x414.jpg" alt="Automated truck in a KION warehouse"><img src="https://www.kiongroup.com/KION-Website-Main/About-us/KION-at-a-glance/KION_Eurofork_KIONRed_image_1200x674.png" alt="Dematic digital warehouse"></div>
+<p class="hint" style="margin-top:0">KION colleagues work in more than 100 countries. Tonight they brought their favourite holiday food to the virtual canteen. Where does each dish come from?</p>
+<div class="grid2"><div class="card">${Q3.map(([q,o],qi)=>`<div class="q"><b>${qi+1}. ${q}</b><div class="opts">${o.map(([x,t],oi)=>`<button class="opt" data-k="${qi}" data-t="${t}">${x}<span class="tag">[${t}]</span></button>`).join('')}</div></div>`).join('')}</div>
+<div class="card"><h3 style="font-size:20px">The tinsel strip</h3><p class="hint">Every answer you choose crosses out its tag letter. With six right answers, exactly one letter survives.</p><div class="strip" id="strip">${[...'TINSELR'].map(c=>`<span>${c}</span>`).join('')}</div></div></div>`;
+
+/* S4 */
+const PLAIN='WHICH LETTER APPEARS THREE TIMES IN ELEVEN AND TWICE IN WAREHOUSE';
+const ENC=PLAIN.replace(/[A-Z]/g,c=>String.fromCharCode((c.charCodeAt(0)-65+7)%26+65));
+const AB='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const ring=(r,fs,cl)=>[...AB].map((ch,i)=>{const a=(i/26)*2*Math.PI-Math.PI/2;return `<text x="${160+r*Math.cos(a)}" y="${160+r*Math.sin(a)}" font-size="${fs}" text-anchor="middle" dominant-baseline="central" class="${cl}" transform="rotate(${i*360/26} ${160+r*Math.cos(a)} ${160+r*Math.sin(a)})">${ch}</text>`}).join('');
+const b4=`<div class="card"><p style="margin-top:0">Overnight the fleet controller broadcast one scrambled message to every AGV. Every letter was shifted the same number of places around the alphabet. Spin the inner wheel until the message makes sense, then answer its question.</p><div class="code">${ENC}</div></div>
+<div class="grid2"><div class="card" style="text-align:center"><svg class="wheel" viewBox="0 0 320 320"><circle cx="160" cy="160" r="156" fill="#730E4D"/><g fill="#fff" font-family="Archivo" font-weight="800">${ring(136,17,'')}</g><circle cx="160" cy="160" r="114" fill="#F5B400"/><g id="inner" fill="#2a0a20" font-family="Archivo" font-weight="800">${ring(96,16,'')}</g><circle cx="160" cy="160" r="60" fill="#1f0518"/><text x="160" y="152" fill="#fff" text-anchor="middle" font-size="13" font-family="Inter">outer = coded</text><text x="160" y="172" fill="#F5B400" text-anchor="middle" font-size="13" font-family="Inter">inner = real</text></svg>
+<div style="display:flex;gap:8px;justify-content:center;margin-top:10px"><button class="btnb" id="wl">⟲</button><span class="wide" id="wshift" style="align-self:center;font-weight:900;min-width:90px">Shift 0</span><button class="btnb" id="wr">⟳</button></div></div>
+<div class="card"><h3 style="font-size:20px">Decode it here</h3><p class="hint">Write the real message as you go. Split the words between teammates!</p><textarea rows="5" style="width:100%;font:16px Inter;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink)" aria-label="Decoded message"></textarea></div></div>`;
+
+/* S5 */
+const GR=[["Buon Natale","W"],["Shubh Deepavali (Diwali)","L"],["Frohe Weihnachten","S"],["Wesołych Świąt","A"],["Joyeux Noël","N"],["Vrolijk Kerstfeest","L"],["Feliz Navidad","O"],["Veselé Vánoce","B"]];
+const FL=[["Germany","linear-gradient(#000 33%,#dd0000 33% 66%,#ffce00 66%)"],["France","linear-gradient(90deg,#0055a4 33%,#fff 33% 66%,#ef4135 66%)"],["Mexico","radial-gradient(circle at 50% 50%,#8a5a2b 9%,transparent 10%),linear-gradient(90deg,#006847 33%,#fff 33% 66%,#ce1126 66%)"],["Italy","linear-gradient(90deg,#009246 33%,#fff 33% 66%,#ce2b37 66%)"],["Czech Republic","linear-gradient(to bottom right,#11457e 50%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to top right,#11457e 50%,transparent 50%) left/50% 100% no-repeat,linear-gradient(#fff 50%,#d7141a 50%)"],["Poland","linear-gradient(#fff 50%,#dc143c 50%)"],["Netherlands","linear-gradient(#ae1c28 33%,#fff 33% 66%,#21468b 66%)"],["India","radial-gradient(circle,#06038d 11%,transparent 12%),linear-gradient(#ff9933 33%,#fff 33% 66%,#138808 66%)"]];
+const b5=`<div class="card"><p style="margin-top:0">KION colleagues celebrate in many languages. Tap a greeting, then tap the country where you would hear it. The greeting's tag letter lands in the read-out below.</p><div class="bank" id="gbank"></div></div>
+<div class="card"><div class="flags">${FL.map(([n,bg],i)=>`<button class="cty" data-c="${i}"><div class="flag" style="background:${bg}"></div>${i+1}. ${n}<span class="drop">tap to place a greeting</span></button>`).join('')}</div>
+<div class="read" id="read">${FL.map((_,i)=>`<span class="${i==3?'m':''}"></span>`).join('')}</div><p class="hint" style="text-align:center">Read the tags 1 to 8 for a wintry word. Your letter is the 4th one (gold box).</p></div>`;
+
+/* S6 */
+const SETS=[[["In Japan, a popular Christmas dinner is fried chicken from KFC.","T"],["In Norway, some families hide their brooms on Christmas Eve so witches can't steal them.","U"],["In Canada, families traditionally build their holiday tree out of ice blocks.","O"]],
+ [["Diwali is always celebrated on 25 December.","O"],["Diwali is known as the Festival of Lights.","A"],["During Diwali, people light small oil lamps called diyas.","E"]],
+ [["At Lunar New Year, red envelopes with money are given as gifts.","M"],["Each Lunar New Year is linked to one of 12 zodiac animals.","H"],["Lunar New Year always falls on 1 January.","O"]],
+ [["In Spain, people eat 12 grapes at midnight on New Year's Eve.","S"],["In France, it is tradition to eat 12 different cheeses at midnight on New Year's Eve.","O"],["In the Czech Republic, many families keep a live carp in the bathtub before Christmas.","R"]],
+ [["In Germany, many people watch the British sketch \"Dinner for One\" on New Year's Eve.","N"],["In Germany, fireworks can be bought in shops all year round.","O"],["In Mexico, Las Posadas is celebrated in the nine nights before Christmas.","I"]]];
+const b6=`<div class="card"><p style="margin-top:0">Each set has two true traditions and one fake. Tap the card you think is the fake: it flips to show its tag. If you spot every fake, all five tags match.</p><div class="sets">${SETS.map((s,si)=>`<div><b style="display:block;margin:6px 0">Set ${si+1}</b><div class="set">${s.map(([x,t])=>`<button class="flip" data-set="${si}"><div class="in"><div class="f">${x}</div><div class="b"><span>The fake? Tag</span><big>${t}</big></div></div></button>`).join('')}</div></div>`).join('')}</div></div>`;
+
+/* S7 */
+const b7=`<div class="card"><p style="margin-top:0">One AGV got into the holiday spirit and drove off-route. Fleet control's description: <b>🎅 wearing a Santa hat</b>, <b>🎁 carrying a gift box</b>, <b>⬅️ driving left</b> (yellow headlight on its left end). Dozens of AGVs match one or two clues. Only one matches all three. Scroll or use + to zoom, drag to pan, and click the runaway when you find it.</p>
+<div class="viewer" id="viewer"><div class="vtools"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zre" aria-label="Reset view">⤢</button></div><canvas id="scene" width="3000" height="2000" aria-label="Busy warehouse floor seen from above"></canvas></div>
+<p class="hint" id="miss">Wrong clicks: 0</p><p class="hint">Found it? Your letter is the navy location label in the top-left corner of its map square.</p></div>`;
+
+/* S8 */
+const b8=`<div class="grid2"><div class="card" style="display:grid;place-items:center"><div class="chess" id="chess"></div></div>
+<div class="card"><h3 style="font-size:22px">White to move. Checkmate in one.</h3><p>Tap a white piece, then tap where it should go. Black's last move was the pawn jumping two squares from f7 to f5 (light blue). That detail matters!</p><p class="hint">Fun fact: chess was born in India around 1,500 years ago as <i>chaturanga</i>, then travelled through Persia to the whole world.</p><p class="hint">Never played chess? Grab a teammate who has, or press Hint. Checkmate means the king is attacked and cannot escape, block or capture.</p><p id="chessMsg" style="font-weight:800"></p><button class="btn2" id="chessReset">↺ Reset board</button><p class="hint">Your letter: the yellow tag on the square where your white piece lands.</p></div></div>`;
+
+/* S9 */
+const CITIES=[['Kiritimati','🇰🇮',13,0,'1 Jan'],['Auckland','🇳🇿',12,0,'1 Jan'],['Sydney','🇦🇺',10,0,'1 Jan'],['Tokyo','🇯🇵',8,0,'1 Jan'],['Mumbai','🇮🇳',4,30,'1 Jan'],['Frankfurt','🇩🇪',0,0,'1 Jan'],['São Paulo','🇧🇷',20,0,'31 Dec'],['Holland, Michigan','🇺🇸',18,0,'31 Dec']];
+const SHOW=[4,7,1,5,0,6,3,2];
+const clockSvg=(h,m)=>{const ha=((h%12)+m/60)*30,ma=m*6,day=h>=6&&h<18;return `<svg viewBox="0 0 100 100" width="96" height="96" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="${day?'#fff7d6':'#1f0518'}" stroke="#730E4D" stroke-width="5"/>${Array.from({length:12},(_,i)=>`<line x1="50" y1="9" x2="50" y2="${i%3?14:18}" stroke="${day?'#730E4D':'#f5b400'}" stroke-width="${i%3?2:4}" transform="rotate(${i*30} 50 50)"/>`).join('')}<line x1="50" y1="50" x2="50" y2="27" stroke="${day?'#2a0a20':'#fff'}" stroke-width="6" stroke-linecap="round" transform="rotate(${ha} 50 50)"/><line x1="50" y1="50" x2="50" y2="15" stroke="#D2232A" stroke-width="3.5" stroke-linecap="round" transform="rotate(${ma} 50 50)"/><circle cx="50" cy="50" r="4" fill="#F5B400"/><text x="50" y="70" text-anchor="middle" font-size="13">${day?'☀️':'🌙'}</text></svg>`};
+const b9=`<div class="card"><p style="margin-top:0">At the exact moment the clocks strike midnight in Frankfurt, a KION colleague in each of these cities snapped a photo of their local clock. Use the clocks, the sun or moon, and the date to work out the order in which the eight cities rang in the New Year. Tap a city, then tap a spot in the line-up.</p>
+<div class="map" id="cityBank" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div></div>
+<div class="card"><h3 style="font-size:20px">New Year line-up: first to celebrate → last</h3>
+<div class="slots" id="cslots" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-top:12px">${Array.from({length:8},(_,i)=>`<button class="slot ${i==2?'mid':''}" data-cs="${i}"><em>${i+1}${['st','nd','rd'][i]||'th'}</em><span></span></button>`).join('')}</div>
+<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center"><button class="btnb" id="chk9">Check the line-up</button><span id="res9" style="font-weight:700"></span></div>
+<p class="hint">When the line-up is right, your letter is the first letter of the city in the <b>3rd</b> (gold) spot.</p></div>`;
+
+$('#stations').innerHTML=[b1,b2,b3,b4,b5,b6,b7,b8,b9].map((b,i)=>frame(i,b)).join('');
+
+/* routing */
+function route(){const m=/^#station-([1-9])$/.exec(location.hash);$$('.station').forEach(s=>s.classList.remove('show'));
+ if(m){const s=$('#station-'+m[1]);s.classList.add('show');s.scrollIntoView({behavior:'smooth'});if(m[1]==='7')fitScene()}}
+addEventListener('hashchange',route);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-back]');if(b){location.hash='map';$('#map').scrollIntoView({behavior:'smooth'})}});
+
+/* answers */
+function markSolved(i,anim){if(!solved.includes(i)){solved.push(i);store.set('solved',solved)}
+ const t=$('#t'+i);t.textContent=WORD[i];t.classList.add('on');const cr=$('#cr'+i);if(cr){cr.classList.add('on');const tx=cr.querySelector('text');tx.textContent=WORD[i];tx.classList.remove('q')}const m=$('#m'+i);m.classList.add('done');m.dataset.l=WORD[i];
+ const inp=$('#in'+i);inp.value=WORD[i];$('#msg'+i).textContent='✅ Letter locked in!';
+ if(anim){drawCard();jingle();party(4);if(solved.length===9)setTimeout(finale,1500)}}
+solved.forEach(i=>markSolved(i,false));
+document.addEventListener('click',e=>{const c=e.target.closest('[data-check]');if(c){const i=+c.dataset.check,v=$('#in'+i).value.trim().toUpperCase();
+ if(v===WORD[i])markSolved(i,true);else{buzz();const a=$('#ans'+i);a.classList.remove('shake');void a.offsetWidth;a.classList.add('shake');$('#msg'+i).textContent=v?'❌ Fleet control rejects that letter.':'Type a letter first.'}}
+ const h=e.target.closest('[data-hint]');if(h){const i=+h.dataset.hint,el=$('#hint'+i),n=+(el.dataset.n||0);if(n<2){el.innerHTML+=`<div>💡 ${hints[i][n]}</div>`;el.dataset.n=n+1}}});
+function finale(){const m=startedAt?Math.round((Date.now()-startedAt)/60000):null;$('#finTime').textContent=(team?team+': ':'')+(m!==null?`solved in about ${m} minutes`:'solved!');$('#finale').classList.add('show');party(12)}
+$('#finBtn').onclick=()=>{$('#finale').classList.remove('show');$('#studio').scrollIntoView({behavior:'smooth'})};
+
+/* S1 logic */
+const pick1={};
+$$('#station-1 .opt').forEach(b=>b.onclick=()=>{const q=b.dataset.q;$$(`#station-1 .opt[data-q="${q}"]`).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');pick1[q]=+b.dataset.o;blip();
+ for(let r=0;r<5;r++){const used=new Set([0,1,2].map(k=>pick1[r+'-'+k]).filter(v=>v!==undefined));for(let c=0;c<3;c++)$('#px'+r+c).classList.toggle('on',used.has(c))}});
+
+/* S2 logic */
+let picked=null;const slotV=Array(5).fill(null);
+function renderBank(){$('#bank').innerHTML=SONGS.filter(s=>!slotV.includes(s)).map(s=>`<button class="song" data-song="${s}">${s}</button>`).join('')||'<span class="hint">All songs placed. Tap a placed song to take it back.</span>';
+ $$('#slots .slot').forEach((el,i)=>{el.querySelector('span').innerHTML=slotV[i]?`<span class="song" style="display:block">${slotV[i]}</span>`:'';el.classList.remove('ok','bad')});
+ $$('#bank .song').forEach(b=>b.onclick=()=>{picked=b.dataset.song;$$('#bank .song').forEach(x=>x.classList.toggle('pick',x===b));blip()})}
+$$('#slots .slot').forEach((el,i)=>el.onclick=()=>{if(picked){slotV[i]=picked;picked=null}else if(slotV[i])slotV[i]=null;renderBank()});
+renderBank();
+$('#chk2').onclick=()=>{let n=0;$$('#slots .slot').forEach((el,i)=>{const ok=slotV[i]===ORDER[i];if(ok)n++;el.classList.add(slotV[i]?(ok?'ok':'bad'):'bad')});
+ $('#res2').textContent=n===5?'🎉 Perfect timeline! Now read the middle box.':`${n} of 5 in the right place. Keep listening!`;n===5?tone(988,0,.3):buzz()};
+
+/* S3 logic */
+const pick3={};
+$$('#station-3 .opt').forEach(b=>b.onclick=()=>{const k=b.dataset.k;$$(`#station-3 .opt[data-k="${k}"]`).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');pick3[k]=b.dataset.t;blip();
+ const used=Object.values(pick3);const sp=$$('#strip span');const cnt={};used.forEach(t=>cnt[t]=(cnt[t]||0)+1);sp.forEach(s=>s.classList.remove('x'));
+ used.forEach(t=>{const s=sp.find(x=>x.textContent===t&&!x.classList.contains('x'));if(s)s.classList.add('x')})});
+
+/* S4 logic */
+let sh=0;const setW=()=>{$('#inner').style.transform=`rotate(${sh*360/26}deg)`;$('#wshift').textContent='Shift '+sh;blip()};
+$('#wl').onclick=()=>{sh=(sh+25)%26;setW()};$('#wr').onclick=()=>{sh=(sh+1)%26;setW()};
+
+/* S5 logic */
+let gpick=null;const place=Array(8).fill(null);
+function renderG(){$('#gbank').innerHTML=GR.map((g,i)=>place.includes(i)?'':`<button class="song" data-g="${i}">${g[0]} <span style="opacity:.8">[${g[1]}]</span></button>`).join('')||'<span class="hint">All greetings placed. Tap a country to take its greeting back.</span>';
+ $$('.cty').forEach((el,i)=>{const g=place[i];el.classList.toggle('has',g!==null);el.querySelector('.drop').innerHTML=g!==null?`<b style="color:var(--ink)">${GR[g][0]} [${GR[g][1]}]</b>`:'tap to place a greeting'});
+ $$('#read span').forEach((s,i)=>s.textContent=place[i]!==null?GR[place[i]][1]:'');
+ $$('#gbank .song').forEach(b=>b.onclick=()=>{gpick=+b.dataset.g;$$('#gbank .song').forEach(x=>x.classList.toggle('pick',x===b));blip()})}
+$$('.cty').forEach((el,i)=>el.onclick=()=>{if(gpick!==null){if(place[i]!==null){} place[i]=gpick;gpick=null}else place[i]=null;renderG()});
+renderG();
+
+/* S6 logic */
+$$('.flip').forEach(b=>b.onclick=()=>{const s=b.dataset.set;$$(`.flip[data-set="${s}"]`).forEach(x=>x.classList.toggle('sel',x===b&&!x.classList.contains('sel')));blip()});
+
+
+function drawScene(cv){const d=cv.getContext('2d');let seed=42;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647,ri=(a,b)=>a+Math.floor(rnd()*(b-a+1)),pick=a=>a[Math.floor(rnd()*a.length)];
+ const W=3000,H=2000,occ=[];const R=(x,y,w,h,c)=>{d.fillStyle=c;d.fillRect(x,y,w,h)};
+ const free=b=>b[0]>=0&&b[2]<=W&&b[1]>=0&&b[3]<=H&&!occ.some(o=>b[0]<o[2]+6&&b[2]>o[0]-6&&b[1]<o[3]+6&&b[3]>o[1]-6);
+ R(0,0,W,H,'#c8ccd2');
+ for(const ry of [120,560,1000,1440])for(const [x0,x1] of [[140,1350],[1650,2860]]){R(x0,ry,x1-x0,170,'#eb781e');for(let x=x0;x<x1;x+=62){R(x,ry,8,170,'#1e6ebe');for(const yy of [ry+8,ry+90]){R(x+12,yy,44,72,pick(['#b08048','#966939','#c8a064','#3c78b4','#5a9650','#dcdcdc']))}}occ.push([x0,ry,x1,ry+170])}
+ for(const y of [380,820,1260,1700])for(let x=0;x<W;x+=90)R(x,y,50,8,'#fac800');
+ R(1420,0,160,H,'#b9bec6');for(let y=0;y<H;y+=90)R(1496,y,8,50,'#fac800');
+ R(100,1860,2800,70,'#5a5f69');occ.push([100,1860,2900,1930]);for(let x=160;x<2860;x+=140)R(x,1868,60,54,pick(['#b08048','#c8a064']));
+ const hat=(x,y,s,dir)=>{d.fillStyle='#dc141e';d.beginPath();d.moveTo(x-s*.6,y);d.lineTo(x+s*.6,y);d.lineTo(x+dir*s*.9,y-s*1.1);d.fill();R(x-s*.7,y-s*.15,s*1.4,s*.33,'#fff');d.beginPath();d.arc(x+dir*s*.9,y-s*1.1,s*.25,0,7);d.fill()};
+ const gift=(x,y,s,c)=>{R(x-s/2,y-s/2,s,s,c);R(x-s*.08,y-s/2,s*.16,s,'#fad200');R(x-s/2,y-s*.08,s,s*.16,'#fad200')};
+ const agv=(x,y,dir,h,g)=>{d.fillStyle='#e8ecf2';d.strokeStyle='#0a2d5a';d.lineWidth=3;d.beginPath();d.roundRect(x-35,y-22,70,44,10);d.fill();d.stroke();R(x-29,y+10,58,6,'#005eaa');const fx=x+dir*29;d.fillStyle='#fac800';d.beginPath();d.moveTo(fx,y-8);d.lineTo(fx,y+8);d.lineTo(fx+dir*12,y);d.fill();d.fillStyle='#28c85a';d.beginPath();d.arc(x-dir*20,y-9,5,0,7);d.fill();if(g)gift(x,y-6,26,pick(['#1ea050','#8c3cc8','#1e78dc']));if(h)hat(x+dir*14,y-22,18,-dir)};
+ const fork=(x,y,dir)=>{R(x-40,y-26,70,52,'#cd1923');R(x-22,y-16,32,32,'#28282d');const fx=dir>0?x+30:x-90;R(fx,y-20,50,8,'#464646');R(fx,y+12,50,8,'#464646')};
+ const worker=(x,y)=>{d.fillStyle='#ff7800';d.beginPath();d.ellipse(x,y+6,16,16,0,0,7);d.fill();d.fillStyle='#fad200';d.beginPath();d.arc(x,y-10,10,0,7);d.fill()};
+ const place=(fn,bb,n,area)=>{for(let k=0;k<n;k++){for(let t=0;t<4000;t++){const x=area?ri(area[0],area[1]):ri(60,W-60),y=area?ri(area[2],area[3]):ri(60,H-180);const b=bb(x,y);if(free(b)){occ.push(b);fn(x,y);break}}}};
+ occ.push([1045,413,1155,498]);agv(1100,468,-1,true,true);
+ const ab=(x,y)=>[x-55,y-55,x+55,y+30];
+ [[1,1,1,5],[-1,1,0,6],[-1,0,1,6],[1,1,0,4],[1,0,1,4]].forEach(([dr,h,g,n])=>place((x,y)=>agv(x,y,dr,!!h,!!g),ab,n));
+ place((x,y)=>agv(x,y,rnd()<.5?-1:1,false,false),ab,40);
+ place((x,y)=>fork(x,y,rnd()<.5?-1:1),(x,y)=>[x-95,y-30,x+85,y+30],14);
+ place(worker,(x,y)=>[x-18,y-22,x+18,y+24],45);
+ place((x,y)=>gift(x,y,30,pick(['#1ea050','#8c3cc8','#1e78dc','#dc1e28'])),(x,y)=>[x-20,y-20,x+20,y+20],25);
+ place((x,y)=>hat(x,y,16,1),(x,y)=>[x-20,y-30,x+20,y+10],12);
+ place((x,y)=>{R(x-36,y-26,72,52,'#be965f');R(x-36,y-2,72,4,'#6e5028')},(x,y)=>[x-38,y-28,x+38,y+28],30);
+ place((x,y)=>{d.fillStyle='#147832';d.beginPath();d.moveTo(x,y-38);d.lineTo(x-24,y+18);d.lineTo(x+24,y+18);d.fill();R(x-5,y+18,10,10,'#643c14');d.fillStyle='#fad200';d.beginPath();d.arc(x,y-40,6,0,7);d.fill()},(x,y)=>[x-26,y-40,x+26,y+30],8);
+ seed=9;const L='ABCDEFGHJKLMNOPTUVWXYZ';d.strokeStyle='#283c5a';d.lineWidth=3;
+ for(let c=1;c<12;c++){d.beginPath();d.moveTo(c*250,0);d.lineTo(c*250,H);d.stroke()}for(let r=1;r<8;r++){d.beginPath();d.moveTo(0,r*250);d.lineTo(W,r*250);d.stroke()}
+ d.font='bold 30px Inter,Arial,sans-serif';d.textAlign='center';d.textBaseline='middle';
+ for(let r=0;r<8;r++)for(let c=0;c<12;c++){const l=(r===1&&c===4)?'R':pick([...L]);R(c*250+6,r*250+6,46,40,'#0a2d5a');d.fillStyle='#fff';d.fillText(l,c*250+29,r*250+27)}}
+
+/* S7 logic: pan/zoom */
+const V=$('#viewer'),IM=$('#scene');let z=.3,ox=0,oy=0,drag=null,moved=0,miss=0;const TX=1100,TY=468,IW=3000,IH=2000;drawScene(IM);
+const apply=()=>{const vw=V.clientWidth,vh=V.clientHeight,min=Math.min(vw/IW,vh/IH);z=Math.max(min,Math.min(2.5,z));ox=Math.min(0,Math.max(vw-IW*z,ox));oy=Math.min(0,Math.max(vh-IH*z,oy));if(IW*z<vw)ox=(vw-IW*z)/2;if(IH*z<vh)oy=(vh-IH*z)/2;IM.style.transform=`translate(${ox}px,${oy}px) scale(${z})`;$$('.found').forEach(f=>{f.style.left=ox+TX*z+'px';f.style.top=oy+TY*z+'px'})};
+function fitScene(){requestAnimationFrame(()=>{z=Math.min(V.clientWidth/IW,V.clientHeight/IH);ox=oy=0;apply()})}
+const zoomAt=(f,cx,cy)=>{const nz=Math.max(.05,Math.min(2.5,z*f));ox=cx-(cx-ox)*nz/z;oy=cy-(cy-oy)*nz/z;z=nz;apply()};
+V.addEventListener('wheel',e=>{e.preventDefault();const r=V.getBoundingClientRect();zoomAt(e.deltaY<0?1.2:1/1.2,e.clientX-r.left,e.clientY-r.top)},{passive:false});
+$('#zin').onclick=e=>{e.stopPropagation();zoomAt(1.4,V.clientWidth/2,V.clientHeight/2)};$('#zout').onclick=e=>{e.stopPropagation();zoomAt(1/1.4,V.clientWidth/2,V.clientHeight/2)};$('#zre').onclick=e=>{e.stopPropagation();fitScene()};
+V.addEventListener('pointerdown',e=>{if(e.target.closest('.vtools'))return;drag={x:e.clientX,y:e.clientY,ox,oy};moved=0;V.setPointerCapture(e.pointerId)});
+V.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));ox=drag.ox+dx;oy=drag.oy+dy;apply()});
+V.addEventListener('pointerup',e=>{if(!drag)return;drag=null;if(moved>6)return;const r=V.getBoundingClientRect(),px=(e.clientX-r.left-ox)/z,py=(e.clientY-r.top-oy)/z;
+ if(Math.hypot(px-TX,py-TY)<45){if(!$('.found')){const f=document.createElement('div');f.className='found';V.appendChild(f);apply()}jingle();party(3);$('#miss').innerHTML='🎉 <b>Found the runaway AGV!</b> Now read its square\'s location label.'}
+ else{miss++;$('#miss').textContent=`Wrong clicks: ${miss}. That AGV is on its normal route.`;const p=document.createElement('div');p.className='ping';p.style.left=e.clientX-r.left+'px';p.style.top=e.clientY-r.top+'px';V.appendChild(p);setTimeout(()=>p.remove(),700);buzz()}});
+addEventListener('resize',()=>{if($('#station-7').classList.contains('show'))apply()});
+
+/* S8 logic: chess */
+const START={a8:'♜',b8:'♞',c8:'♝',f8:'♜',h8:'♝',a7:'♟',h7:'♚',c6:'♟',e6:'♟',h6:'♟',a5:'♛',b5:'♟',f5:'♟',d6:'♘w',e5:'♙w',h5:'♘w',d4:'♙w',g4:'♖w',c3:'♙w',d3:'♕w',f3:'♗w',a2:'♙w',b2:'♙w',f2:'♙w',g2:'♙w',a1:'♖w',e1:'♔w'};
+const TAGS={d8:'D',e8:'M',f7:'A',g7:'E',f6:'K',g6:'C',d5:'Q',f5:'L',g5:'P',e4:'Z',f4:'N',h4:'Y',b5:'X',c4:'T'};
+let pos={...START},from=null,mated=false;
+function drawChess(){let h='';for(let r=8;r>=1;r--)for(let c=0;c<8;c++){const sq='abcdefgh'[c]+r,p=pos[sq]||'',w=p.endsWith('w');
+ h+=`<button class="sq ${(r+c)%2?'':'dk'} ${['f7','f5'].includes(sq)&&!mated?'lb':''} ${from===sq?'sel':''}" data-sq="${sq}" aria-label="${sq}"><span class="${w?'w':''}">${p.replace('w','')}</span>${TAGS[sq]?`<span class="lt">${TAGS[sq]}</span>`:''}${c===0?`<span class="co">${r}</span>`:''}${r===1?`<span class="co" style="left:auto;right:3px">${'abcdefgh'[c]}</span>`:''}</button>`}
+ $('#chess').innerHTML=h;$$('.sq').forEach(b=>b.onclick=()=>chessClick(b.dataset.sq))}
+function chessClick(sq){if(mated)return;const p=pos[sq]||'';
+ if(!from){if(p.endsWith('w')){from=sq;blip();drawChess()}return}
+ if(p.endsWith('w')){from=sq;drawChess();return}
+ const f=from;from=null;
+ if(f==='e5'&&sq==='f6'){pos.f6=pos.e5;delete pos.e5;delete pos.f5;mated=true;drawChess();$('#chessMsg').innerHTML='♛ CHECKMATE! En passant opens the diagonal for the queen on d3. Read the tag on the square where the pawn landed.';jingle();party(3)}
+ else{const save={...pos};pos[sq]=pos[f];delete pos[f];drawChess();$('#chessMsg').textContent='Black escapes! That is not mate. Try another move.';buzz();setTimeout(()=>{pos=save;drawChess()},900)}}
+$('#chessReset').onclick=()=>{pos={...START};from=null;mated=false;$('#chessMsg').textContent='';drawChess()};drawChess();
+
+/* S9 logic: midnight clocks */
+let cpick=null;const cslot=Array(8).fill(null);
+function renderCities(){$('#cityBank').innerHTML=SHOW.map(i=>{const [n,f,h,m,d]=CITIES[i];const used=cslot.includes(i);return `<button class="st" data-city="${i}" style="min-height:0;align-items:center;text-align:center;${used?'opacity:.35':''}">${clockSvg(h,m)}<b>${f} ${n}</b><span class="hint" style="margin:0">${d}</span></button>`}).join('');
+ $$('#cityBank [data-city]').forEach(b=>b.onclick=()=>{const i=+b.dataset.city;if(cslot.includes(i))return;cpick=i;$$('#cityBank [data-city]').forEach(x=>x.style.outline=x===b?'3px solid var(--gold)':'');blip()});
+ $$('#cslots .slot').forEach((el,i)=>{el.querySelector('span').innerHTML=cslot[i]!==null?`<span class="song" style="display:block">${CITIES[cslot[i]][1]} ${CITIES[cslot[i]][0]}</span>`:'';el.classList.remove('ok','bad')})}
+$$('#cslots .slot').forEach((el,i)=>el.onclick=()=>{if(cpick!==null){cslot[i]=cpick;cpick=null}else cslot[i]=null;renderCities()});
+renderCities();
+$('#chk9').onclick=()=>{let n=0;$$('#cslots .slot').forEach((el,i)=>{const ok=cslot[i]===i;if(ok)n++;el.classList.add(ok?'ok':'bad')});$('#res9').textContent=n===8?'🎆 Perfect! Happy New Year around the world. Now read the 3rd spot.':`${n} of 8 in the right place. Look at the dates and the sun and moon again!`;n===8?(tone(988,0,.3),party(2)):buzz()};
+
+/* card studio */
+const TH=[['Night fireworks','#1f0518','#730E4D'],['KION berry','#730E4D','#c2186f'],['Snowy warehouse','#203a5c','#7aa7d8']];let th=0;
+$('#themes').innerHTML=TH.map((t,i)=>`<button class="btn2" data-th="${i}" style="background:linear-gradient(135deg,${t[1]},${t[2]});color:#fff">${t[0]}</button>`).join('');
+$$('[data-th]').forEach(b=>b.onclick=()=>{th=+b.dataset.th;drawCard()});
+const cv=$('#cardCv'),cx=cv.getContext('2d');let sparks=[];
+const logo=new Image();logo.src='https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg';logo.onload=()=>drawCard();
+function wrapText(t,x,y,mw,lh){const w=t.split(' ');let l='';for(const word of w){const tt=l+word+' ';if(cx.measureText(tt).width>mw&&l){cx.fillText(l,x,y);l=word+' ';y+=lh}else l=tt}cx.fillText(l,x,y)}
+function drawCard(){const t=TH[th],g=cx.createLinearGradient(0,0,1000,625);g.addColorStop(0,t[1]);g.addColorStop(1,t[2]);cx.fillStyle=g;cx.fillRect(0,0,1000,625);
+ cx.fillStyle='rgba(255,255,255,.08)';for(let x=40;x<1000;x+=120){cx.fillRect(x,380,10,200)}for(let y=400;y<600;y+=60)cx.fillRect(0,y,1000,8);
+ cx.fillStyle='#1a1420';cx.fillRect(0,580,1000,45);cx.fillStyle='#F5B400';for(let x=0;x<1000;x+=80)cx.fillRect(x,598,40,6);
+ const bursts=[[150,120,'#F5B400'],[850,110,'#ff5fb4'],[720,60,'#7fd8ff'],[300,60,'#fff']];bursts.forEach(([bx,by,col])=>{cx.strokeStyle=col;cx.lineWidth=4;for(let k=0;k<18;k++){const a=k/18*6.283;cx.beginPath();cx.moveTo(bx+14*Math.cos(a),by+14*Math.sin(a));cx.lineTo(bx+60*Math.cos(a),by+60*Math.sin(a));cx.stroke()}});
+ for(const s of sparks){cx.globalAlpha=Math.max(0,s.l/60);cx.fillStyle=s.c;cx.fillRect(s.x,s.y,4,4)}cx.globalAlpha=1;
+ if(logo.complete&&logo.naturalWidth){cx.save();cx.filter='brightness(0) invert(1)';cx.drawImage(logo,40,30,150,150*logo.naturalHeight/logo.naturalWidth);cx.restore()}
+ cx.fillStyle='#fff';cx.textAlign='center';cx.font='900 58px Archivo, sans-serif';cx.fillText($('#cHead').value,500,240);
+ cx.font='500 26px Inter, sans-serif';cx.fillStyle='#f6dfee';wrapText($('#cWish').value,500,295,760,36);
+ cx.font='900 64px Archivo, sans-serif';cx.fillStyle='#F5B400';cx.fillText(solved.length===9?WORD:WORD.split('').map((ch,i)=>solved.includes(i)?ch:'_').join(' '),500,470);
+ cx.font='700 22px Inter, sans-serif';cx.fillStyle='#fff';cx.fillText('From team '+(team||'?')+' · KION End of Year 2026',500,540)}
+$('#cHead').oninput=drawCard;$('#cWish').oninput=drawCard;
+$('#cAnim').onclick=()=>{const cols=['#F5B400','#ff5fb4','#fff','#7fd8ff'];for(let b=0;b<5;b++){const bx=100+Math.random()*800,by=60+Math.random()*180,c=cols[b%4];for(let i=0;i<60;i++){const a=Math.random()*6.283,s=Math.random()*5+1;sparks.push({x:bx,y:by,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:60,c})}}
+ tone(300,0,.4,'sine');const step=()=>{sparks=sparks.filter(s=>s.l>0);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.vy+=.06;s.l--});drawCard();if(sparks.length)requestAnimationFrame(step)};step()};
+document.fonts&&document.fonts.ready.then(drawCard);drawCard();
+
+route();
+}
+</script>
+</body>
+</html>
