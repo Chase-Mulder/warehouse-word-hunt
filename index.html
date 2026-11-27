@@ -334,6 +334,22 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 @media(max-width:860px){.cs-panels{grid-template-columns:1fr}.tg{border-right:0}}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;font-weight:700}
 .field input,.field textarea{font:16px Inter;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--ink)}
+/* leaderboard */
+.lb{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(115,14,77,.12)}
+.lb table{width:100%;border-collapse:collapse}
+.lb th,.lb td{padding:12px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.lb tr:last-child td{border-bottom:0}
+.lb th{font:700 12px Inter;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);background:var(--chip)}
+.lb td.r{font:900 20px Archivo,sans-serif;width:70px;text-align:center}
+.lb td.n{font-weight:700;overflow-wrap:anywhere}
+.lb td.t,.lb th.t{text-align:right;font:800 19px Archivo,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lb th.t{font:700 12px Inter}
+.lb tr.top td{background:light-dark(#fff8e1,#2f1a08)}
+.lb tr.me td{background:light-dark(#ffe9a8,#4a3306)}.lb tr.me td.n::after{content:"  ← you";color:var(--berry2);font-weight:800}
+.lb-empty{padding:28px;text-align:center;color:var(--soft)}
+.lb-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.lb-bar .hint{margin:0;color:var(--soft);font-size:14px}
+.finale .start{justify-content:center;margin:6px 0 14px}
+#lbMsg{font-weight:700;color:var(--gold);min-height:1.5em}
 .foot{background:var(--night);color:#d9bfd0;font-size:14px}
 .foot img{height:24px}
 @media(max-width:600px){.slots{grid-template-columns:1fr 1fr}.hin{padding-bottom:130px}.tile small{display:none}}
@@ -442,6 +458,15 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 </main>
 
 <section class="band" style="background:linear-gradient(rgba(115,14,77,.82),rgba(31,5,24,.9)),url(https://www.kiongroup.com/KION-Website-Main/Homepage/Teaser/KION-Global_Landingpages_image_1200x674.jpg) center/cover;color:#fff"><div class="wrap"><h2 class="sec-h" style="color:#fff">One KION, many celebrations</h2><p class="sub" style="color:#f3dbe9">Colleagues across Europe, the Americas and Asia-Pacific playing together tonight.</p><div class="photos" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Innovation/KCU20/_DSC5201_image_737x414.jpg" alt="KION colleagues with Linde trucks" style="height:170px"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Growth/2026/10-Years-Dematic/Thumbnail_10years_2_image_737x414.jpg" alt="Dematic collage" style="height:170px"><img src="https://www.kiongroup.com/KION-Website-Main/News-and-Stories/Sustainability/Supplier-Sustainability/Dematic_Stage_image_737x414.jpg" alt="Automated truck" style="height:170px"><img src="https://www.kiongroup.com/KION-Website-Main/About-us/KION-at-a-glance/KION_Eurofork_KIONRed_image_1200x674.png" alt="Digital warehouse" style="height:170px"></div><div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:center;margin-top:26px"><img src="https://www.kiongroup.com/Administration/SVG/logo_linde.svg" alt="Linde" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_still.svg" alt="Still" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_dematic.svg" alt="Dematic" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_baoli.svg" alt="Baoli" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_fenwick.svg" alt="Fenwick" style="height:30px;filter:brightness(0) invert(1);opacity:.9"><img src="https://www.kiongroup.com/Administration/SVG/logo_voltas.svg" alt="Voltas" style="height:30px;filter:brightness(0) invert(1);opacity:.9"></div></div></section>
+<section class="band" id="leaderboard">
+  <div class="wrap">
+    <h2 class="sec-h">🏆 Shift leaderboard</h2>
+    <p class="sub">Enter your team name, start the shift, and crack all nine stations. The clock stops the moment the last letter lights up, and your team's time lands here for every breakout room to see. Fastest time wins.</p>
+    <div class="lb-bar"><button class="btn2" id="lbRefresh">↻ Refresh</button><span class="hint" id="lbNote">Loading times…</span></div>
+    <div class="lb" id="lb"><div class="lb-empty">Loading the leaderboard…</div></div>
+  </div>
+</section>
+
 <footer class="foot band">
   <div class="wrap" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between">
     <img src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
@@ -455,6 +480,8 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
     <p style="font-weight:700;letter-spacing:.06em">ALL NINE STATIONS CLEARED</p>
     <h2>FIREWORKS</h2>
     <p id="finTime" style="font-size:20px"></p>
+    <div class="start" id="lbName" hidden><input id="lbTeamIn" placeholder="Your team name" maxlength="28" aria-label="Team name for the leaderboard"><button class="btn2" id="lbSubmit" style="background:rgba(255,255,255,.15);color:#fff">Post our time</button></div>
+    <p id="lbMsg"></p>
     <p>Now head to Activity 2 and put your word on your New Year card.</p>
     <button class="btn" id="finBtn">Open the card studio</button>
   </div>
@@ -513,7 +540,7 @@ const startClock=()=>{if(!startedAt){startedAt=Date.now();tEnd=1;store.set('star
 function tick(){const fin=store.get('fin',0),s=startedAt?Math.floor(((fin||Date.now())-startedAt)/1000):0,h=s/3600|0;$('#timer').textContent=(fin?'🏁 ':'⏱ ')+(h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 addEventListener('hashchange',()=>{if(/^#station-/.test(location.hash))startClock()});
 setInterval(tick,1000);tick();
-$('#startBtn').onclick=()=>{startClock();jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
+$('#startBtn').onclick=()=>{if(!team){const t=$('#teamIn');t.focus();t.placeholder='Type your team name first!';t.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'none'}],{duration:300,iterations:2});tone(220,0,.15,'square',.06);return}startClock();jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
 
 /* ---------- stations ---------- */
 const S=[
@@ -656,7 +683,7 @@ solved.forEach(i=>markSolved(i,false));
 document.addEventListener('click',e=>{const c=e.target.closest('[data-check]');if(c){const i=+c.dataset.check,v=$('#in'+i).value.trim().toUpperCase();
  if(v===WORD[i])markSolved(i,true);else{buzz();say(['Beep boop. Wrong letter!','Nice try, human!','Fleet control says no!','Access denied! Try again!'][Math.floor(Math.random()*4)],{pitch:.3,rate:1.1});const a=$('#ans'+i);a.classList.remove('shake');void a.offsetWidth;a.classList.add('shake');$('#msg'+i).textContent=v?'❌ Fleet control rejects that letter.':'Type a letter first.'}}
  const h=e.target.closest('[data-hint]');if(h){const i=+h.dataset.hint,el=$('#hint'+i),n=+(el.dataset.n||0);if(n<2){el.innerHTML+=`<div>💡 ${hints[i][n]}</div>`;el.dataset.n=n+1}}});
-function finale(){if(!store.get('fin',0)){store.set('fin',Date.now());tick()}const m=startedAt?Math.round((Date.now()-startedAt)/60000):null;$('#finTime').textContent=(team?team+': ':'')+(m!==null?`solved in about ${m} minutes`:'solved!');$('#finale').classList.add('show');party(12)}
+function finale(){if(!store.get('fin',0)){store.set('fin',Date.now());tick()}const sec=finSecs();$('#finTime').textContent=(team?team+': ':'')+(sec?'solved in '+fmtT(sec):'solved!');$('#finale').classList.add('show');party(12);lbAuto()}
 $('#finBtn').onclick=()=>{$('#finale').classList.remove('show');$('#studio').scrollIntoView({behavior:'smooth'})};
 
 /* music: public-domain melodies, synthesised */
@@ -1089,6 +1116,38 @@ addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(document.activeElement.t
 renderStkTray();updSize();updSel();setTool('draw');paintBg();
 try{new IntersectionObserver(es=>{if(es[0].isIntersecting)buildBgs()},{rootMargin:'400px'}).observe($('#cBgs'))}catch(e){buildBgs()}
 document.fonts&&document.fonts.ready.then(()=>drawCard());
+
+/* ---------- leaderboard (Google Sheet via Apps Script) ---------- */
+// Paste your Apps Script web app URL here (ends in /exec). See leaderboard/README.md.
+const LB_URL='';
+const LB_MIN=120; // times faster than this are ignored (server checks too)
+const fmtT=s=>{const h=s/3600|0;return (h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+const finSecs=()=>{const fin=store.get('fin',0);return fin&&startedAt?Math.floor((fin-startedAt)/1000):0};
+let lbRows=[];
+function lbRender(){const box=$('#lb');
+ if(!LB_URL){box.innerHTML='<div class="lb-empty">The leaderboard isn\'t connected yet.</div>';$('#lbNote').textContent='';return}
+ const best={};lbRows.forEach(r=>{const k=r.team.trim().toLowerCase();if(!best[k]||r.secs<best[k].secs)best[k]=r});
+ const list=Object.values(best).sort((a,b)=>a.secs-b.secs||String(a.at).localeCompare(String(b.at)));
+ if(!list.length){box.innerHTML='<div class="lb-empty">No times yet. Be the first team to clear all nine stations!</div>';return}
+ const me=(store.get('posted','')||'').toLowerCase(),medal=['🥇','🥈','🥉'];
+ box.innerHTML='<table><thead><tr><th style="text-align:center">#</th><th>Team</th><th class="t">Time</th></tr></thead><tbody>'+list.slice(0,50).map((r,i)=>`<tr class="${i<3?'top':''} ${r.team.trim().toLowerCase()===me?'me':''}"><td class="r">${medal[i]||i+1}</td><td class="n">${esc(r.team)}</td><td class="t">${fmtT(r.secs)}</td></tr>`).join('')+'</tbody></table>';}
+async function lbLoad(){if(!LB_URL){lbRender();return}
+ try{const r=await fetch(LB_URL+(LB_URL.includes('?')?'&':'?')+'t='+Date.now());const d=await r.json();lbRows=(d.rows||[]).filter(x=>x&&x.team&&x.secs>=LB_MIN).map(x=>({team:String(x.team),secs:Math.round(+x.secs),at:x.at}));lbRender();$('#lbNote').textContent='Updated '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · refreshes every 30 seconds'}
+ catch(e){$('#lbNote').textContent='Couldn\'t reach the leaderboard. Check your connection and press Refresh.'}}
+async function lbPost(name){const secs=finSecs(),msg=$('#lbMsg');name=(name||'').trim().slice(0,28);
+ if(!LB_URL||!secs||!name||store.get('posted',''))return;
+ if(secs<LB_MIN){msg.textContent='That time looks too quick to post.';return}
+ msg.textContent='📡 Posting your time to the leaderboard…';
+ try{const r=await fetch(LB_URL,{method:'POST',body:JSON.stringify({team:name,secs})});const d=await r.json();
+  if(!d.ok)throw new Error(d.error||'rejected');
+  store.set('posted',name);$('#lbName').hidden=true;msg.textContent='🏆 '+fmtT(secs)+' posted to the leaderboard!';lbRows.push({team:name,secs,at:new Date().toISOString()});lbRender();setTimeout(lbLoad,1500)}
+ catch(e){msg.textContent='⚠️ Couldn\'t post your time ('+e.message+'). Press "Post our time" to try again.';$('#lbTeamIn').value=name;$('#lbName').hidden=false}}
+function lbAuto(){if(!LB_URL||store.get('posted',''))return;if(team)lbPost(team);else{$('#lbName').hidden=false;$('#lbMsg').textContent='Add your team name to post your time.';$('#lbTeamIn').focus()}}
+$('#lbSubmit').onclick=()=>{const n=$('#lbTeamIn').value.trim();if(!n){$('#lbTeamIn').focus();return}team=n;store.set('team',team);$('#teamIn').value=team;showTeam();drawCard();lbPost(n)};
+$('#lbRefresh').onclick=lbLoad;
+lbLoad();setInterval(()=>{if(!document.hidden)lbLoad()},30000);
+if(solved.length===9&&finSecs()&&!store.get('posted',''))setTimeout(()=>{if(team)lbPost(team)},2000); // retry a post that failed earlier
 
 let rArm=null;$('#resetBtn').onclick=()=>{const b=$('#resetBtn');if(!rArm){b.classList.add('arm');b.textContent='⚠️ Are you sure? Click again';tone(330,0,.15,'square',.08);say('Are you sure?',{pitch:1,rate:1.05});rArm=setTimeout(()=>{rArm=null;b.classList.remove('arm');b.textContent='↺ Reset game'},4000)}
  else{try{Object.keys(localStorage).filter(k=>k.startsWith('wwh-')).forEach(k=>localStorage.removeItem(k))}catch(e){}tone(196,0,.4,'sawtooth',.1);history.replaceState(null,'',location.pathname+location.search);setTimeout(()=>location.reload(),250)}};
