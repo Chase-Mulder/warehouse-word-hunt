@@ -5,7 +5,7 @@
  * Copy the /exec URL into LB_URL in index.html.
  */
 const SHEET_NAME = 'Scores';
-const MIN_SECS = 120;      // reject anything faster than 2 minutes
+const MIN_SECS = 1;        // reject zero or negative times
 const MAX_SECS = 6 * 3600; // reject anything longer than 6 hours
 
 function sheet_() {
