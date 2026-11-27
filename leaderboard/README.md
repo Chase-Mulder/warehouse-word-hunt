@@ -15,5 +15,5 @@ The script creates a **Scores** tab on the first finish. To remove a fake or tes
 Notes:
 - If you edit the script later, use **Deploy > Manage deployments > Edit > Version: New version**. That keeps the same URL.
 - A work Google account may block "Anyone" access. If it does, use a personal Gmail account.
-- Each team's best time is shown. Times under 2 minutes are rejected.
+- Each team's best time is shown. Times over 6 hours are rejected.
 - Pressing **Reset game** on a computer lets that team play again and post another time.
