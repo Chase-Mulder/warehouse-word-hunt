@@ -349,6 +349,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .lb-empty{padding:28px;text-align:center;color:var(--soft)}
 .lb-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.lb-bar .hint{margin:0;color:var(--soft);font-size:14px}
 .finale .start{justify-content:center;margin:6px 0 14px}
+.finale .start input:disabled,.finale .start button:disabled{opacity:.55;cursor:default;filter:grayscale(1)}
 #lbMsg{font-weight:700;color:var(--gold);min-height:1.5em}
 .foot{background:var(--night);color:#d9bfd0;font-size:14px}
 .foot img{height:24px}
@@ -1120,7 +1121,7 @@ document.fonts&&document.fonts.ready.then(()=>drawCard());
 /* ---------- leaderboard (Google Sheet via Apps Script) ---------- */
 // Paste your Apps Script web app URL here (ends in /exec). See leaderboard/README.md.
 const LB_URL='https://script.google.com/macros/s/AKfycbwRdiUzDkM1lehPFk8KS4qDI2rIL5m0wQaX3pzKhN6pnl7ckha6-zZw3EvU3zIELyVeKg/exec';
-const LB_MIN=120,LB_MAX=6*3600; // times outside this range are ignored (server checks too)
+const LB_MIN=1,LB_MAX=6*3600; // times outside this range are ignored (server checks too)
 const fmtT=s=>{const h=s/3600|0;return (h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const finSecs=()=>{const fin=store.get('fin',0);return fin&&startedAt?Math.floor((fin-startedAt)/1000):0};
@@ -1137,13 +1138,13 @@ async function lbLoad(){if(!LB_URL){lbRender();return}
  catch(e){$('#lbNote').textContent='Couldn\'t reach the leaderboard. Check your connection and press Refresh.'}}
 async function lbPost(name){const secs=finSecs(),msg=$('#lbMsg');name=(name||'').trim().slice(0,28);
  if(!LB_URL||!secs||!name||store.get('posted',''))return;
- if(secs<LB_MIN){$('#lbName').hidden=true;msg.textContent='⚡ '+fmtT(secs)+' is under the 2-minute minimum, so it wasn\'t posted. (Press Reset game to play again.)';return}
  if(secs>LB_MAX){$('#lbName').hidden=true;msg.textContent='⏰ Your clock ran for '+fmtT(secs)+' (over 6 hours), so it wasn\'t posted. Press Reset game, then Start, to play again.';return}
+ const btn=$('#lbSubmit'),inp=$('#lbTeamIn');btn.disabled=true;btn.textContent='Posting…';
  msg.textContent='📡 Posting your time to the leaderboard…';
  try{const r=await fetch(LB_URL,{method:'POST',body:JSON.stringify({team:name,secs})});const d=await r.json();
   if(!d.ok)throw new Error(d.error||'rejected');
-  store.set('posted',name);$('#lbName').hidden=true;msg.textContent='🏆 '+fmtT(secs)+' posted to the leaderboard!';lbRows.push({team:name,secs,at:new Date().toISOString()});lbRender();setTimeout(lbLoad,1500)}
- catch(e){msg.textContent='⚠️ Couldn\'t post your time ('+e.message+'). Press "Post our time" to try again.';$('#lbTeamIn').value=name;$('#lbName').hidden=false}}
+  store.set('posted',name);inp.value=name;inp.disabled=true;btn.textContent='✓ Score posted!';$('#lbName').hidden=false;msg.textContent='🏆 '+fmtT(secs)+' posted to the leaderboard!';lbRows.push({team:name,secs,at:new Date().toISOString()});lbRender();setTimeout(lbLoad,1500)}
+ catch(e){msg.textContent='⚠️ Couldn\'t post your time ('+e.message+'). Press "Post our time" to try again.';inp.value=name;inp.disabled=false;btn.disabled=false;btn.textContent='Post our time';$('#lbName').hidden=false}}
 function lbAuto(){if(!LB_URL||store.get('posted',''))return;if(team)lbPost(team);else{$('#lbName').hidden=false;$('#lbMsg').textContent='Add your team name to post your time.';$('#lbTeamIn').focus()}}
 $('#lbSubmit').onclick=()=>{const n=$('#lbTeamIn').value.trim();if(!n){$('#lbTeamIn').focus();return}team=n;store.set('team',team);$('#teamIn').value=team;showTeam();drawCard();lbPost(n)};
 $('#lbRefresh').onclick=lbLoad;
