@@ -1119,7 +1119,7 @@ document.fonts&&document.fonts.ready.then(()=>drawCard());
 
 /* ---------- leaderboard (Google Sheet via Apps Script) ---------- */
 // Paste your Apps Script web app URL here (ends in /exec). See leaderboard/README.md.
-const LB_URL='';
+const LB_URL='https://script.google.com/macros/s/AKfycbwRdiUzDkM1lehPFk8KS4qDI2rIL5m0wQaX3pzKhN6pnl7ckha6-zZw3EvU3zIELyVeKg/exec';
 const LB_MIN=120; // times faster than this are ignored (server checks too)
 const fmtT=s=>{const h=s/3600|0;return (h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
