@@ -139,7 +139,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .pr2-item{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:18px;align-items:center;background:rgba(0,0,0,.28);border-radius:18px;padding:12px;margin-bottom:14px;animation:pop .5s}
 .pr2-img{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.4);transform:rotate(-1.5deg)}
 .pr2-img img{width:100%;height:100%;object-fit:cover;display:block}
-.pr2-flag{position:absolute;left:8px;top:6px;font-size:34px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.pr2-flag{position:absolute;left:10px;top:10px;width:46px;height:auto;border-radius:5px;box-shadow:0 2px 8px rgba(0,0,0,.55)}
 .pr2-cr{position:absolute;right:0;bottom:0;font:600 10px Inter;background:rgba(0,0,0,.6);color:#fff;padding:3px 7px;border-top-left-radius:8px;text-decoration:none}
 .pr2-item small{font:800 12px Inter;color:#ffd84d;letter-spacing:.08em}
 .pr2-item h3{font-size:clamp(20px,2.8vw,30px);margin:6px 0 4px}
@@ -815,7 +815,7 @@ const prWins=()=>prRes.filter(Boolean).length;
 function prScoreUI(){$('#prScore').textContent=[0,1,2,3,4].map(i=>i<prRes.length?(prRes[i]?'⭐':'❌'):'⬜').join(' ')}
 function prRender(){const r=prSet[prRound];prLocked=false;$('#prNext').hidden=true;
  const opp=[['🧝','Elfie',r.b[0],pick(QE)],['🎅','Big Nick',r.b[1],pick(QN)]];
- $('#prStage').innerHTML=`<div class="pr2-item"><div class="pr2-img"><img src="${r.img}" alt="${r.n}" referrerpolicy="no-referrer"><span class="pr2-flag">${r.f}</span><a class="pr2-cr" href="${r.cr[2]}" target="_blank" rel="noopener">📷 ${r.cr[0]} · ${r.cr[1]}</a></div>
+ $('#prStage').innerHTML=`<div class="pr2-item"><div class="pr2-img"><img src="${r.img}" alt="${r.n}" referrerpolicy="no-referrer"><img class="pr2-flag" src="https://flagcdn.com/w80/${[...r.f].map(ch=>String.fromCharCode(ch.codePointAt(0)-127397)).join('').toLowerCase()}.png" alt="${r.c} flag"><a class="pr2-cr" href="${r.cr[2]}" target="_blank" rel="noopener">📷 ${r.cr[0]} · ${r.cr[1]}</a></div>
  <div><small>ROUND ${prRound+1} OF 5 · ${r.c.toUpperCase()}</small><h3>${r.n}</h3><div class="pr2-meta">${r.s}</div><span class="pr2-cur">Bid in ${CURN[r.cur]} (${curSym(r.cur)})</span></div></div>
  <div class="pods">${opp.map((c,i)=>`<div class="pod pr2-pop" style="animation-delay:${.15+i*.45}s"><span class="pav">${c[0]}</span><b>${c[1]}</b><span class="bid">${prMoney(c[2],r.cur)}</span><span class="pr2-quip">“${c[3]}”</span><span class="pr2-off"></span></div>`).join('')}
  <div class="pod pr2-you pr2-pop" style="animation-delay:1.05s"><span class="pav">🫵</span><b>Your team</b><label class="pr2-in"><span>${curSym(r.cur)}</span><input id="prIn" inputmode="decimal" autocomplete="off" placeholder="${curDec(r.cur)?'0.00':'0'}" aria-label="Your bid in ${CURN[r.cur]}"></label><button class="btn" id="prLock">🔒 Lock in bid</button><span class="pr2-off"></span></div></div>
