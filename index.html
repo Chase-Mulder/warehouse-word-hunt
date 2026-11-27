@@ -480,7 +480,7 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
     <p style="font-weight:700;letter-spacing:.06em">ALL NINE STATIONS CLEARED</p>
     <h2>FIREWORKS</h2>
     <p id="finTime" style="font-size:20px"></p>
-    <div class="start" id="lbName" hidden><input id="lbTeamIn" placeholder="Your team name" maxlength="28" aria-label="Team name for the leaderboard"><button class="btn2" id="lbSubmit" style="background:rgba(255,255,255,.15);color:#fff">Post our time</button></div>
+    <div class="start" id="lbName" hidden><input id="lbTeamIn" placeholder="Your team name" maxlength="28" aria-label="Team name for the leaderboard"><button class="btn" id="lbSubmit">Post our time</button></div>
     <p id="lbMsg"></p>
     <p>Now head to Activity 2 and put your word on your New Year card.</p>
     <button class="btn" id="finBtn">Open the card studio</button>
@@ -540,7 +540,7 @@ const startClock=()=>{if(!startedAt){startedAt=Date.now();tEnd=1;store.set('star
 function tick(){const fin=store.get('fin',0),s=startedAt?Math.floor(((fin||Date.now())-startedAt)/1000):0,h=s/3600|0;$('#timer').textContent=(fin?'🏁 ':'⏱ ')+(h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 addEventListener('hashchange',()=>{if(/^#station-/.test(location.hash))startClock()});
 setInterval(tick,1000);tick();
-$('#startBtn').onclick=()=>{if(!team){const t=$('#teamIn');t.focus();t.placeholder='Type your team name first!';t.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'none'}],{duration:300,iterations:2});tone(220,0,.15,'square',.06);return}startClock();jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
+$('#startBtn').onclick=()=>{if(!team){const t=$('#teamIn');t.focus();t.placeholder='Type your team name first!';t.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'none'}],{duration:300,iterations:2});tone(220,0,.15,'square',.06);return}if(!solved.length){startedAt=0;store.set('fin',0);store.set('posted','')}startClock();jingle();party(3);$('#map').scrollIntoView({behavior:'smooth'})};
 
 /* ---------- stations ---------- */
 const S=[
@@ -1120,7 +1120,7 @@ document.fonts&&document.fonts.ready.then(()=>drawCard());
 /* ---------- leaderboard (Google Sheet via Apps Script) ---------- */
 // Paste your Apps Script web app URL here (ends in /exec). See leaderboard/README.md.
 const LB_URL='https://script.google.com/macros/s/AKfycbwRdiUzDkM1lehPFk8KS4qDI2rIL5m0wQaX3pzKhN6pnl7ckha6-zZw3EvU3zIELyVeKg/exec';
-const LB_MIN=120; // times faster than this are ignored (server checks too)
+const LB_MIN=120,LB_MAX=6*3600; // times outside this range are ignored (server checks too)
 const fmtT=s=>{const h=s/3600|0;return (h?h+':':'')+String((s/60|0)%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const finSecs=()=>{const fin=store.get('fin',0);return fin&&startedAt?Math.floor((fin-startedAt)/1000):0};
@@ -1137,7 +1137,8 @@ async function lbLoad(){if(!LB_URL){lbRender();return}
  catch(e){$('#lbNote').textContent='Couldn\'t reach the leaderboard. Check your connection and press Refresh.'}}
 async function lbPost(name){const secs=finSecs(),msg=$('#lbMsg');name=(name||'').trim().slice(0,28);
  if(!LB_URL||!secs||!name||store.get('posted',''))return;
- if(secs<LB_MIN){msg.textContent='That time looks too quick to post.';return}
+ if(secs<LB_MIN){$('#lbName').hidden=true;msg.textContent='⚡ '+fmtT(secs)+' is under the 2-minute minimum, so it wasn\'t posted. (Press Reset game to play again.)';return}
+ if(secs>LB_MAX){$('#lbName').hidden=true;msg.textContent='⏰ Your clock ran for '+fmtT(secs)+' (over 6 hours), so it wasn\'t posted. Press Reset game, then Start, to play again.';return}
  msg.textContent='📡 Posting your time to the leaderboard…';
  try{const r=await fetch(LB_URL,{method:'POST',body:JSON.stringify({team:name,secs})});const d=await r.json();
   if(!d.ok)throw new Error(d.error||'rejected');
