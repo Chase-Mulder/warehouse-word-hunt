@@ -135,7 +135,36 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .pod.over::after{content:"OVER!";position:absolute;top:30%;left:50%;transform:translateX(-50%) rotate(-12deg);font:900 26px Archivo;color:#D2232A;background:#fff;padding:2px 10px;border:3px solid #D2232A;border-radius:8px}
 .pr-actual{text-align:center;font:800 18px Inter;margin-top:14px;min-height:28px}.pr-actual b{color:#F5B400;font-size:26px}
 .pr-final{text-align:center}.pr-row{display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.25);border-radius:12px;padding:10px 14px;margin:6px 0;font:700 18px Inter}
-.pr-row.champ{background:#F5B400;color:#2a0a20;animation:pop .5s}.bigl{font:900 48px Archivo;color:#F5B400;display:inline-block;animation:pop .6s}
+.pr-row.champ{background:#F5B400;color:#2a0a20;animation:pop .5s}
+.pr2-item{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:18px;align-items:center;background:rgba(0,0,0,.28);border-radius:18px;padding:12px;margin-bottom:14px;animation:pop .5s}
+.pr2-img{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.4);transform:rotate(-1.5deg)}
+.pr2-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pr2-flag{position:absolute;left:8px;top:6px;font-size:34px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+.pr2-cr{position:absolute;right:0;bottom:0;font:600 10px Inter;background:rgba(0,0,0,.6);color:#fff;padding:3px 7px;border-top-left-radius:8px;text-decoration:none}
+.pr2-item small{font:800 12px Inter;color:#ffd84d;letter-spacing:.08em}
+.pr2-item h3{font-size:clamp(20px,2.8vw,30px);margin:6px 0 4px}
+.pr2-meta{color:#ffd1ea;font-weight:600}
+.pr2-cur{display:inline-block;margin-top:10px;background:#F5B400;color:#2a0a20;font:800 13px Inter;padding:5px 12px;border-radius:999px}
+.pr2-pop{animation:pop .5s both}
+.pr2-quip{font:600 12px/1.3 Inter;color:#6d5565;font-style:italic;text-align:center}
+.pr2-off{font:800 13px Inter;color:#730E4D;min-height:1em}.pod.win .pr2-off{color:#1e9e58}
+.pr2-you{background:linear-gradient(#fff8dc,#ffe08a)}
+.pr2-in{display:flex;align-items:center;gap:4px;background:#1a1420;border-radius:8px;padding:2px 10px;width:100%;max-width:180px}
+.pr2-in span{color:#7CFC9A;font:900 18px "Courier New",monospace}
+.pr2-in input{width:100%;min-width:0;background:transparent;border:0;color:#7CFC9A;font:900 24px "Courier New",monospace;padding:4px 0}
+.pr2-in input::placeholder{color:#3f7a4f}
+.pr2-you .btn{min-height:40px;padding:0 14px;font-size:14px}.pr2-you .btn:disabled{opacity:.6;cursor:default}
+.pr2-you.shake{animation:shake .4s}
+.pr2-tag{margin:6px auto 0;max-width:340px;text-align:center;background:#fff;color:#2a0a20;border-radius:14px 40px 40px 14px;padding:10px 26px;position:relative;box-shadow:0 10px 26px rgba(0,0,0,.4);animation:pop .4s}
+.pr2-tag::before{content:"";position:absolute;right:16px;top:50%;width:14px;height:14px;border-radius:50%;background:#3a0a40;transform:translateY(-50%)}
+.pr2-tag small{font:800 11px Inter;letter-spacing:.14em;color:#9B1466}
+.pr2-tag b{display:block;font:900 clamp(34px,6vw,48px) Archivo;color:#D2232A;font-variant-numeric:tabular-nums}
+.pr2-prize{max-width:220px;margin:10px auto}
+.pr2-res{font:900 22px Archivo;margin-top:12px;color:#fff}
+.pr2-fact{font:500 15px/1.45 Inter;color:#ffe6f3;max-width:60ch;margin:8px auto 0;background:rgba(0,0,0,.22);border-radius:12px;padding:8px 12px}
+.pr2-stars{letter-spacing:2px}
+.pr2-note{font:500 12px Inter;color:#f3c6e0;text-align:center;margin:10px 0 0}
+@media(max-width:700px){.pr2-item{grid-template-columns:1fr}}.bigl{font:900 48px Archivo;color:#F5B400;display:inline-block;animation:pop .6s}
 .mil{background:radial-gradient(circle at 50% 0,#3b2a8e,#0b0526 75%);color:#fff;border-radius:22px;padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:16px}
 .mlogo{display:flex;gap:10px;align-items:center;font:900 20px Archivo;color:#F5B400;margin-bottom:10px}.mlogo span{font-size:38px;animation:spin 6s linear infinite;display:inline-block}
 .mq{border:2px solid #7fd8ff;border-radius:40px;padding:16px 22px;text-align:center;font:700 clamp(16px,2vw,19px) Inter;background:linear-gradient(#1b1450,#0e0a33);box-shadow:0 0 18px rgba(127,216,255,.35)}
@@ -546,7 +575,7 @@ $('#startBtn').onclick=()=>{if(!team){const t=$('#teamIn');t.focus();t.placehold
 /* ---------- stations ---------- */
 const S=[
  {ic:'🎵',t:'Hitster: Name That Tune',by:'Game by Sandra',d:'Five global hits, fifteen questions, one painted letter.'},
- {ic:'💰',t:'The Price Is Right',by:'Game by Sandra',d:'Closest without going over! Pick the winning bid in five rounds.'},
+ {ic:'💰',t:'The Price Is Right',by:'Game by Sandra',d:'Guess real shelf prices from around the world and beat Elfie and Big Nick!'},
  {ic:'💎',t:'Who Wants to Be a Millionaire?',by:'Quiz by Danny',d:'Six festive questions, three lifelines, one million-dollar letter.'},
  {ic:'🔐',t:'The Missing Code',by:'Puzzle by Danny',d:'Decode the AGV fleet\'s ID plates and solve the controller\'s equation.'},
  {ic:'🌍',t:'Greetings Around the World',by:'Puzzle by Matej',d:'Match eight festive greetings to their countries.'},
@@ -561,7 +590,7 @@ $$('.st').forEach(b=>b.onclick=()=>{location.hash='station-'+(+b.dataset.i+1)});
 
 const hints=[
  ['Each row of the grid is one horizontal slice of a capital letter.','Rows 2, 4 and 5 should only use column A.'],
- ['The winning bid is the highest bid that does NOT go over the real number.','The Twelve Days of Christmas has 364 gifts in total, and a piano has 88 keys.'],
+ ['Think everyday supermarket prices in that country, not tourist prices. Staples like bread, noodles and soft drinks are cheap!','The real prices: German bread €1.29, baguette €1.00, Heinz Beanz £1.80, Pocky ¥245, Kraft Mac & Cheese $1.29, Toblerone CHF 2.19, Mexican Coke MX$23, Maggi ₹14, Shin Ramyun ₩1,000, Vegemite NZ$5.49.'],
  ['Use your lifelines! The audience is usually right.','The million-dollar answer: osechi boxes come from Japan.'],
  ['Read the plates left to right: model letter, lift height, parking spot (aisle letter + row number), battery %.','A = 9, B = 8. Count only AGVs strictly above 50% charge for D.'],
  ['Wesołych Świąt is Polish, Veselé Vánoce is Czech.','The wintry word is something you throw in winter.'],
@@ -594,11 +623,11 @@ const b1=`<div class="card"><div class="clips">${[1,2,3,4,5].map(n=>`<button cla
 <div class="pix" id="pix"><div class="h"></div><div class="h">A</div><div class="h">B</div><div class="h">C</div>${[1,2,3,4,5].map(r=>`<div class="h" style="justify-content:start">Clip ${r}</div>`+[0,1,2].map(c=>`<div id="px${r-1}${c}"></div>`).join('')).join('')}</div></div></div>`;
 
 /* S2 */
-const PR=[['🎁','Total number of gifts given in the song “The Twelve Days of Christmas”',364,[300,365,78]],['🎹','Number of keys on a standard piano',88,[90,85,52]],['🕰️','Number of time zones in Russia',11,[10,12,7]],['🏭','The year the Linde company was founded',1879,[1901,1850,1875]],['🌍','KION employees worldwide (more than…)',42000,[40000,50000,25000]]];
-const CONT=[['🧝','Elfie','I'],['🎅','Big Nick','S'],['⛄','Frosty','O']];
-const b2=`<div class="prshow"><div class="prlogo">💰 THE PRICE IS RIGHT 💰<br><small style="font:800 14px Inter;color:#fff">Warehouse holiday edition</small></div>
-<p style="text-align:center;margin:0 0 12px">Three contestants bid on every round. The winner is whoever gets <b>closest to the real number without going over</b>. Tap the contestant you think wins! After five rounds, the champion's name badge reveals your letter.</p>
-<div id="prStage"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px"><span style="font:800 16px Inter">Your correct calls: <span id="prScore">0</span> / 5</span><button class="btn" id="prNext" hidden>Next round ➜</button></div></div>`;
+const PRI=[{"f":"🇩🇪","c":"Germany","n":"Weizenmischbrot (mixed wheat-rye bread)","s":"1 kg loaf · Lidl / Kaufland","cur":"EUR","p":1.29,"b":[1.99,3.49],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Mischbrot-1.jpg/960px-Mischbrot-1.jpg","cr":["Rainer Zenz","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Mischbrot-1.jpg"],"fact":"German bread culture, with more than 3,000 registered bread varieties, is on Germany’s national list of intangible cultural heritage."},{"f":"🇫🇷","c":"France","n":"Baguette","s":"Classic baguette · village boulangerie","cur":"EUR","p":1.0,"b":[1.6,0.45],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Baguette_mie.jpg/960px-Baguette_mie.jpg","cr":["Popo le Chien","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Baguette_mie.jpg"],"fact":"France gets through about 10 billion baguettes a year, and in 2022 UNESCO added the craft of the baguette to its heritage list."},{"f":"🇬🇧","c":"United Kingdom","n":"Heinz Baked Beanz","s":"415 g tin · Co-op","cur":"GBP","p":1.8,"b":[0.99,2.75],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Heinz_%22Beanz%22_Baked_Beans_In_a_rich_tomato_sauce.jpg/960px-Heinz_%22Beanz%22_Baked_Beans_In_a_rich_tomato_sauce.jpg","cr":["AhmedMX","CC0","https://commons.wikimedia.org/wiki/File:Heinz_%22Beanz%22_Baked_Beans_In_a_rich_tomato_sauce.jpg"],"fact":"Heinz baked beans were first sold in Britain in 1886, as a posh treat at the London department store Fortnum & Mason."},{"f":"🇯🇵","c":"Japan","n":"Glico Pocky Chocolate","s":"Regular box · supermarket","cur":"JPY","p":245,"b":[150,420],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Pocky-Sticks.jpg/960px-Pocky-Sticks.jpg","cr":["Evan-Amos","CC BY-SA 3.0","https://commons.wikimedia.org/wiki/File:Pocky-Sticks.jpg"],"fact":"Pocky launched in 1966. 11 November (11/11) is Pocky Day in Japan, because the date looks like four Pocky sticks."},{"f":"🇺🇸","c":"United States","n":"Kraft Mac & Cheese","s":"7.25 oz box · Target","cur":"USD","p":1.29,"b":[2.49,0.69],"img":"https://upload.wikimedia.org/wikipedia/commons/0/0e/Kraft_Dinner_Mac_Cheese.jpg","cr":["NowIsntItTime","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Kraft_Dinner_Mac_Cheese.jpg"],"fact":"Kraft boxed mac & cheese launched in 1937, during the Great Depression, as a cheap dinner for a whole family."},{"f":"🇨🇭","c":"Switzerland","n":"Toblerone","s":"100 g bar · Action","cur":"CHF","p":2.19,"b":[3.95,1.25],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Toblerone_3362.jpg/960px-Toblerone_3362.jpg","cr":["Ashley Pomeroy","CC BY 3.0","https://commons.wikimedia.org/wiki/File:Toblerone_3362.jpg"],"fact":"Toblerone was invented in Bern in 1908. Since 2023 the Matterhorn is gone from the logo, because some bars are now made outside Switzerland."},{"f":"🇲🇽","c":"Mexico","n":"Coca-Cola","s":"600 ml bottle · OXXO corner shop","cur":"MXN","p":23,"b":[12,38],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/6_Pack_of_Mexican_Coca_Cola_%2823105300426%29.jpg/960px-6_Pack_of_Mexican_Coca_Cola_%2823105300426%29.jpg","cr":["Willis Lam","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:6_Pack_of_Mexican_Coca_Cola_(23105300426).jpg"],"fact":"Mexico is one of the biggest Coca-Cola drinkers in the world per person, and Mexican Coke is famous for being made with cane sugar."},{"f":"🇮🇳","c":"India","n":"Maggi 2-Minute Masala Noodles","s":"70 g pack · printed shop price (MRP)","cur":"INR","p":14,"b":[35,5],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Vegetable_Maggi_3.jpg/960px-Vegetable_Maggi_3.jpg","cr":["Ganesh Mohan T","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Vegetable_Maggi_3.jpg"],"fact":"Maggi is so popular in India that many people simply say “Maggi” when they mean any instant noodles."},{"f":"🇰🇷","c":"South Korea","n":"Nongshim Shin Ramyun","s":"Single pack · supermarket","cur":"KRW","p":1000,"b":[1800,450],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Nongshim_Shin_Ramyun_20210529_003.jpg/960px-Nongshim_Shin_Ramyun_20210529_003.jpg","cr":["Mobius6","CC BY-SA 4.0","https://commons.wikimedia.org/wiki/File:Nongshim_Shin_Ramyun_20210529_003.jpg"],"fact":"Shin Ramyun launched in 1986, and South Koreans eat more instant noodles per person than anyone else on Earth."},{"f":"🇳🇿","c":"New Zealand","n":"Vegemite","s":"220 g jar · Pak’nSave","cur":"NZD","p":5.49,"b":[8.99,2.99],"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Two_Vegemite_Jars_%2841062016175%29.jpg/960px-Two_Vegemite_Jars_%2841062016175%29.jpg","cr":["Willis Lam","CC BY-SA 2.0","https://commons.wikimedia.org/wiki/File:Two_Vegemite_Jars_(41062016175).jpg"],"fact":"Vegemite was invented in Melbourne in 1922, made from leftover brewer’s yeast."}];
+const b2=`<div class="prshow"><div class="prlogo">💰 THE PRICE IS RIGHT 💰<br><small style="font:800 14px Inter;color:#fff">Around-the-world shopping edition</small></div>
+<p style="text-align:center;margin:0 auto 12px;max-width:62ch">Real items, real shelf prices, in the local currency. Elfie and Big Nick have already placed their bids. Type yours: <b>closest to the real price wins</b> (going over is allowed!). Win <b>3 of 5 rounds</b> and your prize tag reveals your letter.</p>
+<div id="prStage"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px"><span style="font:800 16px Inter">Your wins (need 3): <span id="prScore" class="pr2-stars"></span></span><button class="btn" id="prNext" hidden>Next item ➜</button></div>
+<p class="pr2-note">Shelf prices checked November 2026 and can vary from shop to shop. Photos: Wikimedia Commons (tap the credit on each photo).</p></div>`;
 
 /* S3 */
 const MQ=[[100,'Panettone, the tall sweet bread full of candied fruit, comes from which country?',['Spain','Italy','Portugal','Greece'],1],[500,'At Lunar New Year, families in northern China fold and eat which food together?',['Tacos','Jiaozi dumplings','Croissants','Sushi rolls'],1],[1000,'The French Christmas cake bûche de Noël is shaped like a…',['Star','Bell','Log','Snowman'],2],[10000,'Diwali is famously known as the festival of…',['Colors','Kites','Lights','Masks'],2],[100000,'Tamales wrapped in corn husks are a Christmas Eve favourite in…',['Mexico','Norway','India','Japan'],0],[1000000,'Osechi ryōri, beautiful lacquered boxes of food, are eaten at New Year in…',['Vietnam','South Korea','Mongolia','Japan'],3]];
@@ -770,24 +799,52 @@ const pick1={};
 $$('#station-1 .opt').forEach(b=>b.onclick=()=>{const q=b.dataset.q;$$(`#station-1 .opt[data-q="${q}"]`).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');pick1[q]=+b.dataset.o;blip();
  for(let r=0;r<5;r++){const used=new Set([0,1,2].map(k=>pick1[r+'-'+k]).filter(v=>v!==undefined));for(let c=0;c<3;c++)$('#px'+r+c).classList.toggle('on',used.has(c))}});
 
-/* S2 logic: price is right */
-let prRound=0,prScore=0,prWins=[0,0,0],prLocked=false;
-const prWinner=r=>{let best=-1,bv=-Infinity;r[3].forEach((b,i)=>{if(b<=r[2]&&b>bv){bv=b;best=i}});return best};
-function prRender(){const r=PR[prRound];prLocked=false;$('#prNext').hidden=true;
- $('#prStage').innerHTML=`<div class="pr-item"><span class="pr-emo">${r[0]}</span><div><small>ROUND ${prRound+1} OF 5</small><h3>${r[1]}</h3></div></div><div class="pods">${CONT.map((c,i)=>`<button class="pod" data-pod="${i}"><span class="pav">${c[0]}</span><b>${c[1]}</b><span class="bid">${r[3][i].toLocaleString('en-US')}</span><span class="badge">badge: ?</span></button>`).join('')}</div><div class="pr-actual" id="prAct">Who wins? Closest without going over!</div>`;
- $$('.pod').forEach(p=>p.onclick=()=>prPick(+p.dataset.pod))}
-function prPick(i){if(prLocked)return;prLocked=true;const r=PR[prRound],pods=$$('.pod');pods[i].classList.add('pick');drum();$('#prAct').textContent='🥁 And the actual number is…';
- setTimeout(()=>{const w=prWinner(r);prWins[w]++;pods[w].classList.add('win');r[3].forEach((b,k)=>{if(b>r[2])pods[k].classList.add('over')});
-  $('#prAct').innerHTML=`ACTUAL: <b>${r[2].toLocaleString('en-US')}${prRound===4?'+':''}</b><br>${CONT[w][0]} ${CONT[w][1]} wins the round!`;
-  if(w===i){prScore++;ding();burstAt(pods[w],['💰','💵','🎉','⭐'],14);say(['Come on down! You got it!','Winner winner! Nicely done!','Ding ding ding! Right on the money!'][prRound%3],{pitch:1.3})}
-  else{wah();say(['Oh no! So close!','Bummer! Better luck next round!','Not this time, champ!','Wah wah! The price was wrong!'][prRound%4],{pitch:.8})}
-  $('#prScore').textContent=prScore;$('#prNext').hidden=false;$('#prNext').textContent=prRound<4?'Next round ➜':'See the champion 🏆'},1400)}
-function prFinal(){const champ=prWins.indexOf(Math.max(...prWins));fanfare();setTimeout(jingle,500);party(3);
- $('#prStage').innerHTML=`<div class="pr-final"><h3 style="font-size:24px;margin-bottom:8px">🏆 Final scoreboard</h3>${CONT.map((c,i)=>`<div class="pr-row ${i===champ?'champ':''}"><span>${c[0]} ${c[1]}</span><b>${prWins[i]} win${prWins[i]===1?'':'s'}</b></div>`).join('')}
- <p style="font:700 18px Inter;margin-top:14px">Champion ${CONT[champ][1]}'s name badge shows your letter:</p><div class="bigl">${CONT[champ][2]}</div><p class="hint" style="color:#fff">Your team called ${prScore} of 5 rounds correctly.</p><button class="btn2" id="prAgain">↺ Play again</button></div>`;
- $('#prNext').hidden=true;say('And the champion is '+CONT[champ][1]+'!',{pitch:1.2});$('#prAgain').onclick=()=>{prRound=0;prScore=0;prWins=[0,0,0];$('#prScore').textContent=0;prRender()}}
+/* S2 logic: price is right, around-the-world shopping edition */
+const CURN={EUR:'euros',GBP:'British pounds',JPY:'Japanese yen',USD:'US dollars',CHF:'Swiss francs',MXN:'Mexican pesos',INR:'Indian rupees',KRW:'South Korean won',NZD:'New Zealand dollars'};
+const QE=['I shop here every week!','Trust me, I\'m an elf.','Elves never overpay.','I can smell a bargain!','My pointy ears say this one.','I checked the flyer!'];
+const QN=['Ho ho ho, quality costs!','I always buy the fancy one.','Prices go UP at Christmas!','Santa never looks at price tags.','The reindeer told me.','Imported! Has to be pricey.'];
+const NF={};const nf=c=>NF[c]||(NF[c]=new Intl.NumberFormat('en-US',{style:'currency',currency:c}));
+const prMoney=(v,c)=>nf(c).format(v);
+const curSym=c=>nf(c).formatToParts(0).find(x=>x.type==='currency').value;
+const curDec=c=>nf(c).resolvedOptions().maximumFractionDigits;
+function parseBid(v,c){let t=String(v).replace(/[^\d.,]/g,'');if(!t)return NaN;if(!curDec(c))return +t.replace(/[.,]/g,'');if(/,\d{1,2}$/.test(t)&&!t.includes('.'))t=t.replace(',','.');return parseFloat(t.replace(/,/g,''))}
+const pick=a=>a[Math.random()*a.length|0];
+let prSet=[],prRound=0,prRes=[],prCw=[0,0],prLocked=false,prGames=0;
+function prDeal(){const mix=a=>a.slice().sort(()=>Math.random()-.5);prSet=prGames?mix(PRI).slice(0,5):[PRI[0],...mix(PRI.slice(1)).slice(0,4)];prRound=0;prRes=[];prCw=[0,0];prGames++}
+const prWins=()=>prRes.filter(Boolean).length;
+function prScoreUI(){$('#prScore').textContent=[0,1,2,3,4].map(i=>i<prRes.length?(prRes[i]?'⭐':'❌'):'⬜').join(' ')}
+function prRender(){const r=prSet[prRound];prLocked=false;$('#prNext').hidden=true;
+ const opp=[['🧝','Elfie',r.b[0],pick(QE)],['🎅','Big Nick',r.b[1],pick(QN)]];
+ $('#prStage').innerHTML=`<div class="pr2-item"><div class="pr2-img"><img src="${r.img}" alt="${r.n}" referrerpolicy="no-referrer"><span class="pr2-flag">${r.f}</span><a class="pr2-cr" href="${r.cr[2]}" target="_blank" rel="noopener">📷 ${r.cr[0]} · ${r.cr[1]}</a></div>
+ <div><small>ROUND ${prRound+1} OF 5 · ${r.c.toUpperCase()}</small><h3>${r.n}</h3><div class="pr2-meta">${r.s}</div><span class="pr2-cur">Bid in ${CURN[r.cur]} (${curSym(r.cur)})</span></div></div>
+ <div class="pods">${opp.map((c,i)=>`<div class="pod pr2-pop" style="animation-delay:${.15+i*.45}s"><span class="pav">${c[0]}</span><b>${c[1]}</b><span class="bid">${prMoney(c[2],r.cur)}</span><span class="pr2-quip">“${c[3]}”</span><span class="pr2-off"></span></div>`).join('')}
+ <div class="pod pr2-you pr2-pop" style="animation-delay:1.05s"><span class="pav">🫵</span><b>Your team</b><label class="pr2-in"><span>${curSym(r.cur)}</span><input id="prIn" inputmode="decimal" autocomplete="off" placeholder="${curDec(r.cur)?'0.00':'0'}" aria-label="Your bid in ${CURN[r.cur]}"></label><button class="btn" id="prLock">🔒 Lock in bid</button><span class="pr2-off"></span></div></div>
+ <div class="pr-actual" id="prAct">Elfie and Big Nick have bid. What does it <b style="font-size:inherit;color:#ffd84d">really</b> cost?</div>`;
+ $('#prLock').onclick=prLockIn;$('#prIn').onkeydown=e=>{if(e.key==='Enter')prLockIn()};prScoreUI()}
+function prLockIn(){if(prLocked)return;const r=prSet[prRound],inp=$('#prIn'),v=parseBid(inp.value,r.cur);
+ if(!(v>0)){buzz();inp.focus();$('#prAct').textContent='💸 Type your bid in '+CURN[r.cur]+' first!';const y=$('.pr2-you');y.classList.remove('shake');void y.offsetWidth;y.classList.add('shake');return}
+ prLocked=true;inp.disabled=true;$('#prLock').disabled=true;$('#prLock').textContent='🔒 Locked in!';
+ inp.value=new Intl.NumberFormat('en-US',{minimumFractionDigits:curDec(r.cur),maximumFractionDigits:curDec(r.cur)}).format(v);
+ drum(20);$('#prAct').innerHTML=`<div class="pr2-tag"><small>ACTUAL RETAIL PRICE</small><b id="prRoll">${prMoney(0,r.cur)}</b></div>`;
+ const t0=performance.now(),D=1900;const step=t=>{const k=Math.min(1,(t-t0)/D);$('#prRoll').textContent=prMoney(k<1?r.p*(1-Math.pow(1-k,3)):r.p,r.cur);if(k<1)requestAnimationFrame(step);else prReveal(v)};requestAnimationFrame(step)}
+function prReveal(v){const r=prSet[prRound],d=[r.b[0],r.b[1],v].map(b=>Math.abs(b-r.p)),pods=$$('#prStage .pod'),eps=1e-9;
+ const w=d[2]<=Math.min(d[0],d[1])+eps?2:(d[0]<=d[1]?0:1);
+ pods.forEach((p,i)=>p.querySelector('.pr2-off').textContent=d[i]<eps?'🎯 EXACT!':'off by '+prMoney(d[i],r.cur));pods[w].classList.add('win');
+ let msg;
+ if(w===2){prRes.push(1);
+  if(d[2]<eps){fanfare();party(5);burstAt(pods[2],['💯','💰','🤑','🎉','⭐'],26);say('A perfect bid! Unbelievable!',{pitch:1.3});msg='💯 PERFECT BID! Spot on to the last cent!'}
+  else{ding();party(2);burstAt(pods[2],['💰','💵','🛒','🎉','⭐'],16);say(pick(['Come on down! You win the round!','Ding ding ding! Right on the money!','You beat the elf and Santa!']),{pitch:1.3});msg='🎉 Your team wins the round!'}}
+ else{prRes.push(0);prCw[w]++;wah();burstAt(pods[w],[w?'🎅':'🧝','💸'],10);say(w?pick(['Ho ho ho! Big Nick takes it!','Santa knows his shopping!']):pick(['Elfie wins! Never doubt an elf!','The elf takes the round!']),{pitch:w?.7:1.6});msg=(w?'🎅 Big Nick':'🧝 Elfie')+' wins this round!'}
+ $('#prAct').insertAdjacentHTML('beforeend',`<div class="pr2-res">${msg}</div><div class="pr2-fact">💡 ${r.fact}</div>`);
+ prScoreUI();$('#prNext').hidden=false;$('#prNext').textContent=prRound<4?'Next item ➜':'See the results 🏆'}
+function prFinal(){const won=prWins()>=3;$('#prNext').hidden=true;
+ if(won){fanfare();setTimeout(jingle,500);party(6);say('You are the champion! Claim your prize!',{pitch:1.2});
+  $('#prStage').innerHTML=`<div class="pr-final"><h3 style="font-size:26px;margin-bottom:6px">🏆 You beat Elfie and Big Nick!</h3><p style="margin:0 0 6px">Your team won ${prWins()} of 5 rounds. Your prize tag shows your letter:</p><div class="pr2-tag pr2-prize"><small>GRAND PRIZE</small><b class="bigl" style="color:#D2232A">${WORD[1]}</b></div><p><button class="btn2" id="prAgain">↺ Play again with new items</button></p></div>`}
+ else{wah();const who=prCw[0]>=prCw[1]?'🧝 Elfie':'🎅 Big Nick';say('So close! Have another go!',{pitch:.9});
+  $('#prStage').innerHTML=`<div class="pr-final"><h3 style="font-size:26px;margin-bottom:6px">😅 ${who} wins the showcase!</h3><p>Your team won ${prWins()} of 5 rounds. You need 3 wins to claim your letter.<br>Fresh items are on the shelf, so give it another go!</p><p><button class="btn" id="prAgain">🛒 Play again with new items</button></p></div>`}
+ $('#prAgain').onclick=()=>{whoosh();prDeal();prRender()}}
 $('#prNext').onclick=()=>{prRound++;if(prRound<5){whoosh();prRender()}else prFinal()};
-prRender();
+prDeal();prRender();
 
 /* S3 logic: millionaire */
 let mLvl=0,mSel=null,mBusy=false;const FRIENDS=['Grandma Gerda from Frankfurt','Raj from the Pune warehouse','Uncle Bob from Holland, Michigan','Sofia from the Barcelona office','Kenji from the Tokyo depot'];
