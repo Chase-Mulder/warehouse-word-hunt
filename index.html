@@ -266,6 +266,31 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .slot{min-height:96px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:6px;align-items:stretch;background:var(--chip);color:var(--ink);text-align:center;font-weight:400}
 .slot em{font-style:normal;font-size:12px;color:var(--soft);font-weight:700}
 .slot.mid{border-color:var(--gold)}.slot.ok{border:2px solid #2fa36b}.slot.bad{border:2px solid var(--red)}
+.mc-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}
+.mc-rules{margin:0 0 10px;padding-left:18px}.mc-rules li{margin:4px 0}.mc-rules .g{color:#1e9e58}.mc-rules .r{color:#D2232A}
+.mc-bank{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.mc-card{display:flex;align-items:center;gap:10px;background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:8px 10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .15s,border-color .15s}
+.mc-card:hover{transform:translateY(-2px);border-color:var(--gold)}.mc-card:active{cursor:grabbing}
+.mc-card svg{width:58px;height:58px;flex:none}
+.mc-card b{display:flex;align-items:center;gap:6px;font-size:14px;line-height:1.2}
+.mc-card b img{width:22px;height:auto;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.mc-card small{display:block;font-weight:700;font-size:12px;color:var(--soft);margin:2px 0}
+.mc-st{display:block;font:800 12px Inter;color:var(--soft)}.mc-st.g{color:#1e9e58}.mc-st.r{color:#D2232A}
+.mc-card.placed{border-style:dashed;opacity:.8}
+.mc-card.ex{cursor:default;border-color:var(--gold);background:light-dark(#fff8e1,#2f1a08)}.mc-card.ex:hover{transform:none}
+.mc-clock{background:radial-gradient(circle at 50% 42%,#4a0d3a,#160412 75%);border-radius:22px;padding:12px;color:#fff;text-align:center;box-shadow:0 12px 30px rgba(31,5,24,.35)}
+#mcSvg{width:100%;max-width:520px;display:block;margin:0 auto;touch-action:none;user-select:none;-webkit-user-select:none;overflow:visible}
+#mcSvg .mc-flag{cursor:grab}
+.mc-legend{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font:700 13px Inter;margin:10px 0 2px}
+.mc-legend span{display:inline-flex;align-items:center;gap:6px}.mc-legend i{width:28px;height:6px;border-radius:3px;display:inline-block}
+.mc-msg{font:700 16px/1.4 Inter;min-height:46px;margin:4px 8px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.mc-letter{display:inline-block;font:900 44px Archivo;color:#F5B400;text-shadow:0 0 18px rgba(245,180,0,.8);animation:pop .6s}
+.mc-ghost{position:fixed;z-index:60;pointer-events:none;transform:translate(-50%,-140%);background:#fff;color:#2a0a20;border-radius:999px;padding:6px 12px;font:800 14px Inter;box-shadow:0 8px 20px rgba(0,0,0,.35);display:flex;gap:6px;align-items:center;white-space:nowrap}
+.mc-ghost img{width:22px;border-radius:3px}.mc-ghost b{font-weight:900}.mc-ghost b.plus{color:#1e9e58}.mc-ghost b.minus{color:#D2232A}
+#mcSvg .mc-bad{animation:mcflash .45s 4 alternate}@keyframes mcflash{to{opacity:.15}}
+#mcSvg .mc-glow path{stroke:#F5B400;filter:drop-shadow(0 0 6px #F5B400)}
+#mcSvg .mc-sglow{animation:mcpulse 1.2s ease-in-out infinite alternate}@keyframes mcpulse{to{stroke:#fff3b0;filter:drop-shadow(0 0 18px #F5B400)}}
+@media(max-width:920px){.mc-wrap{grid-template-columns:1fr}.mc-bank{grid-template-columns:1fr 1fr;gap:8px}.mc-card{padding:6px 7px;gap:6px}.mc-card svg{width:40px;height:40px}.mc-card b{font-size:12.5px;gap:4px}.mc-card b img{width:18px}.mc-card small,.mc-st{font-size:11px}}
 /* cipher */
 .code{font:800 clamp(17px,2.4vw,24px)/1.5 "Courier New",monospace;letter-spacing:.12em;background:var(--night);color:#ffd84d;padding:16px;border-radius:14px;overflow-wrap:anywhere}
 .wheel{width:min(320px,100%);aspect-ratio:1;display:block;margin:0 auto}
@@ -586,7 +611,7 @@ const S=[
  {ic:'🎭',t:'Two Truths and a Fake',by:'Puzzle by Matej',d:'Tap the fake tradition and hear what the AI hosts think!'},
  {ic:'🧩',t:'Emoji Rebus',by:'Puzzle by Chase',d:'Turn emoji pairs into festive words and collect the gold letters.'},
  {ic:'♟️',t:'Checkmate in One',by:'Puzzle by Chase',d:'Play the one move that wins on the spot.'},
- {ic:'🕛',t:'Midnight Around the World',by:'Puzzle by Chase',d:'Read eight clocks: who rings in the New Year first?'},
+ {ic:'🕛',t:'Midnight Around the World',by:'Puzzle by Chase',d:'Drag six cities onto Frankfurt\'s midnight clock. Who\'s ahead, who\'s behind?'},
 ];
 const GR8=['linear-gradient(135deg,#d61f2c,#ff7a59)','linear-gradient(135deg,#1e9e58,#7ed957)','linear-gradient(135deg,#e8781e,#ffc24b)','linear-gradient(135deg,#2b6fd6,#6ec8ff)','linear-gradient(135deg,#13a3b5,#7fe3d1)','linear-gradient(135deg,#8c3cc8,#e07bff)','linear-gradient(135deg,#d61f8a,#ff8fcf)','linear-gradient(135deg,#3a3a5c,#8a8ab8)','linear-gradient(135deg,#730E4D,#c2186f)'];
 $('#mapGrid').innerHTML=S.map((s,i)=>`<button class="st" id="m${i}" data-i="${i}" style="--g:${GR8[i]}"><span class="ic">${s.ic}</span><span class="no">STATION ${i+1}</span><h3>${s.t}</h3><p>${s.d}</p></button>`).join('');
@@ -601,7 +626,7 @@ const hints=[
  ['The fakes are all about dates or things that are simply impossible.','Every fake is tagged with the same letter, a round one.'],
  ['Say the emoji names out loud: the third one is a pun (rain + deer).','The gold letters spell a word that means a happy shout.'],
  ['Black\'s last move: the pawn jumped from f7 to f5. A pawn on e5 can capture it "in passing".','Move the white pawn from e5 to f6.'],
- ['Each clock shows the local time at the moment Frankfurt hits midnight. The further into 1 January a city already is, the earlier it celebrated.','A tiny Pacific island, Kiritimati, celebrates before everyone else. Your letter is the 3rd city.'],
+ ['Drop each city on the hour its own little clock shows. Still 31 December there? Swing anticlockwise (red, minus). Already 1 January? Swing clockwise (green, plus).','Answers: London −1, Los Angeles −9, São Paulo −4, Dubai +3, Shanghai +7, Sydney +10. Strike midnight and the fireworks write your letter.'],
 ];
 const frame=(i,body)=>`<section class="station" id="station-${i+1}">
  <button class="btn2" data-back>← Station map</button>
@@ -690,15 +715,17 @@ const b8=`<div class="grid2"><div class="card" style="display:grid;place-items:c
 <div class="card"><h3 style="font-size:22px">White to move. Checkmate in one.</h3><p>Tap a white piece, then tap where it should go. Black's last move was the pawn jumping two squares from f7 to f5 (light blue). That detail matters!</p><p class="hint">Fun fact: chess was born in India around 1,500 years ago as <i>chaturanga</i>, then travelled through Persia to the whole world.</p><p class="hint">Never played chess? Grab a teammate who has, or press Hint. Checkmate means the king is attacked and cannot escape, block or capture.</p><p id="chessMsg" style="font-weight:800"></p><button class="btn2" id="chessReset">↺ Reset board</button><p class="hint">Your letter: the yellow tag on the square where your white piece lands.</p></div></div>`;
 
 /* S9 */
-const CITIES=[['Kiritimati','🇰🇮',13,0,'1 Jan'],['Auckland','🇳🇿',12,0,'1 Jan'],['Sydney','🇦🇺',10,0,'1 Jan'],['Tokyo','🇯🇵',8,0,'1 Jan'],['Mumbai','🇮🇳',4,30,'1 Jan'],['Frankfurt','🇩🇪',0,0,'1 Jan'],['São Paulo','🇧🇷',20,0,'31 Dec'],['Holland, Michigan','🇺🇸',18,0,'31 Dec']];
-const SHOW=[4,7,1,5,0,6,3,2];
+const MCC=[['Holland, Michigan','us',-6,18,'31 Dec',1],['Sydney','au',10,10,'1 Jan'],['London','gb',-1,23,'31 Dec'],['Dubai','ae',3,3,'1 Jan'],['Los Angeles','us',-9,15,'31 Dec'],['Shanghai','cn',7,7,'1 Jan'],['São Paulo','br',-4,20,'31 Dec']];
 const clockSvg=(h,m)=>{const ha=((h%12)+m/60)*30,ma=m*6,day=h>=6&&h<18;return `<svg viewBox="0 0 100 100" width="96" height="96" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="${day?'#fff7d6':'#1f0518'}" stroke="#730E4D" stroke-width="5"/>${Array.from({length:12},(_,i)=>`<line x1="50" y1="9" x2="50" y2="${i%3?14:18}" stroke="${day?'#730E4D':'#f5b400'}" stroke-width="${i%3?2:4}" transform="rotate(${i*30} 50 50)"/>`).join('')}<line x1="50" y1="50" x2="50" y2="27" stroke="${day?'#2a0a20':'#fff'}" stroke-width="6" stroke-linecap="round" transform="rotate(${ha} 50 50)"/><line x1="50" y1="50" x2="50" y2="15" stroke="#D2232A" stroke-width="3.5" stroke-linecap="round" transform="rotate(${ma} 50 50)"/><circle cx="50" cy="50" r="4" fill="#F5B400"/><text x="50" y="70" text-anchor="middle" font-size="13">${day?'☀️':'🌙'}</text></svg>`};
-const b9=`<div class="card"><p style="margin-top:0">At the exact moment the clocks strike midnight in Frankfurt, a KION colleague in each of these cities snapped a photo of their local clock. Use the clocks, the sun or moon, and the date to work out the order in which the eight cities rang in the New Year. Tap a city, then tap a spot in the line-up.</p>
-<div class="map" id="cityBank" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div></div>
-<div class="card"><h3 style="font-size:20px">New Year line-up: first to celebrate → last</h3>
-<div class="slots" id="cslots" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));margin-top:12px">${Array.from({length:8},(_,i)=>`<button class="slot ${i==2?'mid':''}" data-cs="${i}"><em>${i+1}${['st','nd','rd'][i]||'th'}</em><span></span></button>`).join('')}</div>
-<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center"><button class="btnb" id="chk9">Check the line-up</button><span id="res9" style="font-weight:700"></span></div>
-<p class="hint">When the line-up is right, your letter is the first letter of the city in the <b>3rd</b> (gold) spot.</p></div>`;
+const b9=`<div class="mc-wrap"><div class="card"><h3 style="font-size:20px;margin:0 0 6px">🌍 Where is everyone at midnight?</h3>
+<p style="margin-top:0">The big clock shows <b>Frankfurt at 00:00 on 1 January</b>. When Frankfurt struck midnight, a KION colleague in each city snapped their local clock. <b>Drag each city onto the big clock</b> and drop it on the hour its own clock shows.</p>
+<ul class="mc-rules"><li><b class="g">↻ Clockwise = green, plus</b>: it's already <b>1 January</b> there (ahead of Frankfurt).</li><li><b class="r">↺ Anticlockwise = red, minus</b>: it's still <b>31 December</b> there (behind Frankfurt).</li></ul>
+<p class="hint" style="margin-top:0">Start your drag on the correct side of 12 and sweep round the edge. Holland, Michigan is done for you: 6 pm on 31 December, so it sweeps 6 hours anticlockwise.</p>
+<div class="mc-bank" id="mcBank"></div></div>
+<div class="mc-clock">
+<svg id="mcSvg" viewBox="-212 -212 424 424" aria-label="Frankfurt midnight clock"><defs><marker id="mcArG" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2fa36b"/></marker><marker id="mcArR" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path d="M0 0L10 5L0 10z" fill="#D2232A"/></marker><marker id="mcArY" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="3" markerHeight="3" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F5B400"/></marker></defs><g id="mcDial"></g><g id="mcArcs"></g><g id="mcFx"></g></svg>
+<div class="mc-legend"><span><i style="background:#2fa36b"></i>ahead (+)</span><span><i style="background:#D2232A"></i>behind (−)</span></div><div class="mc-msg" id="mcMsg">Drag a city card onto the clock.</div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 4px"><button class="btn" id="mcCheck">🕛 Strike midnight!</button><button class="btn2" id="mcReset" style="background:rgba(255,255,255,.15);color:#fff">↺ Clear the clock</button></div></div></div>`;
 
 $('#stations').innerHTML=[b1,b2,b3,b4,b5,b6,b7,b8,b9].map((b,i)=>frame(i,b)).join('');
 
@@ -921,14 +948,77 @@ function chessClick(sq){if(mated)return;const p=pos[sq]||'';
  else{const save={...pos};pos[sq]=pos[f];delete pos[f];drawChess();$('#chessMsg').textContent='Black escapes! That is not mate. Try another move.';buzz();setTimeout(()=>{pos=save;drawChess()},900)}}
 $('#chessReset').onclick=()=>{pos={...START};from=null;mated=false;$('#chessMsg').textContent='';drawChess()};drawChess();
 
-/* S9 logic: midnight clocks */
-let cpick=null;const cslot=Array(8).fill(null);
-function renderCities(){$('#cityBank').innerHTML=SHOW.map(i=>{const [n,f,h,m,d]=CITIES[i];const used=cslot.includes(i);return `<button class="st" data-city="${i}" style="min-height:0;align-items:center;text-align:center;${used?'opacity:.35':''}">${clockSvg(h,m)}<b>${f} ${n}</b><span class="hint" style="margin:0">${d}</span></button>`}).join('');
- $$('#cityBank [data-city]').forEach(b=>b.onclick=()=>{const i=+b.dataset.city;if(cslot.includes(i))return;cpick=i;$$('#cityBank [data-city]').forEach(x=>x.style.outline=x===b?'3px solid var(--gold)':'');blip()});
- $$('#cslots .slot').forEach((el,i)=>{el.querySelector('span').innerHTML=cslot[i]!==null?`<span class="song" style="display:block">${CITIES[cslot[i]][1]} ${CITIES[cslot[i]][0]}</span>`:'';el.classList.remove('ok','bad')})}
-$$('#cslots .slot').forEach((el,i)=>el.onclick=()=>{if(cpick!==null){cslot[i]=cpick;cpick=null}else cslot[i]=null;renderCities()});
-renderCities();
-$('#chk9').onclick=()=>{let n=0;$$('#cslots .slot').forEach((el,i)=>{const ok=cslot[i]===i;if(ok)n++;el.classList.add(ok?'ok':'bad')});$('#res9').textContent=n===8?'🎆 Perfect! Happy New Year around the world. Now read the 3rd spot.':`${n} of 8 in the right place. Look at the dates and the sun and moon again!`;n===8?(tone(988,0,.3),party(2)):buzz()};
+/* S9 logic: interactive midnight clock */
+const mcFlag=c=>`https://flagcdn.com/w40/${c}.png`;
+const mcPolar=(a,r)=>{const t=a*Math.PI/180;return [r*Math.sin(t),-r*Math.cos(t)]};
+const mcArc=(r,a)=>{const [x0,y0]=mcPolar(0,r),[x1,y1]=mcPolar(a,r);return `M${x0.toFixed(1)} ${y0.toFixed(1)}A${r} ${r} 0 ${Math.abs(a)>180?1:0} ${a>0?1:0} ${x1.toFixed(1)} ${y1.toFixed(1)}`};
+const mcLane=i=>134+i*10.5;
+const mcFmt=o=>(o>0?'+':'−')+Math.abs(o)+' h';
+const mcNorm=a=>((a+180)%360+360)%360-180;
+const mcTime=h=>`${h%12||12}:00 ${h<12?'am':'pm'}`;
+let mcPos=MCC.map(c=>c[5]?c[2]:null),mcDrag=null,mcSolved=false,mcBad=new Set();
+function mcDialInit(){let h=`<circle r="120" fill="#1f0518" stroke="#730E4D" stroke-width="7"/><circle r="112" fill="none" stroke="rgba(245,180,0,.18)" stroke-width="1"/>`;
+ for(let i=0;i<60;i++){const [x0,y0]=mcPolar(i*6,112),[x1,y1]=mcPolar(i*6,i%5?106:100);h+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${i%5?'rgba(255,255,255,.35)':'#F5B400'}" stroke-width="${i%5?1.2:3}"/>`}
+ for(let n=1;n<=12;n++){const [x,y]=mcPolar(n*30,86);h+=`<text x="${x}" y="${y+6}" text-anchor="middle" fill="${n===12?'#F5B400':'#fff'}" style="font:800 ${n===12?20:17}px Archivo,sans-serif">${n}</text>`}
+ h+=`<g id="mcCenter"><image href="${mcFlag('de')}" x="-14" y="-60" width="28" height="19"/><text y="-28" text-anchor="middle" fill="#ffd1ea" style="font:800 11px Inter;letter-spacing:.12em">FRANKFURT</text><text y="40" text-anchor="middle" fill="#F5B400" style="font:900 17px Archivo">00:00</text><text y="56" text-anchor="middle" fill="#ffd1ea" style="font:700 10px Inter;letter-spacing:.1em">1 JANUARY</text></g>
+ <g id="mcHands"><line y2="-56" stroke="#fff" stroke-width="8" stroke-linecap="round"/><line y2="-84" stroke="#D2232A" stroke-width="4" stroke-linecap="round"/></g><circle r="6" fill="#F5B400"/>`;
+ const [tx,ty]=mcPolar(0,mcLane(6)+12);h+=`<text x="${tx}" y="${ty-2}" text-anchor="middle" fill="#F5B400" style="font:800 10px Inter;letter-spacing:.1em">START</text>`;
+ $('#mcDial').innerHTML=h}
+function mcCur(i){if(mcDrag&&mcDrag.i===i)return mcDrag.over&&mcDrag.off?mcDrag.off:null;return mcPos[i]}
+function mcRender(){let h='';MCC.forEach((c,i)=>{const o=mcCur(i);if(o==null)return;const a=o*30,r=mcLane(i),col=o>0?'#2fa36b':'#D2232A';
+  const [fx,fy]=mcPolar(a+(o>0?9:-9),r);
+  h+=`<g class="mc-arc ${mcBad.has(i)?'mc-bad':''}" data-mca="${i}"><path d="${mcArc(r,a)}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" marker-end="url(#${o>0?'mcArG':'mcArR'})" opacity="${mcDrag&&mcDrag.i===i?.75:1}"/>
+  <image class="mc-flag" data-mc="${i}" href="${mcFlag(c[1])}" x="${(fx-10).toFixed(1)}" y="${(fy-7).toFixed(1)}" width="20" height="14"/></g>`});
+ $('#mcArcs').innerHTML=h;
+ $$('#mcArcs .mc-flag').forEach(f=>f.onpointerdown=e=>mcStart(e,+f.dataset.mc,1))}
+function mcTray(){$('#mcBank').innerHTML=MCC.map((c,i)=>{const o=mcPos[i],ex=c[5];
+  return `<div class="mc-card ${ex?'ex':''} ${o!=null&&!ex?'placed':''}" data-mc="${i}">${clockSvg(c[3],0)}<div><b><img src="${mcFlag(c[1])}" alt="">${c[0]}</b><small>${mcTime(c[3])} · ${c[4]}</small><span class="mc-st ${o==null?'':o>0?'g':'r'}">${ex?'Example: '+mcFmt(o)+' ✓':o!=null?'On the clock: '+mcFmt(o):'Drag me onto the clock'}</span></div></div>`}).join('');
+ $$('#mcBank .mc-card').forEach(el=>el.onpointerdown=e=>mcStart(e,+el.dataset.mc))}
+function mcPt(e){const sv=$('#mcSvg'),p=sv.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(sv.getScreenCTM().inverse())}
+function mcStart(e,i,fromClock){if(mcSolved||MCC[i][5]||mcDrag)return;e.preventDefault();mcBad.delete(i);
+ const g=document.createElement('div');g.className='mc-ghost';g.innerHTML=`<img src="${mcFlag(MCC[i][1])}" alt="">${MCC[i][0]}<b></b>`;document.body.appendChild(g);
+ mcDrag={i,g,U:fromClock&&mcPos[i]!=null?mcPos[i]*30:null,prev:null,off:mcPos[i],over:false};
+ addEventListener('pointermove',mcMove);addEventListener('pointerup',mcEnd);addEventListener('pointercancel',mcEnd);mcMove(e);blip()}
+function mcMove(e){const d=mcDrag;if(!d)return;d.g.style.left=e.clientX+'px';d.g.style.top=e.clientY+'px';
+ const p=mcPt(e),dist=Math.hypot(p.x,p.y);d.over=dist<214;
+ if(d.over&&dist>26){const th=Math.atan2(p.x,-p.y)*180/Math.PI;
+  if(d.prev==null)d.U=d.U==null?th:d.U+mcNorm(th-d.U);else d.U+=mcNorm(th-d.prev);
+  d.prev=th;d.U=Math.max(-345,Math.min(345,d.U));const off=Math.max(-11,Math.min(11,Math.round(d.U/30)));
+  if(off!==d.off){d.off=off;if(off)tone(off>0?880:520,0,.05,'square',.04)}}
+ else if(!d.over){d.prev=null;d.U=null}
+ const b=d.g.querySelector('b');b.className=d.over&&d.off?(d.off>0?'plus':'minus'):'';b.textContent=d.over?(d.off?` ${mcFmt(d.off)} ${d.off>0?'↻':'↺'}`:' sweep round the edge'):' drop on the clock';
+ mcRender()}
+function mcEnd(){const d=mcDrag;if(!d)return;removeEventListener('pointermove',mcMove);removeEventListener('pointerup',mcEnd);removeEventListener('pointercancel',mcEnd);
+ d.g.remove();mcDrag=null;mcPos[d.i]=d.over&&d.off?d.off:null;
+ if(mcPos[d.i]!=null){tone(660,0,.08,'triangle',.1);tone(990,.07,.12,'triangle',.1);$('#mcMsg').textContent=`${MCC[d.i][0]} placed at ${mcFmt(mcPos[d.i])}. ${MCC.filter((c,i)=>mcPos[i]==null).length?'Keep going!':'All cities placed. Strike midnight!'}`}
+ mcRender();mcTray()}
+function mcCelebrate(){mcSolved=true;$('#mcCheck').disabled=true;const fx=$('#mcFx'),msg=$('#mcMsg');
+ const wait=t=>new Promise(r=>setTimeout(r,t));
+ (async()=>{for(const n of ['3','2','1']){fx.innerHTML=`<circle r="118" fill="rgba(31,5,24,.75)"/><text y="34" text-anchor="middle" fill="#F5B400" style="font:900 110px Archivo">${n}</text>`;tone(n==='1'?1046:784,0,.18,'square',.08);await wait(700)}
+  fx.innerHTML='';fanfare();party(4);say('Happy New Year!',{pitch:1.2});
+  const t0=performance.now();const spin=t=>{const k=Math.min(1,(t-t0)/1600),e=1-Math.pow(1-k,3);$('#mcHands').setAttribute('transform',`rotate(${720*e})`);if(k<1)requestAnimationFrame(spin)};requestAnimationFrame(spin);
+  await wait(900);
+  const order=MCC.map((c,i)=>[c[2],i]).concat([[0,-1]]).sort((a,b)=>b[0]-a[0]);
+  for(const [o,i] of order){let el;
+   if(i<0){el=$('#mcCenter');msg.innerHTML=`🇩🇪 <b>Frankfurt</b> strikes midnight! 🎆`}
+   else{const g=$(`#mcArcs [data-mca="${i}"]`);g.classList.add('mc-glow');g.querySelector('path').setAttribute('marker-end','url(#mcArY)');el=g.querySelector('image');msg.innerHTML=`🎆 <b>${MCC[i][0]}</b> ${o>0?'rang in 2027 '+o+' hours earlier':'still has '+(-o)+' hours to wait'}!`}
+   const r=el.getBoundingClientRect();emojiBurst(r.left+r.width/2,r.top+r.height/2,['🎆','🎇','✨','🥳'],10);tone(600+o*40,0,.12,'triangle',.08);await wait(650)}
+  $('#mcCenter').style.transition='opacity .5s';$('#mcCenter').style.opacity=0;$('#mcHands').style.transition='opacity .5s';$('#mcHands').style.opacity=.15;
+  msg.innerHTML='✨ Look! A sparkler is writing something…';
+  fx.innerHTML=`<path id="mcS" d="M52 -60 C34 -92 -48 -92 -50 -46 C-52 -4 52 -6 52 38 C52 90 -36 94 -54 58" fill="none" stroke="#F5B400" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 8px #ffcf3a)"/><circle id="mcSpark" r="9" fill="#fff" style="filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 16px #F5B400)"/>`;
+  const P=$('#mcS'),L=P.getTotalLength(),sp=$('#mcSpark');P.style.strokeDasharray=L;P.style.strokeDashoffset=L;const s0=performance.now(),D=2600;let last=0;
+  await new Promise(res=>{const step=t=>{const k=Math.min(1,(t-s0)/D),pt=P.getPointAtLength(L*k);P.style.strokeDashoffset=L*(1-k);sp.setAttribute('cx',pt.x);sp.setAttribute('cy',pt.y);
+   if(t-last>90){last=t;tone(1800+Math.random()*900,0,.03,'sawtooth',.02);const r=sp.getBoundingClientRect();emojiBurst(r.left+r.width/2,r.top+r.height/2,['✨','⭐'],2)}
+   if(k<1)requestAnimationFrame(step);else res()};requestAnimationFrame(step)});
+  sp.remove();P.classList.add('mc-sglow');party(6);fanfare();setTimeout(jingle,400);say('The fireworks wrote your letter!',{pitch:1.2});
+  msg.innerHTML=`🎆 Happy New Year from all 8 cities! The fireworks wrote your letter: <b class="mc-letter">${WORD[8]}</b>`})()}
+$('#mcCheck').onclick=()=>{if(mcSolved)return;const left=MCC.filter((c,i)=>mcPos[i]==null).length;
+ if(left){buzz();$('#mcMsg').textContent=`Place all the cities first: ${left} still to go.`;return}
+ mcBad=new Set(MCC.map((c,i)=>i).filter(i=>mcPos[i]!==MCC[i][2]));mcRender();
+ if(mcBad.size){buzz();$('#mcMsg').textContent=`${MCC.length-1-mcBad.size} of ${MCC.length-1} cities are right. The flashing ones need another look: is it still 31 December there (red) or already 1 January (green)?`;setTimeout(()=>{mcBad.clear();mcRender()},2200);return}
+ mcCelebrate()};
+$('#mcReset').onclick=()=>{if(mcSolved)return;mcPos=MCC.map(c=>c[5]?c[2]:null);mcBad.clear();mcRender();mcTray();$('#mcMsg').textContent='Clock cleared. Drag a city onto the clock.';whoosh()};
+mcDialInit();mcRender();mcTray();
 
 /* card studio: pro tools, realistic stickers, backgrounds, effects */
 let cStart=null;const cardClock=()=>{if(!cStart)return '00:00';const s=Math.floor((Date.now()-cStart)/1000);return String(s/60|0).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
