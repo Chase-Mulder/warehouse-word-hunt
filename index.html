@@ -34,11 +34,11 @@ a{color:inherit}
 .howto h2{font-size:20px;color:var(--gold);margin:2px 4px 10px}
 .howto .vf{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
 .howto iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.toprow{display:flex;align-items:center;gap:clamp(18px,2.4vw,36px);margin:6px 0 22px}
-.toprow .howto{margin:0;flex:0 0 clamp(240px,21vw,380px);width:auto;position:relative;left:calc(-1*max(0px,(100vw - 1240px)/2 - 24px))}
-.ttl{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.toprow{--S:max(0px,(100vw - 1240px)/2 - 24px);--V:clamp(240px,21vw,380px);--G:clamp(18px,2.4vw,36px);display:flex;align-items:center;gap:var(--G);margin:6px 0 22px}
+.toprow .howto{margin:0 0 0 calc(-1*var(--S));flex:0 0 var(--V);width:auto}
+.ttl{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:14px;margin-left:max(0px,var(--S) - var(--V) - var(--G))}
 .hero .toprow h1{margin:0;font-size:clamp(40px,4.1vw,66px)}
-@media(max-width:700px){.toprow .ttl{order:-1;align-self:stretch}.toprow{flex-direction:column;align-items:flex-start}.toprow .howto{flex:none;width:100%}.hero .toprow h1{font-size:clamp(40px,11vw,64px)}}
+@media(max-width:700px){.toprow .ttl{order:-1;align-self:stretch;margin-left:0}.toprow{flex-direction:column;align-items:flex-start}.toprow .howto{flex:none;width:100%;margin-left:0}.hero .toprow h1{font-size:clamp(40px,11vw,64px)}}
 .hero h1{font-size:clamp(40px,7vw,84px);font-weight:900;margin:56px 0 14px;letter-spacing:-.01em}
 .hero h1 span{color:var(--gold)}
 .hero p.lead{font-size:clamp(17px,2vw,20px);max-width:640px;margin:0 0 26px;color:#f3dbe9}
