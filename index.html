@@ -410,9 +410,10 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
 .tb.on{background:#730E4D;color:#fff;border-color:#730E4D}.tb:disabled{opacity:.35;cursor:not-allowed}
 .sz{gap:10px;min-height:56px}.sz input{width:130px;accent-color:#730E4D}
 .szdot{display:inline-block;border-radius:50%;background:#F5B400;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
-.csw{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.csw{width:26px;height:26px;min-height:0;flex:none;aspect-ratio:1;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
 .csw.on{box-shadow:0 0 0 3px #730E4D}
-.cpick{width:30px;height:30px;border:0;padding:0;background:none;cursor:pointer}
+.cpk{position:relative;margin-left:4px}.cpk input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.cpk i{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,var(--pc,#F5B400) 0 42%,#fff 44% 52%,transparent 54%),conic-gradient(#ff3b3b,#ffd400,#3bd16f,#2fd0ff,#3b5bff,#d23bff,#ff3b3b)}
 .cs-stage{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.28);touch-action:none}
 .cs-stage canvas{display:block;width:100%;height:auto;cursor:crosshair}
 .cs-stage canvas.t-select{cursor:default}.cs-stage canvas.t-place{cursor:copy}.cs-stage canvas.t-draw,.cs-stage canvas.t-erase{cursor:none}
@@ -1246,9 +1247,9 @@ $$('#cTools .tb').forEach(b=>b.onclick=()=>{setTool(b.dataset.tool);blip()});
 $('#cPens').innerHTML=PENS.map(([k,n,d])=>tbtn(`data-pen="${k}"`,`<img src="${penPreview(k)}" alt="">`,n,d)).join('');
 $$('[data-pen]').forEach(b=>b.onclick=()=>{penStyle=b.dataset.pen;$$('[data-pen]').forEach(x=>x.classList.toggle('on',x===b));setTool('draw');blip()});$('[data-pen="marker"]').classList.add('on');
 const COLS=['#F5B400','#ffffff','#1a1420','#D2232A','#b0177a','#ff5fb4','#ff7a3c','#2fa36b','#7fd8ff','#1f6fd1','#8a5cf6','#c0c0c0'];
-$('#cCols').innerHTML=COLS.map(c=>`<button class="csw ${c===pen?'on':''}" data-col="${c}" style="background:${c}" title="Color ${c}"></button>`).join('')+'<input type="color" class="cpick" id="cPick" value="#F5B400" title="Pick any color">';
-const setCol=c=>{pen=c;$$('[data-col]').forEach(x=>x.classList.toggle('on',x.dataset.col===c));$('#cSizeDot').style.background=c;if(tool!=='draw')setTool('draw')};
-$$('[data-col]').forEach(b=>b.onclick=()=>setCol(b.dataset.col));$('#cPick').oninput=e=>setCol(e.target.value);
+$('#cCols').innerHTML=COLS.map(c=>`<button class="csw ${c===pen?'on':''}" data-col="${c}" style="background:${c}" title="Color ${c}"></button>`).join('')+'<label class="tb cpk" title="Pick any color"><i></i><span>Color picker</span><input type="color" id="cPick" value="#F5B400" aria-label="Color picker"></label>';
+const setCol=c=>{pen=c;$$('[data-col]').forEach(x=>x.classList.toggle('on',x.dataset.col===c));$('.cpk').classList.toggle('on',!COLS.includes(c));$('#cSizeDot').style.background=c;if(tool!=='draw')setTool('draw')};
+$$('[data-col]').forEach(b=>b.onclick=()=>setCol(b.dataset.col));$('#cPick').oninput=e=>{$('.cpk').style.setProperty('--pc',e.target.value);setCol(e.target.value)};
 const updSize=()=>{penW=+$('#cSize').value;$('#cSizeV').textContent=penW;const d=Math.max(4,Math.min(40,penW*.8));Object.assign($('#cSizeDot').style,{width:d+'px',height:d+'px'});drawCard()};$('#cSize').oninput=updSize;
 $('#cStkAct').innerHTML=tbtn('id="sSm"',ic('minus'),'Smaller','Make the selected sticker smaller')+tbtn('id="sBg"',ic('plus'),'Bigger','Make the selected sticker bigger')+tbtn('id="sRl"',ic('rl'),'Rotate left','Rotate 15° anticlockwise')+tbtn('id="sRr"',ic('rr'),'Rotate right','Rotate 15° clockwise')+tbtn('id="sFr"',ic('front'),'To front','Bring the selected sticker to the front')+tbtn('id="sDp"',ic('dup'),'Duplicate','Make a copy of the selected sticker')+tbtn('id="sDl"',ic('trash'),'Delete','Remove the selected sticker');
 function updSel(){$$('#cStkAct .tb').forEach(b=>b.disabled=sel<0)}
