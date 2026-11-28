@@ -34,7 +34,10 @@ a{color:inherit}
 .howto h2{font-size:20px;color:var(--gold);margin:2px 4px 10px}
 .howto .vf{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
 .howto iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.hero .howto+h1{margin-top:30px}
+.toprow{display:flex;align-items:center;gap:clamp(18px,2.4vw,36px);margin:28px 0 22px}
+.toprow .howto{margin:0;flex:0 0 clamp(240px,21vw,380px);width:auto}
+.hero .toprow h1{margin:0;font-size:clamp(40px,4.1vw,66px)}
+@media(max-width:700px){.toprow{flex-direction:column;align-items:flex-start}.toprow .howto{flex:none;width:100%}.hero .toprow h1{font-size:clamp(40px,11vw,64px)}}
 .hero h1{font-size:clamp(40px,7vw,84px);font-weight:900;margin:56px 0 14px;letter-spacing:-.01em}
 .hero h1 span{color:var(--gold)}
 .hero p.lead{font-size:clamp(17px,2vw,20px);max-width:640px;margin:0 0 26px;color:#f3dbe9}
@@ -460,8 +463,8 @@ button.clip.playing{background:#F5B400;color:#2a0a20}
   <canvas id="sky"></canvas>
   <div class="hin">
     <img class="logo" src="https://www.kiongroup.com/Administration/SVG/kion_group_logo_pos_svg.svg" style="filter:brightness(0) invert(1)" alt="KION">
-    <div class="howto"><h2>▶ How to play (2 min)</h2><div class="vf"><iframe src="https://www.youtube-nocookie.com/embed/52bJdaiL5ms?rel=0" title="Warehouse Word Hunt: how to play" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
-    <h1>Warehouse<br><span>Word Hunt</span></h1>
+    <div class="toprow"><div class="howto"><h2>▶ How to play (2 min)</h2><div class="vf"><iframe src="https://www.youtube-nocookie.com/embed/52bJdaiL5ms?rel=0" title="Warehouse Word Hunt: how to play" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+    <h1>Warehouse<br><span>Word Hunt</span></h1></div>
     <p class="lead">Our AGV fleet controller has hidden a festive word across nine stations of the warehouse. Every station holds one letter. Crack all nine before the shift ends to light up the sky.</p>
     <div class="start">
       <input id="teamIn" placeholder="Your team name" maxlength="28" aria-label="Team name">
